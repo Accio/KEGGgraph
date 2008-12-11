@@ -1,0 +1,556 @@
+2008-10-27 07:18  zhang
+
+	* inst/doc/KEGGgraph.Rnw: rbcc in MAPK example implemented
+
+2008-10-26 08:43  zhang
+
+	* NAMESPACE: namespace
+
+2008-10-26 07:00  zhang
+
+	* inst/doc/KEGGgraph.Rnw: subgraph and merge graph demos finished
+
+2008-10-26 06:25  zhang
+
+	* R/graph.R: mergeGraph returns the result explicitly
+
+2008-10-24 17:18  zhang
+
+	* DESCRIPTION: i think it still suggested to have KEGG package
+
+2008-10-24 17:15  zhang
+
+	* R/kegg2graph-functions.R: subtype renamed into getSubtype: small
+	  bug in graph method
+
+2008-10-24 17:13  zhang
+
+	* man/KEGGPathwayInfo-class.Rd, man/getDisplayName-methods.Rd:
+	  missing items
+
+2008-10-24 17:11  zhang
+
+	* inst/doc/KEGGgraph.Rnw: underscore package not used
+
+2008-10-24 17:08  zhang
+
+	* tests/kegg2graph.R: kegg2graph does not load KEGG anymore
+
+2008-10-24 17:06  zhang
+
+	* DESCRIPTION: not suggesting KEGG any more
+
+2008-10-24 17:03  zhang
+
+	* inst/doc, inst/doc/KEGGgraph.Rnw, inst/extdata/hsa04310.xml: for
+	  vignette
+
+2008-10-24 16:57  zhang
+
+	* DESCRIPTION: description updated
+
+2008-10-24 16:57  zhang
+
+	* tests/kegg2graph.R: show methods also tested
+
+2008-10-24 16:54  zhang
+
+	* R/kegg2graph-functions.R: keggpathway show method debuged
+
+2008-10-24 16:53  zhang
+
+	* R/kegg2graph-functions.R: pathway show method debugged
+
+2008-10-24 16:10  zhang
+
+	* man/KEGGEdge-class.Rd, man/KEGGNode-class.Rd,
+	  man/KEGGPathway-class.Rd, man/getDisplayName-methods.Rd,
+	  man/getEntryID-methods.Rd, man/getKEGGID-methods.Rd,
+	  man/getKEGGgeneLink-methods.Rd, man/getName-methods.Rd,
+	  man/getPathwayInfo-methods.Rd, man/getReactions-methods.Rd,
+	  man/getSubtype-methods.Rd, man/getTitle-methods.Rd,
+	  man/getType-methods.Rd, man/getValue-methods.Rd,
+	  man/subtypeDisplay-methods.Rd: it seems we have to add alias of
+	  method native names to all of the files - am i right
+
+2008-10-24 15:57  zhang
+
+	* man/KEGGEdgeSubtype.Rd, man/expandKEGGNode.Rd,
+	  man/expandKEGGPathway.Rd, man/getKEGGgeneLink-methods.Rd,
+	  man/getName-methods.Rd, man/getReactions-methods.Rd,
+	  man/getRgraphvizEdgeNames.Rd, man/getSubtype-methods.Rd,
+	  man/getTitle-methods.Rd, man/getValue-methods.Rd,
+	  man/graphDensity.Rd, man/isHomoList.Rd,
+	  man/kgmlFileName2PathwayName.Rd, man/parseSubType.Rd,
+	  man/plotKEGGgraph.Rd, man/pvalue2asterisk.Rd,
+	  man/randomSubGraph.Rd, man/subGraphByNodeType.Rd,
+	  man/subtypeDisplay-methods.Rd: newly added docus
+
+2008-10-24 15:57  zhang
+
+	* DESCRIPTION, man/KEGGEdgeSubType-class.Rd, man/KEGGNode-class.Rd,
+	  man/KEGGPathway-class.Rd, man/KEGGPathwayInfo-class.Rd,
+	  man/KEGGgraph-package.Rd, man/getEntryID-methods.Rd,
+	  man/getKEGGID-methods.Rd, man/getType-methods.Rd: refactored in
+	  to several files: misc for misc functions, vis for visualizations
+
+2008-10-24 15:57  zhang
+
+	* R/graph.R, R/kegg2graph-functions.R, R/kgmlfile.R, R/misc.R,
+	  R/vis.R: refactored in to several files: misc for misc functions,
+	  vis for visualizations
+
+2008-10-23 20:49  zhang
+
+	* man/getKEGGnodeData.Rd: getKEGGnode- and getKEGGedgeData
+
+2008-10-23 20:34  zhang
+
+	* tests/testGraph.R: test whether keggorth exists before it is used
+	  to test randomGraph
+
+2008-10-23 20:34  zhang
+
+	* DESCRIPTION: Rgraphviz must be higher than 1.18.0 to allow
+	  specify edge attributes in layout function
+
+2008-10-23 17:59  zhang
+
+	* man/mergeGraphs.Rd, man/parseKGMLexpandMaps.Rd: updated docus
+
+2008-10-23 17:54  zhang
+
+	* R/graph.R: V is unlist and as vector, to avoid the case where all
+	  graphs have the same node number; E set simplify is FALSE, to
+	  avoid similar bugs; null names are replaced by foo, empty names
+	  is set as foo
+
+2008-10-23 17:29  zhang
+
+	* R/parse.R: parseKGMLexpandMaps adds support for localdir
+
+2008-10-23 15:08  zhang
+
+	* man/KEGGEdgeSubType-class.Rd, man/KEGGGraphics-class.Rd,
+	  man/KEGGPathway-class.Rd: docus for classes
+
+2008-10-23 15:00  zhang
+
+	* man/KEGGEdgeSubType-class.Rd, man/KEGGGroup-class.Rd,
+	  man/KEGGNode-class.Rd, man/KEGGpathway2Graph.Rd,
+	  man/parseGraphics.Rd, man/parseKGML.Rd, man/parseKGML2Graph.Rd:
+	  updated docus
+
+2008-10-23 15:00  zhang
+
+	* R/kegg2graph-functions.R, R/parse.R: KEGGEdgeSubtype class
+	  renamed to KEGGEdgeSubType to avoid dupl. names with the data
+	  'KEGGEdgeSubtype'
+
+2008-10-23 14:32  zhang
+
+	* man/KEGGpathway2Graph.Rd, man/parseKGML.Rd,
+	  man/parseKGML2Graph.Rd: docus for functions
+
+2008-10-23 14:31  zhang
+
+	* man/mergeGraphs.Rd: section{Warning} should reside within note
+
+2008-10-22 12:01  zhang
+
+	* man/mergeGraphs.Rd, man/parseKGMLexpandMaps.Rd: man pages for
+	  mergeGraphs and parseKGMLexpandMaps
+
+2008-10-22 10:02  zhang
+
+	* R/graph.R: lists without names (NULL) is given 'foo'
+
+2008-10-21 14:08  zhang
+
+	* R/kegg2graph-functions.R: subtype renamed into getSubtype to keep
+	  consistency
+
+2008-10-20 15:45  zhang
+
+	* R/parse.R: parseKGMLexpandMaps added: it parses KGML files into
+	  graph (genes only), expand the maps(other pathways) it contains,
+	  downloads these maps from KGML FTP site and parse them, and at
+	  last the graph is merged into one large graph object (though
+	  KEGGnodeData and KEGGedgeData for now is discarded)
+
+2008-10-20 15:26  zhang
+
+	* R/graph.R: in merging the graphs, the incoming list must be named
+	  and NO '.' is allowed in their names
+
+2008-10-20 12:01  zhang
+
+	* R/kegg2graph-functions.R, R/parse.R: expandKEGGPathway and
+	  expandKEGGNode moved
+
+2008-10-20 11:47  zhang
+
+	* R/graph.R, R/kegg2graph-functions.R, R/parse.R: functions are
+	  moved from kegg2graph-functions to several smaller files
+
+2008-10-20 11:45  zhang
+
+	* R/kegg2graph-functions.R: the large file is splitted to several
+	  small files
+
+2008-10-20 11:45  zhang
+
+	* R/graph.R: mergeGraphs moved to graph.R. Bug fix: 'graphList'
+	  mixed into function, where it should be 'list'
+
+2008-10-20 11:44  zhang
+
+	* R/kgmlfile.R: kgmlFileName2PathwayName moved from other file
+
+2008-10-20 11:43  zhang
+
+	* DESCRIPTION: Unit test dependency added: RUnit as suggest added
+
+2008-10-20 11:17  zhang
+
+	* man/getKGMLurl.Rd: Get KGML url from pathway ids
+
+2008-10-20 11:17  zhang
+
+	* R/kgmlfile.R: functions related to KGML files
+
+2008-10-19 10:30  zhang
+
+	* man/KEGGEdge-class.Rd, man/KEGGGroup-class.Rd,
+	  man/KEGGNode-class.Rd, man/KEGGPathwayInfo-class.Rd,
+	  man/KEGGReaction-class.Rd, man/KEGGgraph-package.Rd,
+	  man/getDisplayName-methods.Rd, man/getEntryID-methods.Rd,
+	  man/getKEGGID-methods.Rd, man/getNamedElement.Rd,
+	  man/getSubtypeName-methods.Rd, man/getSubtypeValue-methods.Rd,
+	  man/getType-methods.Rd, man/parsePathwayInfo.Rd,
+	  man/parseReaction.Rd: objects first documented, not complete
+
+2008-10-19 10:30  zhang
+
+	* man/show-methods.Rd: show methods are documented in each object
+
+2008-10-19 10:29  zhang
+
+	* R/kegg2graph-functions.R: data names changed: KEGGNodeType,
+	  KEGGEdgeType and KEGGEdgeSubtype dropps the plural form 's'
+
+2008-10-19 10:28  zhang
+
+	* tests/kegg2graph.R: till the release, KEGGgraph has no namespace,
+	  so the part testing loading/unloading removed
+
+2008-10-19 10:28  zhang
+
+	* tests/testGraph.R: KEGGgraph library is loaded
+
+2008-10-19 10:27  zhang
+
+	* DESCRIPTION: 'methods' dependence added
+
+2008-10-19 09:27  zhang
+
+	* data/KEGGEdgeSubtype.csv, data/KEGGEdgeType.csv,
+	  data/KEGGNodeType.csv: 'types' renamed into 'type' uniformly;
+	  KEGGNodeType added
+
+2008-10-19 09:26  zhang
+
+	* data/KEGGEdgeSubtypes.csv, data/KEGGEdgeTypes.csv: renamed
+
+2008-10-15 06:57  zhang
+
+	* data/KEGGHumanGraphs1008.rdata,
+	  data/KEGGTotalGraphBootstrapping.rdata: these data should not be
+	  included in the release version of KEGGgraph, they will be
+	  submitted into svn in working directory of miRNApathway
+
+2008-10-15 06:45  zhang
+
+	* data/KEGGHumanGraphs1008.rdata,
+	  data/KEGGTotalGraphBootstrapping.rdata: KEGG human graphs and its
+	  bootstrapping statistics (data stand: 15.10.08)
+
+2008-10-13 16:50  zhang
+
+	* R/kegg2graph-functions.R: plotKEGGgraph returns the edited graph
+	  back so as to make further editting possible
+
+2008-10-13 16:47  zhang
+
+	* R/kegg2graph-functions.R: global variable in subtypeDisplay,
+	  removed
+
+2008-10-13 15:04  zhang
+
+	* R/graph.R: functions for graph objects
+
+2008-10-11 15:36  zhang
+
+	* R/kegg2graph-functions.R: add option sig.1 to pvalue2asterisk: to
+	  indicate whehther drawing '.' by p=0.01
+
+2008-10-11 14:59  zhang
+
+	* inst, inst/extdata, inst/extdata/hsa04010.xml,
+	  inst/extdata/ko00051.xml, inst/extdata/map00260.xml: initial data
+
+2008-10-11 14:58  zhang
+
+	* R/kegg2graph-functions.R: debug: mergeGraphs uses 'uniqueE' but
+	  not 'uniqueE2', now the function should run without error
+
+2008-10-11 14:57  zhang
+
+	* R/kegg2graph-functions.R: kgmlFileName2PathwayName function
+	  added: find pathway name for KGML filename
+
+2008-10-11 14:14  zhang
+
+	* R/kegg2graph-functions.R: pvalue2asterisk funciton added:
+	  translate p values to common significance signs (asterisk)
+
+2008-10-11 13:59  zhang
+
+	* R/kegg2graph-functions.R: new function 'mergeGraphs': merge a
+	  list of graphs into one graph object. Attention: it discards
+	  nodeData and edgeData
+
+2008-10-11 13:44  zhang
+
+	* tests/testGraph.R: several findings of graph tested: edges must
+	  be unique, all edges are not allowed set to NULL
+
+2008-10-11 13:43  zhang
+
+	* R/kegg2graph-functions.R: randomSub renamed into randomSubGraph
+	  for a consitent name with subGraph; subGraphByNodeType removes
+	  dependency on defunct removed subKEGGgraph
+
+2008-10-11 13:33  zhang
+
+	* R/kegg2graph-functions.R: subKEGGgraph removed: since the bug was
+	  fixed in revision 357
+
+2008-10-11 13:32  zhang
+
+	* R/kegg2graph-functions.R: Bug Fix: in building the graph, the
+	  target nodes (entry2) must be unique. This fix solves the problem
+	  the graph cannot be subsetted
+
+2008-10-11 13:00  zhang
+
+	* R/kegg2graph-functions.R: randomSub to randomly subgraph, to test
+	  the integratiy of a graph object
+
+2008-10-11 12:34  zhang
+
+	* man/parseRelation.Rd: unmatched brace removed
+
+2008-10-11 12:33  zhang
+
+	* NAMESPACE: Before the package is released the NAMESPACE is hidden
+	  to make debugging easier
+
+2008-10-11 12:26  zhang
+
+	* tests/testGraph.R: a trap in building graphNEL objects: nodes
+	  without any out-edge MUST BE GIVEN a empty out edge vector,
+	  otherwise it leads to unexpected performance
+
+2008-10-11 12:08  zhang
+
+	* tests/kegg2graph.R: test basic operations of KEGGgraph package
+
+2008-10-11 12:07  zhang
+
+	* tests/testGraph.R: test graph objects and attributes
+
+2008-10-08 17:05  zhang
+
+	* man/parseEntry.Rd: updated manual for parseEntry and
+	  parseRelation
+
+2008-10-08 17:05  zhang
+
+	* man/parseEntry.Rd, man/parseRelation.Rd: updated manual for
+	  parseEntry and parseRelation
+
+2008-10-08 16:57  zhang
+
+	* man/parseEntry.Rd: manual page of parseEntry
+
+2008-10-08 16:57  zhang
+
+	* DESCRIPTION: Description of the package
+
+2008-10-06 15:04  zhang
+
+	* R/kegg2graph-functions.R: since subGraph seems to have problem
+	  with my object(NA in edge, not clear yet), I have written a
+	  subKEGGgraph and a wrapper for that subGraphByNodeType
+
+2008-10-06 11:41  zhang
+
+	* R/kegg2graph-functions.R: getTitle and getName for pathwayInfo as
+	  well as pathway object
+
+2008-10-06 09:53  zhang
+
+	* R/kegg2graph-functions.R: to detemine whether there is edge or
+	  not, edge.entryIDs' (matrix) nrow as standard, since
+	  is.null(nrow(NA)) == TRUE
+
+2008-10-06 09:46  zhang
+
+	* R/kegg2graph-functions.R: When building the graph, the whole
+	  graph is built first and then sub-graphed; a check for
+	  edge.entryIDs is added, in case of no edge (for example in
+	  hsa00053) the code does not break, it fills all the edge list
+	  with empty list
+
+2008-10-06 09:25  zhang
+
+	* R/kegg2graph-functions.R: KEGGpathway2Graph: variables nodes and
+	  edges renamed to avoid dupl. names with functions
+
+2008-10-06 09:05  zhang
+
+	* tests: test scripts for KEGGgraph package
+
+2008-10-06 08:31  zhang
+
+	* R/kegg2graph-functions.R: KEGGPathwayInfo is defined before
+	  KEGGPathway, cause the latter one uses the former as component
+
+2008-10-06 07:37  zhang
+
+	* R/kegg2graph-functions.R: MAP file: the program stops if it
+	  detects all nodes are removed by selecting 'genesOnly' and
+	  reminds the user to change that option
+
+2008-10-06 07:28  zhang
+
+	* R/kegg2graph-functions.R: In KO files there're sometimes missing
+	  entries, which leads to error in expansion. Reason for the
+	  missing needs to be identified and until then a warning pops up
+
+2008-10-06 07:18  zhang
+
+	* R/kegg2graph-functions.R: parseEntry function: displayName
+	  removed (defunct)
+
+2008-10-06 07:17  zhang
+
+	* R/kegg2graph-functions.R: parseEntry function: displayName
+	  removed (defunct)
+
+2008-10-05 09:56  zhang
+
+	* R/kegg2graph-functions.R: trivial spelling issue
+
+2008-10-05 09:45  zhang
+
+	* R/kegg2graph-functions.R: checking match subtype, if not found an
+	  error is raised;
+
+2008-10-05 09:44  zhang
+
+	* data/KEGGEdgeSubtypes.csv: 'indirect effect' renamed into
+	  'indirect' to be consistent with XML node; arrowhead changed in
+	  accordance with KGML markups
+
+2008-10-05 09:07  zhang
+
+	* R/kegg2graph-functions.R: plotKEGGgraph works now, though further
+	  fine-tuning is needed: the trick for its work is using
+	  layoutGraph and renderGraph interfaces in Rgraphviz package
+
+2008-10-03 14:54  zhang
+
+	* R/kegg2graph-functions.R: subtype display is being processed, but
+	  not finished yet
+
+2008-10-03 14:06  zhang
+
+	* data, data/KEGGEdgeSubtypes.csv, data/KEGGEdgeTypes.csv: subtypes
+	  and types of relations
+
+2008-10-03 14:05  zhang
+
+	* DESCRIPTION, NAMESPACE: dependence and neccessary exporting, not
+	  edited yet
+
+2008-10-03 14:02  zhang
+
+	* R/kegg2graph-functions.R: debug, expandKEGGPathway mixed with
+	  global variables; methods to extract subtype are added.
+	  displaySubtype and plot function is not finished
+
+2008-10-03 12:55  zhang
+
+	* R/kegg2graph-functions.R: nodeData and edgeData is saved as
+	  environment to speed up (yes it is dramatical
+	  improvement);bugfix: getDisplayName solves the problem of
+	  subGraph labels; new function: parseKGML2Graph another wrapper
+
+2008-10-03 12:02  zhang
+
+	* R/kegg2graph-functions.R: 'Subtype' in edges is now handled as
+	  separate class; plotKEGGgraph trivial debug, allowing user
+	  specify y value
+
+2008-10-03 11:28  zhang
+
+	* R/kegg2graph-functions.R: getDisplayName adds method for graph,
+	  to extract displayName in a batch; parse pathway into object
+	  leaving out the duplicated details which are now stored in
+	  edgeData: relation types, subtype name and value
+
+2008-10-03 10:57  zhang
+
+	* R/kegg2graph-functions.R: Debug:KEGGpathway2Graph global scope
+	  variable contanminated(pathway by keggPathway, twice). expand
+	  function is integrated into KEGGpathway2Graph function
+
+2008-10-03 10:20  zhang
+
+	* R/kegg2graph-functions.R: expandKEGGPathway function added:
+	  expand entry into genes
+
+2008-10-03 08:46  zhang
+
+	* R/kegg2graph-functions.R: KEGGpathway2Graph function added: it
+	  converts a KEGGPathway object to graphNEL object, saving nodes
+	  and edges in edgeData and nodeData perspectively. So far
+	  expandGenes is not implemented
+
+2008-10-02 16:35  zhang
+
+	* R/kegg2graph-functions.R: new classes 'KEGGPathway' and
+	  'KEGGPathwayInfo' added and their basic functions implemented;
+	  tested by clearing and importing again
+
+2008-10-02 09:44  zhang
+
+	* R/kegg2graph-functions.R: KEGGNode refactored into KEGGNode
+	  containing KEGGGraphics
+
+2008-10-01 16:43  zhang
+
+	* ., DESCRIPTION, NAMESPACE, R, R/kegg2graph-functions.R, man,
+	  man/KEGGEdge-class.Rd, man/KEGGGroup-class.Rd,
+	  man/KEGGNode-class.Rd, man/KEGGPathwayInfo-class.Rd,
+	  man/KEGGReaction-class.Rd, man/KEGGgraph-package.Rd,
+	  man/getDisplayName-methods.Rd, man/getEntryID-methods.Rd,
+	  man/getKEGGID-methods.Rd, man/getNamedElement.Rd,
+	  man/getSubtypeName-methods.Rd, man/getSubtypeValue-methods.Rd,
+	  man/getType-methods.Rd, man/parseEntry.Rd,
+	  man/parsePathwayInfo.Rd, man/parseReaction.Rd,
+	  man/parseRelation.Rd, man/show-methods.Rd: Rpackage to build
+	  graph objects from KEGG pathway
+

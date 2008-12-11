@@ -1,0 +1,357 @@
+%\VignetteIndexEntry{KEGGgraph: graph approach to KEGG PATHWAY}
+%\VignetteDepends{graph, XML, Rgraphviz, RBGL}
+%\VignettePackage{KEGGgraph}
+
+\documentclass[11pt]{article}
+
+\usepackage{times}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage[pdftex]{graphicx}
+\SweaveOpts{keep.source=TRUE,eps=FALSE,pdf=TRUE,prefix=TRUE} 
+
+% R part
+\newcommand{\R}[1]{{\textsf{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+\newcommand{\Rclass}[1]{{\textit{#1}}}
+\newcommand{\Metas}[1]{{\texttt{#1}}}
+
+\begin{document}
+\setkeys{Gin}{width=0.8\textwidth}
+\title{KEGGgraph: a graph approach to KEGG PATHWAY in R and Bioconductor}
+\author{Jitao David Zhang and Stefan Wiemann}
+
+\maketitle
+
+\begin{abstract}
+We demonstrate the capabilities of the \Rpackage{KEGGgraph} package, an interface between KEGG pathways and graph model in R as well as a collection of tools for these graphs. Superior to preceding approaches, \Rpackage{KEGGgraph} maintains the pathway topology and allows further analysis or dissection of pathway graphs. It parses the regularly updated KGML (KEGG XML) files into graph models maintaining all essential pathway attributes. 
+\end{abstract}
+
+\section{Introduction}
+Since its first introduction in 1995, KEGG PATHWAY has been widely used as a reference knowledge base for understanding biological pathways and functions of cellular processes. The knowledge from KEGG has proven of great value by numerous work in a wide range of fields \cite{Kanehisa08}.
+
+Pathways are stored and presented as graphs on the KEGG server side, where nodes are molecules (protein, compound, etc) and edges represent relation types between the nodes, e.g. activation or phosphorylation. The graph nature raised our interest to investigate them with powerful graph tools implemented in \R{R} and \R{Bioconductor} \cite{Gentleman04}, including \Rpackage{graph}, \Rpackage{RBGL} and \Rpackage{Rgraphviz} \cite{Carey05}. While it is barely possible to query the graph characteristics by manual parsing, a native and straightforward client-side tool is currently missing to parse pathways and analyze them consequently with tools for graph in \R{R}.
+
+To address this problem, we developed the open-source software package \Rpackage{KEGGgraph}, an interface between KEGG pathway and graph object as well as a collection of tools to analyze, dissect and visualize these graphs. 
+
+The package requires KGML (KEGG XML) files, which can be downloaded from KEGG FTP site (\url{ftp://ftp.genome.jp/pub/kegg/xml}) without license permission for academic purposes. To demonstrate the functionality, in 'extdata/' sub-directory of \Rpackage{KEGGgraph} we have pre-installed several KGML files.
+
+\section{Software features}
+
+\Rpackage{KEGGgraph} offers the following functionalities:
+
+\textit{Parsing}: It should be noted that one 'node' in KEGG pathway does not necessarily map to merely one gene product, for example the node 'ERK' in the human TGF-Beta signaling pathway contains two homologues, MAPK1 and MAPK3. Therefore, among several parsing options, user can set whether to expand these nodes topologically. Beyond facilitating the interpretation of pathways in a gene-oriented manner, the approach also entitles unique identifiers to nodes, enabling merging graphs from different pathways.
+
+\textit{Graph operations}: Two common operations on graphs are subset and merge. A sub-graph of selected nodes and the edges in between are returned when subsetting, while merging produces a new graph that contains nodes and edges of individual ones. Both are implemented in \Rpackage{KEGGgraph}.
+
+\textit{Visualization}: \Rpackage{KEGGgraph} provides functions to visualize KEGG graphs with custom style. Nevertheless users are not restricted by them, alternatively they are free to render the graph with other tools like the ones in \Rpackage{Rgraphviz}.
+
+Besides the functionalities described above, \Rpackage{KEGGgraph} also has tools for remote KGML file retrieval, graph feature study and other related tasks. We will demonstrate them later in this vignette.
+
+\section{Case studies}
+\subsection{Parsing and graph feature query}
+First we read in KGML file for human MAPK signaling pathway (with KEGG ID hsa04010):
+<<library, echo=TRUE>>=
+library(KEGGgraph)
+library(RBGL)
+mapkKGML <- system.file("extdata/hsa04010.xml",
+                     package="KEGGgraph")
+@
+Once the file is ready, we can either parse them into an object of \Rclass{KEGGPathway} or an object of \Rclass{graph}. \Rclass{KEGGPathway} object maintains the information of the pathway (title, link, organism, etc), while \Rclass{graph} objects are more natural approach and can be directly plugged in many other tools. To convert the pathway into graph, we use
+<<parsemapk, echo=TRUE, results=verbatim>>=
+mapkG <- parseKGML2Graph(mapkKGML,expandGenes=TRUE)
+mapkG
+@ 
+Alternatively we can parse the KGML file first into an object of \Rclass{KEGGpathway}, which can be later converted into the graph object, as the following lines show:
+<<parsemapk2, echo=TRUE, results=verbatim>>=
+mapkpathway <- parseKGML(mapkKGML)
+mapkpathway
+mapkG2 <- KEGGpathway2Graph(mapkpathway, expandGenes=TRUE)
+mapkG2
+@ 
+There is no difference between graph objects derived from two approaches.
+
+The option 'expandGenes' in parsing controls whether the nodes of paralogues in pathways should be expanded or not. Since one 'node' in KEGG pathway does not necessarily map to only one gene/gene product (e.g. 'ERK' maps to MAPK1 and MAPK3), the option allows expanding these nodes and takes care of copying existing edges.
+
+Another option users may find useful is 'genesOnly', when set to TRUE,
+the nodes of other types than 'gene' (compounds, for example) are neglected and
+the result graph consists only gene products. This is especially
+desired when we want to query network characteristics of gene
+products. Its value is set to 'TRUE' by default.
+
+The following commands extract node and edge information:
+<<nodeandedge, echo=TRUE, results=verbatim>>=
+mapkNodes <- nodes(mapkG)
+nodes(mapkG)[1:3]
+mapkEdges <- edges(mapkG)
+edges(mapkG)[1]
+@ 
+
+Edges in KEGG pathways are directional, that is, an edge starting at node A pointing to node B does not guarantee a reverse relation, although reciprocal edges are also allowed. When listing edges, a list indexed with node names is returned. Each item in the list records the nodes pointed to.
+
+We can also extract the node attributes specified by KEGG with \Rfunction{getKEGGnodeData}:
+<<keggnodedata, echo=TRUE, results=verbatim>>=
+mapkGnodedata <- getKEGGnodeData(mapkG)
+mapkGnodedata[[2]]
+@ 
+An alternative to use \Rfunction{gettKEGGnodeData} is
+<<keggnodedataalt, echo=TRUE, eval=FALSE>>=
+getKEGGnodeData(mapkG, 'hsa:5924')
+@ 
+, returning identical results.
+
+Similarly the \Rfunction{getKEGGedgeData} is able to extract edge information:
+<<keggedgedata, echo=TRUE, results=verbatim>>=
+mapkGedgedata <- getKEGGedgeData(mapkG)
+mapkGedgedata[[4]]
+@ 
+Alternatively the query above can be written as:
+<<keggedgedataalt, echo=TRUE, eval=FALSE>>=
+getKEGGedgeData(mapkG,'hsa:627~hsa:4915')
+@ 
+
+For \Robject{KEGGNode} and \Robject{KEGGEdge} objects, methods are
+implemented to fetch their attributes, for example
+\Rfunction{getName}, \Rfunction{getType} and
+\Rfunction{getDisplayName}. Guides to use these methods as well as
+examples can be found in help pages.
+
+This case study finishes with querying the degree attributes of the nodes in the graph. We ask the question which nodes have the highest out- or in-degrees. Roughly speaking the out-degree (number of out-going edges) reflects the regulatory role, while the in-degree (number of in-going edges) suggests the subjectability of the protein to intermolecular regulations.
+<<inout, echo=TRUE, results=verbatim>>=
+mapkGoutdegrees <- sapply(edges(mapkG), length)
+mapkGindegrees <- sapply(inEdges(mapkG), length)
+topouts <- sort(mapkGoutdegrees, decreasing=T)
+topins <- sort(mapkGindegrees, decreasing=T)
+topouts[1:3]
+topins[1:3]
+@ 
+
+
+\subsection{Graph subset and merge}
+\label{txt:subset}We demonstrate the subsetting of the graph with 25 randomly chosen nodes of MAPK pathway graph:
+
+<<subsetprepare, echo=TRUE, results=verbatim>>=
+library(Rgraphviz)
+set.seed(123)
+randomNodes <- sample(nodes(mapkG), 25)
+mapkGsub <- subGraph(randomNodes, mapkG)
+mapkGsub
+@ 
+
+The subgraph is visualized in figure \ref{fig:01}, where nodes with
+in-degree or out-degree in red and others in grey.\footnote{The \Rfunction{makeAttr}
+function is used to assign nodes with rendering attributes, whose code
+can be found in the Rnw file.}
+
+<<makeattr, echo=FALSE>>=
+makeAttr <- function(graph, default, valNodeList) {
+  tmp <- nodes(graph)
+  x <- rep(default, length(tmp)); names(x) <- tmp
+  
+  if(!missing(valNodeList)) {
+    stopifnot(is.list(valNodeList))
+    allnodes <- unlist(valNodeList)
+    stopifnot(all(allnodes %in% tmp))
+    for(i in seq(valNodeList)) {
+      x[valNodeList[[i]]] <- names(valNodeList)[i]
+    }
+  }
+  return(x)
+}
+@
+
+\begin{figure}[!htbp]
+  \begin{center}
+<<subsetplot, echo=TRUE, fig=TRUE>>=
+outs <- sapply(edges(mapkGsub), length) > 0
+ins <- sapply(inEdges(mapkGsub), length) > 0
+ios <- outs | ins
+
+nAttrs <- list();
+nAttrs$fillcolor <- makeAttr(mapkGsub, "lightgrey", list(orange=names(ios)[ios]))
+plot(mapkGsub, "neato", nodeAttrs=nAttrs,
+     attrs=list(node=list(fillcolor="lightgreen",label="",
+                  width="0.75", shape="ellipse"), 
+       edge=list(arrowsize="0.7")))
+@ 
+\caption{A random subgraph of MAPK signaling pathway}\label{fig:01}
+\end{center}
+\end{figure}
+
+Another common operation on graphs is merging, that is, combining different graphs together. It is inspired by the fact that many KEGG pathways embed other pathway, for example MAPK signaling pathway embeds 6 pathways including Wnt signaling pathway. \Rfunction{mergeGraphs} provides the possibility to merge them into one graph for further analysis. Next we merge MAPK and Wnt signaling pathway into one graph. The graphs to be merged should be organized into a list, and it is commandary to use 'expandGenes=TRUE' option when parsing to make sure the nodes are unique and indexed by KEGGID.
+<<mergedemo, echo=TRUE, results=verbatim>>=
+wntKGML <- system.file("extdata/hsa04310.xml",package="KEGGgraph")
+wntG <- parseKGML2Graph(wntKGML)
+graphs <- list(mapk=mapkG, wnt=wntG)
+merged <- mergeGraphs(graphs)
+merged
+@ 
+
+We observe that the node number in the merged graph
+(\Sexpr{numNodes(merged)}) is less than the sum of two graphs
+(\Sexpr{numNodes(mapkG)} and \Sexpr{numNodes(wntG)} for MAPK and Wnt
+pathway respectively), reflecting the crosstalk between the pathways
+by sharing nodes.
+
+\subsection{Using other graph tools}
+
+In \R{R} and \R{Bioconductor} there'are powerful tools for graph
+algorithms and operations, including \Rpackage{graph},
+\Rpackage{Rgraphviz} and \Rpackage{RBGL}. The KEGG graphs can be
+analyzed with their functionalities to describe characterisitcs of the
+pathway and to answer biological relevant questions.
+
+Here we demonstrate the use of other graph tools with asking the
+question which nodes are of the highest importance in MAPK signalling
+pathway. To this end we turn to relative betweenness
+centrality \cite{Aittokallio06,Carey05}. Betweenness is a centrality measure of a node within a
+graph. Nodes that occur on many shortest paths between other vertices
+have higher betweenness than those that do not. It is scaled by the
+factor of (n-1)(n-2)/2 to get relative betweenness centrality, where n
+is the number of nodes in the graph. Both
+measurements estimate the importance or the role of the node in the graph.
+
+With the function implemented in \Rpackage{RBGL}, our aim is to
+identify most important nodes in MAPK signalling pathway.
+<<bcc, echo=TRUE, results=verbatim>>=
+library(RBGL)
+bcc <- brandes.betweenness.centrality(mapkG)
+rbccs <- bcc$relative.betweenness.centrality.vertices[1L,]
+toprbccs <- sort(rbccs,decreasing=TRUE)[1:4]
+toprbccs
+@ 
+We identify the top 4 important nodes judged by betweenness centrality
+as MAP3K1 (hsa:4214), GRB2 (hsa:2885), MAP2K2 (hsa:5605) and MAP2K1 (hsa:5604) (the mapping between KEGG ID and gene symbol is done using \Rpackage{biomaRt}, see page \pageref{txt:biomaRt}). In figure
+\ref{fig:02} we illustrate them as well as their interacting partners
+in MAPK pathway.
+
+\begin{figure}[!hp]
+\begin{center}
+<<bccplot, echo=TRUE, fig=TRUE>>=
+toprbccName <- names(toprbccs)
+toprin <- sapply(toprbccName, function(x) inEdges(mapkG)[x])
+toprout <- sapply(toprbccName, function(x) edges(mapkG)[x])
+toprSubnodes <- unique(unname(c(unlist(toprin), unlist(toprout), toprbccName)))
+toprSub <- subGraph(toprSubnodes, mapkG)
+
+nAttrs <- list()
+tops <- c("MAPK3K1","GRB2","MAP2K2","MAP2K1")
+topLabels <- lapply(toprbccName, function(x) x); names(topLabels) <- tops
+nAttrs$label <- makeAttr(toprSub, "", topLabels)
+nAttrs$fillcolor <- makeAttr(toprSub, "lightblue", list(orange=toprbccName))
+nAttrs$width <- makeAttr(toprSub,"",list("0.8"=toprbccName))
+
+plot(toprSub, "twopi", nodeAttrs=nAttrs, attrs=list(graph=list(start=2)))
+@ 
+\end{center}
+\caption{Nodes with the highest relative betweenness centrality in
+  MAPK pathway (in orange) and their interacting partners (in blue).}\label{fig:02}
+\end{figure}
+
+\section{Other funtionalities}
+Besides the ability to parse and operate on KEGG PATHWAY graph objects, the \Rpackage{KEGGgraph} package also provides functionalities to complement tasks related to deal with KEGG pathways. We introduce some of them here, for a full list of functions please see the package help file:
+
+<<help, echo=TRUE, eval=FALSE>>=
+help(package=KEGGgraph)
+@ 
+
+\subsection{Parsing chemical compound reaction network}
+KEGG PATHWAY captures two kinds of network:the protein network and the
+chemical network. The protein network consists \emph{relations}
+(\emph{edges}) between gene products, while  the chemical network
+illustrate the \emph{reactions} between chemical compounds. Since the
+metabolic pathway can be viewed both as a network of proteins
+(enzymes) and as a network of chemical compounds, metabolic pathways
+can be viewed as both protein networks and chemical networks, whereas
+regulatory pathways are always viewed as protein networks
+only.\Robject{KEGGPathway} provides methods to access this
+network. 
+
+We show the example of Glycine, serine and threonine metabolism
+pathway. 
+<<reactionexample, echo=TRUE>>=
+mapfile <-  system.file("extdata/map00260.xml",package="KEGGgraph")
+map <- parseKGML(mapfile)
+map
+reactions <- getReactions(map)
+reactions[[1]]
+@ 
+
+Figure \ref{fig:03} shows how to extract reactions from
+the pathway and to build a directed graph with them.
+\begin{figure}[!htbp]
+\begin{center}
+<<cnexample, echo=TRUE,fig=TRUE>>=
+chemicalGraph <- KEGGpathway2reactionGraph(map)
+
+outDegrees <- sapply(edges(chemicalGraph), length)
+maxout <- names(sort(outDegrees,decreasing=TRUE))[1:3]
+
+nAttrs <- list()
+maxoutlabel <- as.list(maxout); names(maxoutlabel) <- maxout
+nAttrs$label <- makeAttr(chemicalGraph, "", maxoutlabel)
+nAttrs$fillcolor <- makeAttr(chemicalGraph, "lightblue", list(orange=maxout))
+nAttrs$width <- makeAttr(chemicalGraph,"0.8", list("1.8"=maxout))
+plot(chemicalGraph, nodeAttrs=nAttrs)
+@ 
+\end{center}
+\caption{Reaction network built of chemical compounds: the orange nodes are the three compounds with maximum out-degree in this network.}\label{fig:03}
+\end{figure}
+
+\subsection{Expand embedded pathways}
+Function \Rfunction{parseKGMLexpandMaps} is a function to handle with pathways embedding other pathways. For example, pancreatic cancer pathway embeds 9 other pathways including MAPK and ErbB signaling pathway, cell cycle and apoptosis pathway, etc. To parse them into one graph, the users only have to download the KGML file and feed the file name to \Rfunction{parseKGMLexpandMaps}, the function parses the file, analyze the embedded pathways, download their files from KEGG FTP site automatically (alternatively a local repository can be specified for KGML files) and merge the individual pathways into a single graph. For example, the following single line parses MAPK signaling pathway with all its embedded pathways
+<<mapk14expand, echo=TRUE, eval=FALSE>>=
+mapkGembed <- parseKGMLexpandMaps(mapkKGML)
+@ 
+
+As its name suggests, function \Rfunction{subGraphByNodeType} subsets the graph by node type, the nodes to subset are those of the type given by the user. It is useful when the KGML file was parsed with 'genesOnly=FALSE' option and later on the user wants only certain kind of node, 'gene' for example, remained. The following example shows how to use it.
+<<subgraphbynode, echo=TRUE, results=verbatim>>=
+mapkGall <- parseKGML2Graph(mapkKGML,genesOnly=FALSE)
+mapkGall
+mapkGsub <- subGraphByNodeType(mapkGall, "gene")
+mapkGsub
+@ 
+
+\subsection{Annotation}
+\Rfunction{translateKEGG2GeneID} translates KEGG identifiers (KEGGID) into Entrez GeneID. 
+<<biomart, echo=TRUE, results=verbatim>>=
+toprbccKEGGID <- names(toprbccs)
+toprbccKEGGID
+toprbccGeneID <- translateKEGG2GeneID(toprbccKEGGID)
+toprbccGeneID
+@
+To convert GeneID to other identifiers, we recommend R package \Rpackage{biomaRt} \cite{Durinck05, Huber08}\label{txt:biomaRt}. The following example shows how to translate the node hits we acquired in the example above into HGNC symbols:
+<<biomart2, echo=TRUE, eval=FALSE>>=
+library(biomaRt)
+hsapiens <- useMart("ensembl","hsapiens_gene_ensembl" )
+filters <- listFilters(hsapiens)
+getBM(attributes=c("entrezgene","hgnc_symbol"), 
+      filters="entrezgene", 
+      values=toprbccGeneID, mart=hsapiens)
+@
+
+  
+\section{Conclusion}
+Before the release of \Rpackage{KEGGgraph}, several \R{R/Bioconductor} packages have been introduced and proven their usefulness in understanding biological pathways with KEGG. However, \Rpackage{KEGGgraph} is the first package able to parse any KEGG pathways from KGML files into graphs. In comparison, existing tools can not achieve the results we present here. They either neglects the graph topology (\Rpackage{KEGG.db}), do not parse pathway networks (\Rpackage{keggorth}), or are specialized for certain pathways (\Rpackage{cMAP} and \Rpackage{pathRender}).
+
+With \Rpackage{KEGGgraph}, we contribute a direct and natural approach to KEGG pathways, and the possibilities to study them in \R{R} and \R{Bioconductor}.
+
+\section{Session Info}
+The script runs within the following session:
+<<sessionInfo, echo=FALSE, results=verbatim>>=
+sessionInfo()
+@
+
+\begin{thebibliography}{}
+\bibitem[Gentleman {\it et~al}., 2004]{Gentleman04} Gentleman {\it et~al}. (2004) Bioconductor: open software development for computational biology and bioinformatics, {\it Genome Biology}, {\bf 5}, R80.
+\bibitem[Carey {\it et~al}., 2005]{Carey05} Carey {\it et~al}. (2005) Network structures and algorithms in Bioconductor, {\it Bioinformatics}, {\bf 21}, 135-136.
+\bibitem[Kanehisa {\it et~al}., 2008]{Kanehisa08} Kanehisa {\it et~al}. (2008) KEGG for linking genomes to life and the environment, {\it Nucleic Acids Research, Database issue}, {\bf 36}, 480-484.
+\bibitem[Aittokallio and Schwikowski, 2006]{Aittokallio06} Aittokallio and Schwikowski (2006) Graph-based methods for analysing networks in cell biology, {\it Briefings in Bioinformatics}, {\bf 7}, 243-255.
+\bibitem[Durinck {\it et~al}., 2005]{Durinck05} Durinck {\it et~al}. (2005) BioMart and Bioconductor: a powerful link between biological databases and microarray data analysis, {\it Bioinformatcs}, {\bf 21}, 3439-3440.
+\bibitem[Durinck and Huber, 2008]{Huber08} Durinck and Huber (2008) R/Bioconductor package {\it biomaRt}, 2008
+\end{thebibliography}
+
+\end{document}

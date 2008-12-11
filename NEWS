@@ -1,0 +1,20 @@
+2008-12-11
+KEGGgraph 0.8.6: 'KEGGpathway2reactionGraph' added to parse compound reaction network into graph. Documentationss updated
+
+2008-12-11
+KEGGgraph 0.8.5: Help pages updated with detailed examples, 'getReactions' series of functions are tested.
+
+2008-10-28
+KEGGgraph 0.8.4: 'group' entries (complexes in most cases) are also parsed and expanded by default now.
+
+2008-10-28
+KEGGgraph 0.8.3: 'Collate' field added in DESCRIPTION file
+
+2008-10-27
+KEGGgraph 0.8.2: 'mergeKEGGgraph' function added to keep KEGGnodeData and KEGGedgeData even after merging graphs
+
+2008-10-27
+KEGGgraph 0.8.1: 'subKEGGgraph' function added to maintain KEGGnodeData and KEGGedgeData even after subsetting graphs
+
+2008-10-24
+KEGGgraph 0.8.0: Initial release of 'KEGGgraph' package
