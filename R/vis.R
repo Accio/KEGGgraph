@@ -14,7 +14,7 @@ pvalue2asterisk <- function(pvalues, sig.1 =FALSE) {
   return(ast)
 }
 
-plotKEGGgraph <- function(graph,y="neato",shortLabel=TRUE, ...) {
+plotKEGGgraph <- function(graph,y="neato",shortLabel=TRUE, nodeRenderInfo,...) {
   nLabel <- getDisplayName(graph,shortLabel=shortLabel)
 
   subdisplay <- subtypeDisplay(graph)
@@ -24,9 +24,18 @@ plotKEGGgraph <- function(graph,y="neato",shortLabel=TRUE, ...) {
   eLty <- subdisplay["style",]
   eArrowhead <- subdisplay["arrowhead",]
 
+  ##  when subdisplay's width is 1
+  if (ncol(subdisplay)==1) {
+    tmp <- colnames(subdisplay)[1]
+    names(eLabel) <- names(eCol) <- names(eTextCol) <- tmp
+    names(eLty) <- names(eArrowhead) <- tmp
+  }
+  
   graph <- layoutGraph(graph, edgeAttrs = list(label=eLabel), nodeAttrs = list(label=nLabel))
   edgeRenderInfo(graph) <- list(lty=eLty, col=eCol, textCol=eTextCol, label=eLabel ,arrowhead=eArrowhead)
-
+  if(!missing(nodeRenderInfo))
+    nodeRenderInfo(graph) <- nodeRenderInfo
+    
   renderGraph(graph)
   return(graph)
 }

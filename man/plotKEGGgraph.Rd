@@ -9,7 +9,7 @@
   \code{KEGGgraphLegend} gives the legend of KEGG graphs
 }
 \usage{
-plotKEGGgraph(graph, y = "neato", shortLabel = TRUE, ...)
+plotKEGGgraph(graph, y = "neato", shortLabel = TRUE, nodeRenderInfo,  ...)
 KEGGgraphLegend()
 }
 %- maybe also 'usage' for other objects documented here.
@@ -17,7 +17,8 @@ KEGGgraphLegend()
   \item{graph}{ A KEGG graph, by calling \code{\link{parseKGML2Graph}} }
   \item{y}{ the layout method, \code{neato} by default }
   \item{shortLabel}{ logical, should be short label used instead of full
-  node name?}
+    node name?}
+  \item{nodeRenderInfo} { List of node rendering info}
   \item{\dots}{ Other functions passed to renderGraph, not implemented
     for now}
 }
