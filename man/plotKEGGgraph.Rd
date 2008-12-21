@@ -18,7 +18,7 @@ KEGGgraphLegend()
   \item{y}{ the layout method, \code{neato} by default }
   \item{shortLabel}{ logical, should be short label used instead of full
     node name?}
-  \item{nodeRenderInfo} { List of node rendering info}
+  \item{nodeRenderInfo}{ List of node rendering info}
   \item{\dots}{ Other functions passed to renderGraph, not implemented
     for now}
 }
