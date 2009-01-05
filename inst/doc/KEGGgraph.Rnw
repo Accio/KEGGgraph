@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{KEGGgraph: graph approach to KEGG PATHWAY}
-%\VignetteDepends{graph, XML, Rgraphviz, RBGL}
+%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db}
 %\VignettePackage{KEGGgraph}
 
 \documentclass[11pt]{article}
@@ -144,7 +144,7 @@ mapkGsub
 The subgraph is visualized in figure \ref{fig:01}, where nodes with
 in-degree or out-degree in red and others in grey.\footnote{The \Rfunction{makeAttr}
 function is used to assign nodes with rendering attributes, whose code
-can be found in the Rnw file.}
+can be found in the Rnw file.}. And in the example we also demonstrate how to convert KEGG ID into other other identifiers via the Entrez GeneID. More details on the conversion of IDs can be found on page \pageref{convertId}.
 
 <<makeattr, echo=FALSE>>=
 makeAttr <- function(graph, default, valNodeList) {
@@ -170,10 +170,20 @@ outs <- sapply(edges(mapkGsub), length) > 0
 ins <- sapply(inEdges(mapkGsub), length) > 0
 ios <- outs | ins
 
+## translate the KEGG IDs into Gene Symbol
+if(require(org.Hs.eg.db)) {
+  ioGeneID <- translateKEGG2GeneID(names(ios))
+  nodesNames <- sapply(mget(ioGeneID, org.Hs.egSYMBOL, ifnotfound=NA), "[[",1)
+} else {
+  nodesNames <- names(ios)
+}
+names(nodesNames) <- names(ios)
+
 nAttrs <- list();
 nAttrs$fillcolor <- makeAttr(mapkGsub, "lightgrey", list(orange=names(ios)[ios]))
+nAttrs$label <- nodesNames
 plot(mapkGsub, "neato", nodeAttrs=nAttrs,
-     attrs=list(node=list(fillcolor="lightgreen",label="",
+     attrs=list(node=list(fillcolor="lightgreen",
                   width="0.75", shape="ellipse"), 
        edge=list(arrowsize="0.7")))
 @ 
@@ -316,14 +326,28 @@ mapkGsub
 @ 
 
 \subsection{Annotation}
-\Rfunction{translateKEGG2GeneID} translates KEGG identifiers (KEGGID) into Entrez GeneID. 
+\Rfunction{translateKEGG2GeneID} translates KEGG identifiers (KEGGID) into Entrez GeneID. For example, if we want to find the Entrez GeneID of the nodes in MAPK pathway having the highest relative betweenness centrality, the following codes do the job. 
 <<biomart, echo=TRUE, results=verbatim>>=
 toprbccKEGGID <- names(toprbccs)
 toprbccKEGGID
 toprbccGeneID <- translateKEGG2GeneID(toprbccKEGGID)
 toprbccGeneID
 @
-To convert GeneID to other identifiers, we recommend R package \Rpackage{biomaRt} \cite{Durinck05, Huber08}\label{txt:biomaRt}. The following example shows how to translate the node hits we acquired in the example above into HGNC symbols:
+
+To convert GeneID to other identifiers, we recommend genome wide annotation packages, for human it is \Rpackage{org.Hs.eg.db} and the packages for other organisms can be fount at \url{http://www.bioconductor.org/packages/release/data/annotation/}. To demonstrate its use, we draw the sub-network in the figure \ref{fig:02} again, whereas nodes are now labeled with gene symbols.
+\label{convertId}
+<<orgHuman, echo=TRUE,  fig=TRUE>>=
+if(require(org.Hs.eg.db)) {
+  tnodes <- nodes(toprSub)
+  tgeneids <- translateKEGG2GeneID(tnodes)
+  tgenesymbols <- sapply(mget(tgeneids, org.Hs.egSYMBOL, ifnotfound=NA), "[[",1)
+  toprSubSymbol <- toprSub
+  nodes(toprSubSymbol) <- tgenesymbols
+  plot(toprSubSymbol, "neato",attrs=list(node=list(font=5, fillcolor="lightblue")))
+}
+@ 
+
+Alternatively, users could use R package \Rpackage{biomaRt} \cite{Durinck05, Huber08}\label{txt:biomaRt} for ID conversion, whereas it assumes that the user has an internet connection. The following example shows how to translate the node hits we acquired in the example above into HGNC symbols:
 <<biomart2, echo=TRUE, eval=FALSE>>=
 library(biomaRt)
 hsapiens <- useMart("ensembl","hsapiens_gene_ensembl" )
@@ -333,7 +357,9 @@ getBM(attributes=c("entrezgene","hgnc_symbol"),
       values=toprbccGeneID, mart=hsapiens)
 @
 
-  
+\section{Acknowledgement}
+We thank Vincent Carey, Holger Fröhlich and Wolfgang Huber for comments and suggestions on the package, and the reviewers from the Bioconductor community.
+
 \section{Conclusion}
 Before the release of \Rpackage{KEGGgraph}, several \R{R/Bioconductor} packages have been introduced and proven their usefulness in understanding biological pathways with KEGG. However, \Rpackage{KEGGgraph} is the first package able to parse any KEGG pathways from KGML files into graphs. In comparison, existing tools can not achieve the results we present here. They either neglects the graph topology (\Rpackage{KEGG.db}), do not parse pathway networks (\Rpackage{keggorth}), or are specialized for certain pathways (\Rpackage{cMAP} and \Rpackage{pathRender}).
 
