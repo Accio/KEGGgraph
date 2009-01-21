@@ -158,6 +158,7 @@ neighborhood <- function(graph, index, return.self=FALSE) {
   mat <- as(graph, "matrix")
   coln <- colnames(mat)
   rown <- rownames(mat)
+  index <- as.character(index)
   
   res <- lapply(index, function(x) {
     if(!x %in% nds) return(NULL)
@@ -168,7 +169,8 @@ neighborhood <- function(graph, index, return.self=FALSE) {
 
     ## if returns the vertex itself
     if(return.self) y <- c(x,y)
-    return(y)
+   
+    return(unique(y))
   })
   names(res) <- index
   
