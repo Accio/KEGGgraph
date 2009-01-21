@@ -70,3 +70,10 @@ mergedKEGG <- mergeKEGGgraphs(graphlist)
 mergedKEGG
 stopifnot(length(getKEGGnodeData(mergedKEGG)) == numNodes(mergedKEGG))
 stopifnot(length(getKEGGedgeData(mergedKEGG)) == numEdges(mergedKEGG))
+
+##--------------------##
+## Tools for graph
+##--------------------##
+gRins <- leaves(gR, "in")
+gRouts <- leaves(gR, "out")
+neighbors <- neighborhood(gR, nodes(gR)[1:2])

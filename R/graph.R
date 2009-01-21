@@ -152,3 +152,25 @@ getKEGGedgeData <- function(graph, n) {
     return(kedges[[n]])
   }
 }
+
+neighborhood <- function(graph, index, return.self=FALSE) {
+  nds <- nodes(graph)
+  mat <- as(graph, "matrix")
+  coln <- colnames(mat)
+  rown <- rownames(mat)
+  
+  res <- lapply(index, function(x) {
+    if(!x %in% nds) return(NULL)
+
+    ed <- coln[mat[x,]==1]
+    iEd <- rown[mat[,x]==1]
+    y <- c(ed, iEd)
+
+    ## if returns the vertex itself
+    if(return.self) y <- c(x,y)
+    return(y)
+  })
+  names(res) <- index
+  
+  return(res)
+}
