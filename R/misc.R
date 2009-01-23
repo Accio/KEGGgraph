@@ -13,8 +13,3 @@ isHomoList <- function(list, class) {
   if(all(isHomo)) return(TRUE)
   return(FALSE)
 }
-
-translateKEGG2GeneID <- function(x) {
-  gid <- gsub("^[a-z][a-z][a-z]:","", x)
-  return(gid)
-}
