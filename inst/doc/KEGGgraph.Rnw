@@ -172,7 +172,7 @@ ios <- outs | ins
 
 ## translate the KEGG IDs into Gene Symbol
 if(require(org.Hs.eg.db)) {
-  ioGeneID <- translateKEGG2GeneID(names(ios))
+  ioGeneID <- translateKEGGID2GeneID(names(ios))
   nodesNames <- sapply(mget(ioGeneID, org.Hs.egSYMBOL, ifnotfound=NA), "[[",1)
 } else {
   nodesNames <- names(ios)
@@ -326,11 +326,11 @@ mapkGsub
 @ 
 
 \subsection{Annotation}
-\Rfunction{translateKEGG2GeneID} translates KEGG identifiers (KEGGID) into Entrez GeneID. For example, if we want to find the Entrez GeneID of the nodes in MAPK pathway having the highest relative betweenness centrality, the following codes do the job. 
+\Rfunction{translateKEGGID2GeneID} translates KEGG identifiers (KEGGID) into Entrez GeneID. For example, if we want to find the Entrez GeneID of the nodes in MAPK pathway having the highest relative betweenness centrality, the following codes do the job. 
 <<biomart, echo=TRUE, results=verbatim>>=
 toprbccKEGGID <- names(toprbccs)
 toprbccKEGGID
-toprbccGeneID <- translateKEGG2GeneID(toprbccKEGGID)
+toprbccGeneID <- translateKEGGID2GeneID(toprbccKEGGID)
 toprbccGeneID
 @
 
@@ -339,7 +339,7 @@ To convert GeneID to other identifiers, we recommend genome wide annotation pack
 <<orgHuman, echo=TRUE,  fig=TRUE>>=
 if(require(org.Hs.eg.db)) {
   tnodes <- nodes(toprSub)
-  tgeneids <- translateKEGG2GeneID(tnodes)
+  tgeneids <- translateKEGGID2GeneID(tnodes)
   tgenesymbols <- sapply(mget(tgeneids, org.Hs.egSYMBOL, ifnotfound=NA), "[[",1)
   toprSubSymbol <- toprSub
   nodes(toprSubSymbol) <- tgenesymbols
