@@ -176,3 +176,22 @@ neighborhood <- function(graph, index, return.self=FALSE) {
   
   return(res)
 }
+
+## get subgraph with query GeneIDs
+queryKEGGsubgraph <- function(geneids, graph, organism="hsa", addmissing=FALSE) {
+  keggids <- translateGeneID2KEGGID(geneids, organism=organism)
+  nds <- nodes(graph)
+
+  missing <- !keggids %in% nds
+  if(any(missing) & !addmissing) {
+    warning('The following GeneIDs can not be found among the nodes of the given graph\n\t', paste(keggids[missing],collapse=", ") )
+  }
+  missed <- keggids[missing]
+  keggids <- unique(keggids[!missing])
+
+  g <- subGraph(keggids, graph)
+  if(addmissing) {
+    g <- addNode(missed, g)
+  }
+  return(g)
+}
