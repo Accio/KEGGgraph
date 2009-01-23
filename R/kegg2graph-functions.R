@@ -236,9 +236,13 @@ setMethod("getDisplayName", "KEGGNode", function(object, short=FALSE) {
 setMethod("getDisplayName", "graph", function(object, shortLabel=TRUE) {
   nd <- getKEGGnodeData(object)
   labels <- sapply(nd, function(x) getDisplayName(x, short=shortLabel))
+  browser()
   ## labels are all the nodes, object however can be subGraph
-  stopifnot(all(nodes(object) %in% names(labels)))
-  labels <- labels[nodes(object)]
+  no <- nodes(object)
+  isMapped <- no %in% names(labels)
+  labels <- labels[no[isMapped]]
+  notmapped <- no[!isMapped]; names(notmapped) <- notmapped
+  labels <- c(labels, notmapped)
   return(labels)
 })
 
