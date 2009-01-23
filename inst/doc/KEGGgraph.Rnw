@@ -358,7 +358,7 @@ getBM(attributes=c("entrezgene","hgnc_symbol"),
 @
 
 \section{Acknowledgement}
-We thank Vincent Carey, Holger Fröhlich and Wolfgang Huber for comments and suggestions on the package, and the reviewers from the Bioconductor community.
+We thank Vincent Carey, Holger Fr\"ohlich and Wolfgang Huber for comments and suggestions on the package, and the reviewers from the Bioconductor community.
 
 \section{Conclusion}
 Before the release of \Rpackage{KEGGgraph}, several \R{R/Bioconductor} packages have been introduced and proven their usefulness in understanding biological pathways with KEGG. However, \Rpackage{KEGGgraph} is the first package able to parse any KEGG pathways from KGML files into graphs. In comparison, existing tools can not achieve the results we present here. They either neglects the graph topology (\Rpackage{KEGG.db}), do not parse pathway networks (\Rpackage{keggorth}), or are specialized for certain pathways (\Rpackage{cMAP} and \Rpackage{pathRender}).
