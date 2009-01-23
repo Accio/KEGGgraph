@@ -9,7 +9,8 @@
   \code{KEGGgraphLegend} gives the legend of KEGG graphs
 }
 \usage{
-plotKEGGgraph(graph, y = "neato", shortLabel = TRUE, nodeRenderInfo,  ...)
+plotKEGGgraph(graph, y = "neato", shortLabel = TRUE,
+useDisplayName=TRUE, nodeRenderInfo,  ...)
 KEGGgraphLegend()
 }
 %- maybe also 'usage' for other objects documented here.
@@ -18,6 +19,9 @@ KEGGgraphLegend()
   \item{y}{ the layout method, \code{neato} by default }
   \item{shortLabel}{ logical, should be short label used instead of full
     node name?}
+  \item{useDisplayName}{ logical, should the labels of nodes rendered as
+    the 'display name' specified in the KGML file or render them simply with
+    the node names?}
   \item{nodeRenderInfo}{ List of node rendering info}
   \item{\dots}{ Other functions passed to renderGraph, not implemented
     for now}

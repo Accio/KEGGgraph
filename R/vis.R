@@ -14,8 +14,13 @@ pvalue2asterisk <- function(pvalues, sig.1 =FALSE) {
   return(ast)
 }
 
-plotKEGGgraph <- function(graph,y="neato",shortLabel=TRUE, nodeRenderInfo,...) {
-  nLabel <- getDisplayName(graph,shortLabel=shortLabel)
+plotKEGGgraph <- function(graph,y="neato",shortLabel=TRUE, useDisplayName=TRUE, nodeRenderInfo,...) {
+  if(useDisplayName) {
+    nLabel <- getDisplayName(graph,shortLabel=shortLabel)
+  } else {
+    nLabel <- nodes(graph)
+    names(nLabel) <- nLabel
+  }
 
   subdisplay <- subtypeDisplay(graph)
   eLabel <- subdisplay["label",]
