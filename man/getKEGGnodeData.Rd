@@ -1,11 +1,15 @@
 \name{getKEGGnodeData}
 \alias{getKEGGnodeData}
+\alias{setKEGGnodeData}
 \alias{getKEGGedgeData}
+\alias{setKEGGedgeData}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Get list of KEGG node or edge data }
+\title{ Get or set list of KEGG node or edge data }
 \description{
-  The methods extracts KEGG node (edge) attributes from a graph produced
-  by calling \code{\link{parseKGML2Graph}} or \code{\link{KEGGpathway2Graph}}.
+  The 'get' methods extracts KEGG node (edge) attributes from a graph produced
+  by calling \code{\link{parseKGML2Graph}} or
+  \code{\link{KEGGpathway2Graph}}. The 'set' methods writes a list into
+  the edge or node data.
 }
 \usage{
 getKEGGnodeData(graph, n)
@@ -27,6 +31,10 @@ getKEGGedgeData(graph, n)
 \value{
   Either a list or single item of \code{\link{KEGGNode-class}} or
   \code{\link{KEGGEdge-class}} object(s).
+}
+\note{
+  These functions will be unified into 'KEGGnodeData' and
+  'KEGGnodeData<-' forms.
 }
 \author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
 \examples{
