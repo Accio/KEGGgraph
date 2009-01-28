@@ -19,8 +19,8 @@ graphDensity(graph)
 \value{
   A value between [0,1]
 }
-\references{ Aittokallio and Schwikowski (2006), Graph-based methods for analysing networks in cell biology,
-\textit{Briefings in Bioinformatics}, \textbf{7}, 243-255.}
+\references{ Aittokallio and Schwikowski (2006), Graph-based methods for
+  analysing networks in cell biology, _Briefings in Bioinformatics_, 7, 243-255.}
 \author{ Jitao David Zhang \url{j.zhang@dkfz.de} }
 \examples{
 tnodes <- c("Hamburg","Dortmund","Bremen", "Paris")
