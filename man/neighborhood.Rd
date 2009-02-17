@@ -17,7 +17,7 @@ neighborhood(graph, index, return.self = FALSE)
   \item{return.self}{ logical, should the vertex itself also be returned?}
 }
 \details{
-  Let _v_ be a vertex in a (di)graph, the out-neighborhood or
+  Let v be a vertex in a (di)graph, the out-neighborhood or
   successor set (N+(v), x belongs to V(G) and v->x) and the
   in-neighborhood or predecessor set (N-(v), x belongs to V(G) and x->v)
   are jointly returned.
