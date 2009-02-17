@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{KEGGgraph: graph approach to KEGG PATHWAY}
-%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db}
+%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db, KEGG.db}
 %\VignettePackage{KEGGgraph}
 
 \documentclass[11pt]{article}
@@ -52,11 +52,38 @@ The package requires KGML (KEGG XML) files, which can be downloaded from KEGG FT
 Besides the functionalities described above, \Rpackage{KEGGgraph} also has tools for remote KGML file retrieval, graph feature study and other related tasks. We will demonstrate them later in this vignette.
 
 \section{Case studies}
+We load the \Rpackage{KEGGgraph} by typing or pasting the following codes in R
+command line:
+<<lib, echo=TRUE>>=
+library(KEGGgraph)
+@ 
+
+\subsection{Get KGML files}
+There are at least two possibilities to get KGML (KEGG XML) files:
+\begin{itemize}
+  \item Manual download from KEGG FTP site at \url{ftp://ftp.genome.jp/pub/kegg/xml/}.
+  \item Automatic retrieval from KEGG FTP site with the function \Rfunction{retrieveKGML}.
+\end{itemize}
+
+To retrieve KGML file automatically from KEGG FTP site, one has to
+know the pathway identifier (in the form of [a-z]{3}[0-9]{5}, where
+the three-alphabet code represent the organism and the five digits
+represent pathway). One method to find the mapping between pathway
+name and identifier is use \Robject{KEGGPATHNAME2ID} environment in
+\Rpackage{KEGG.db}. For example, the following codes retrieve p53
+signaling pathway of \textit{C.elegans} from KEGG FTP site.
+
+<<remoteRetrieval, echo=TRUE, eval=FALSE>>=
+library(KEGG.db)
+tmp <- tempfile()
+pName <- "p53 signaling pathway"
+pId <- mget(pName, KEGGPATHNAME2ID)[[1]]
+retrieveKGML(pId, organism="cel", destfile=tmp, method="wget", quiet=TRUE)
+@ 
+
 \subsection{Parsing and graph feature query}
 First we read in KGML file for human MAPK signaling pathway (with KEGG ID hsa04010):
 <<library, echo=TRUE>>=
-library(KEGGgraph)
-library(RBGL)
 mapkKGML <- system.file("extdata/hsa04010.xml",
                      package="KEGGgraph")
 @
@@ -375,6 +402,7 @@ sessionInfo()
 \bibitem[Gentleman {\it et~al}., 2004]{Gentleman04} Gentleman {\it et~al}. (2004) Bioconductor: open software development for computational biology and bioinformatics, {\it Genome Biology}, {\bf 5}, R80.
 \bibitem[Carey {\it et~al}., 2005]{Carey05} Carey {\it et~al}. (2005) Network structures and algorithms in Bioconductor, {\it Bioinformatics}, {\bf 21}, 135-136.
 \bibitem[Kanehisa {\it et~al}., 2008]{Kanehisa08} Kanehisa {\it et~al}. (2008) KEGG for linking genomes to life and the environment, {\it Nucleic Acids Research, Database issue}, {\bf 36}, 480-484.
+\bibitem[Klukas and Schreiber, 2007]{Klukas07} Klukas and Schreiber. (2007) Dynamic exploration and editing of KEGG pathway diagrams, {\it Bioinformatics}, {\bf 23}, 344-350.
 \bibitem[Aittokallio and Schwikowski, 2006]{Aittokallio06} Aittokallio and Schwikowski (2006) Graph-based methods for analysing networks in cell biology, {\it Briefings in Bioinformatics}, {\bf 7}, 243-255.
 \bibitem[Durinck {\it et~al}., 2005]{Durinck05} Durinck {\it et~al}. (2005) BioMart and Bioconductor: a powerful link between biological databases and microarray data analysis, {\it Bioinformatcs}, {\bf 21}, 3439-3440.
 \bibitem[Durinck and Huber, 2008]{Huber08} Durinck and Huber (2008) R/Bioconductor package {\it biomaRt}, 2008
