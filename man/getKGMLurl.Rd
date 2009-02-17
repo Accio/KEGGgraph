@@ -1,25 +1,42 @@
 \name{getKGMLurl}
 \alias{getKGMLurl}
-\title{ Get KGML file url with KEGG PATHWAY ID and (optional organism) }
+\alias{retrieveKGML}
+\title{ Get KGML file (url) with KEGG PATHWAY ID and (optional) organism }
 \description{
   The function simply returns the KGML file url given KEGG PATHWAY
   ID. If the KEGG PATHWAY ID contains no organism prefix, user can
   specify the 'organism' parameter. Otherwise the 'organism' option is
   ignored.
+
+  retrieveKGML is a simple wrapper to getKGMLurl, which downloads the
+  KGML file with \code{download.file} in utils package.
 }
 \usage{
 getKGMLurl(pathwayid, organism = "hsa")
+retrieveKGML(pathwayid, organism, destfile,method="wget", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{pathwayid}{ KEGG PATHWAY ID, e.g. 'hsa00020'}
   \item{organism}{ three-alphabet organism code, if pathwayid contains
-  the ocde this option is ignored}
+    the ocde this option is ignored}
+  \item{destfile}{Destination file, to which the remote KGML file should
+    be saved}
+  \item{method}{Method to be used for downloading files, passed to \code{download.file} function. Currently supports "internal", "wget" and
+    "lynx"}
+  \item{...}{Parameters passed to download.file}
 }
 \details{
-  The function takes the pathway identifier (can be in the form of
+  The function \code{getKGMLurl} takes the pathway identifier (can be in the form of
   'hsa00020' or with 'pathway' prefix, for example 'path:hsa00020'), and
   returns the url to download KGML file.
+
+  The mapping between pathway identifier and pathway name can be found
+  by KEGGPATHNAME2ID (or reversed mappings) in KEGG.db package. See
+  vignette for example.
+  
+  \code{retrieveKGML} calls \code{download.file} to download the KGML
+  file from KEGG FTP remotely. 
 }
 \value{
   KGML File URL of the given pathway.
@@ -34,5 +51,9 @@ getKGMLurl(pathwayid, organism = "hsa")
 getKGMLurl("hsa00020")
 getKGMLurl("path:hsa00020")
 getKGMLurl("00020",organism="hsa")
+
+## NOT RUN
+tmp <- tempfile()
+retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="wget")
 }
 \keyword{ IO }

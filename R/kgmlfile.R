@@ -27,3 +27,9 @@ kgmlFileName2PathwayName <- function(filename) {
     return(as.character(NA))
   }
 }
+
+retrieveKGML <- function(pathwayid, organism, destfile, method="wget", ...) {
+  kgml <- getKGMLurl(pathwayid=pathwayid, organism=organism)
+  download.file(kgml, destfile=destfile,method=method, ...)
+  return(invisible(kgml))
+}
