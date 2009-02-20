@@ -1,6 +1,5 @@
 %\VignetteIndexEntry{KEGGgraph: Application Examples}
-%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db, KEGG.db,
-%spia, hgu133plus2.db}
+%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db, KEGG.db, SPIA, hgu133plus2.db}
 %\VignettePackage{KEGGgraph}
 
 \documentclass[11pt]{article}
