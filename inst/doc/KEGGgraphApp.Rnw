@@ -202,7 +202,8 @@ logfcs <- DE_Colorectal[match(nodes(g), deKID)]
 names(logfcs) <- nodes(g)
 logfcs[is.na(logfcs)] <- 0
 incol <- round((logfcs+2)*5); incol[incol>ar] <- ar
-logcol <- cols[incol]; logcol[logfcs==0] <- "darkgrey"; logcol[!nodes(g) %in% allKID] <- "yellow"
+undetected <- !nodes(g) %in% allKID
+logcol <- cols[incol]; logcol[logfcs==0] <- "darkgrey"; logcol[undetected] <- "yellow"
 names(logcol) <- names(logfcs)
 nA <- makeNodeAttrs(g, fillcolor=logcol, label="", width=10, height=1.2)
 par(mar=c(3,5,0,5), mgp=c(0,0,0))
@@ -280,6 +281,7 @@ ups <- nodes(g)[logfcs > 0]
 upNs <- unique(unlist(neighborhood(g, ups, return.self=TRUE)))
 upSub <- subKEGGgraph(upNs, g)
 upNeighbor <- nodes(upSub)[sapply(neighborhood(upSub, nodes(upSub)), length)>0]
+upNeighbor <- setdiff(upNeighbor, nodes(g)[undetected])
 upSub <- subKEGGgraph(upNeighbor, upSub)
 upSubGID <- translateKEGGID2GeneID(nodes(upSub))
 upSymbol <- gSymbol[upSubGID]
@@ -287,7 +289,7 @@ upnA <- makeNodeAttrs(upSub, fillcolor=logcol[nodes(upSub)], label=upSymbol, fix
 plot(upSub, "dot", nodeAttrs=upnA)
 @ 
 \caption{Up-regulated genes (seven, in red) and their neighborhood genes in colorectal
-  cancer pathway, the color follows the legend in figure \ref{fig:spiaVis}.}\label{fig:spiaSub}
+  cancer pathway, the color follows the legend in figure \ref{fig:spiaVis}. Un-reported genes are hidden from the figure.}\label{fig:spiaSub}
 \end{figure}
 
 We can use degree centrality (the sum of in- and out-degree of each
