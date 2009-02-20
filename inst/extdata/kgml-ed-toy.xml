@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pathway name="path:KGML_ED_TOY_00001" org="hsa" number="00001" title="KGML-ED toy pathway" image="" link="">
+  <entry id="1" name="CRP" type="gene">
+    <graphics name="CRP" fgcolor="#000000" bgcolor="#FFFFFF" type="circle" x="210" y="180" width="120" height="60" />
+  </entry>
+  <entry id="2" name="GalS" type="gene">
+    <graphics name="GalS" fgcolor="#000000" bgcolor="#FFFFFF" type="circle" x="450" y="180" width="120" height="60" />
+  </entry>
+  <entry id="3" name="galETK" type="gene">
+    <graphics name="galETK" fgcolor="#000000" bgcolor="#FFFFFF" type="circle" x="450" y="360" width="120" height="60" />
+  </entry>
+  <entry id="4" name="cAMP" type="compound">
+    <graphics name="cAMP" fgcolor="#000000" bgcolor="#FFFFFF" type="circle" x="100" y="90" width="60" height="60" />
+  </entry>
+  <entry id="5" name="galactose" type="compound">
+    <graphics name="galactose" fgcolor="#000000" bgcolor="#FFFFFF" type="circle" x="590" y="90" width="60" height="60" />
+  </entry>
+  <relation entry1="1" entry2="2" type="PPrel">
+    <subtype name="activation" value="-->"/>
+  </relation>
+  <relation entry1="2" entry2="3" type="GErel">
+    <subtype name="repression" value="--|"/>
+  </relation>
+  <relation entry1="1" entry2="3" type="GErel">
+    <subtype name="expression" value="--|"/>
+  </relation>
+  <relation entry1="4" entry2="1" type="PCrel">
+    <subtype name="activation" value="-->"/>
+  </relation>
+  <relation entry1="5" entry2="2" type="PCrel">
+    <subtype name="activation" value="-->"/>
+  </relation>
+  <relation entry1="2" entry2="2" type="PPrel">
+    <subtype name="inhibition" value="--|"/>
+  </relation>
+</pathway>
+
