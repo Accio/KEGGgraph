@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{KEGGgraph: Application Examples}
-%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db, KEGG.db, SPIA, hgu133plus2.db}
+%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db, KEGG.db,hgu133plus2.db}
 %\VignettePackage{KEGGgraph}
 
 \documentclass[11pt]{article}
@@ -133,6 +133,11 @@ cancer samples, is normalized with \Rpackage{affy} and
 \Rpackage{limma} is used as the input data.
 
 <<spiaLoad, echo=TRUE>>=
+if(require(SPIA)) {
+  data(colorectalcancer,package="SPIA")
+} else {
+  data(colorectalcancerSPIA, package="KEGGgraph")
+}
 library(SPIA)
 data(colorectalcancer)
 head(top)
