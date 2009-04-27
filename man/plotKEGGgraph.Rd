@@ -10,7 +10,7 @@
 }
 \usage{
 plotKEGGgraph(graph, y = "neato", shortLabel = TRUE,
-useDisplayName=TRUE, nodeRenderInfo,  ...)
+useDisplayName=TRUE, nodeRenderInfos,  ...)
 KEGGgraphLegend()
 }
 %- maybe also 'usage' for other objects documented here.
@@ -22,7 +22,7 @@ KEGGgraphLegend()
   \item{useDisplayName}{ logical, should the labels of nodes rendered as
     the 'display name' specified in the KGML file or render them simply with
     the node names?}
-  \item{nodeRenderInfo}{ List of node rendering info}
+  \item{nodeRenderInfos}{ List of node rendering info}
   \item{\dots}{ Other functions passed to renderGraph, not implemented
     for now}
 }

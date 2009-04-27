@@ -14,7 +14,7 @@ pvalue2asterisk <- function(pvalues, sig.1 =FALSE) {
   return(ast)
 }
 
-plotKEGGgraph <- function(graph,y="neato",shortLabel=TRUE, useDisplayName=TRUE, nodeRenderInfo,...) {
+plotKEGGgraph <- function(graph,y="neato",shortLabel=TRUE, useDisplayName=TRUE, nodeRenderInfos,...) {
   if(useDisplayName) {
     nLabel <- getDisplayName(graph,shortLabel=shortLabel)
   } else {
@@ -36,13 +36,15 @@ plotKEGGgraph <- function(graph,y="neato",shortLabel=TRUE, useDisplayName=TRUE, 
     names(eLty) <- names(eArrowhead) <- tmp
   }
   
-  graph <- layoutGraph(graph, edgeAttrs = list(label=eLabel), nodeAttrs = list(label=nLabel))
-  edgeRenderInfo(graph) <- list(lty=eLty, col=eCol, textCol=eTextCol, label=eLabel ,arrowhead=eArrowhead)
-  if(!missing(nodeRenderInfo))
-    nodeRenderInfo(graph) <- nodeRenderInfo
-    
+  edgeRenderInfo(graph) <- list(lty=eLty, col=eCol, textCol=eTextCol, label=eLabel ,arrowhead=eArrowhead, label=eLabel)
+  nodeRenderInfo(graph) <- list(label=nLabel)
+  graph <- layoutGraph(graph)
+  if(!missing(nodeRenderInfos))
+    nodeRenderInfo(graph) <- nodeRenderInfos
+
+  
   renderGraph(graph)
-  return(graph)
+  return(invisible(graph))
 }
 
 KEGGgraphLegend <- function() {
@@ -67,8 +69,11 @@ KEGGgraphLegend <- function() {
     text(0.8, i, subtypes[i], pos=2, cex=1.2)
     segments(1,i,2,i, col=cols[i], lty=ltys[i])
     text(1.5, i, labels[i], col=fontcolors[i], pos=2)
-    if(arrowheads[i] == "open") {
+    if(arrowheads[i] == "normal") {
       text(1.95, i, ">", pos=4, col=cols[i])
+    }
+    if(arrowheads[i] == "tee") {
+      text(1.97, i, "|", pos=4, col=cols[i])
     }
   }
 }

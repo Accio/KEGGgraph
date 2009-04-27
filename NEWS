@@ -1,3 +1,6 @@
+2009-04-27
+KEGGgraph 1.1.1: Improved render of KEGG pathway graphs with new interface of Rgraphviz, nodeRenderInfo parameter renamed into nodeRenderInfos to avoid conflict
+
 2008-12-11
 KEGGgraph 0.8.6: 'KEGGpathway2reactionGraph' added to parse compound reaction network into graph. Documentationss updated
 
