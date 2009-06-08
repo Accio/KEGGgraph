@@ -129,7 +129,7 @@ parseReaction <- function(reaction) {
   substrate <- children$substrate
   substrateName <- xmlAttrs(substrate)[["name"]]
   substrateChildren <- xmlChildren(substrate)
-  if (!is.null(substrateChildren)) {
+  if (length(substrateChildren)>0) {
     substrateAlt <- substrateChildren$alt
     substrateAltName <- xmlAttrs(substrateAlt)[["name"]]
   } else {
@@ -140,7 +140,7 @@ parseReaction <- function(reaction) {
   product <- children$product
   productName <- xmlAttrs(product)[["name"]]
   productChildren <- xmlChildren(product)
-  if(!is.null(productChildren)) {
+  if(length(productChildren)>0) {
     productAlt <- productChildren$alt
     productAltName <- xmlAttrs(productAlt)[["name"]]
   } else {
