@@ -16,8 +16,7 @@ edge objects in a KEGG graph}
     \item{\code{entry1ID}:}{ The entryID of the first KEGGNode }
     \item{\code{entry2ID}:}{ The entryID of the second KEGGNode }
     \item{\code{type}:}{ The type of the relation, see \code{\link{getType-methods}} }
-    \item{\code{subtypeName}:}{ Subtype name}
-    \item{\code{subtypeValue}:}{ Subtype value}
+    \item{\code{subtype}:}{ The subtype(s) of the edge, a list of \code{\linkS4class{KEGGEdgeSubType}}}
   }
 }
 \section{Methods}{

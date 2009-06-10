@@ -30,8 +30,8 @@ and is not intended to be directly created by users.
     \item{\code{link}:}{URL link of the node}
     \item{\code{reaction}:}{Reaction of the node}
     \item{\code{map}:}{Map of the node}
-    \item{\code{displayName}:}{Its display name, for example 'hsa:1432'
-      is displayed as 'p38'}
+    \item{\code{graphics}:}{Graphic details (including display name) of
+      the node, an object of \code{\linkS4class{KEGGGraphics}}}
   }
 }
 \section{Methods}{
