@@ -46,6 +46,13 @@ retrieveKGML(pathwayid, organism, destfile,method="wget", ...)
   So far the function does not check the correctness of the
   'organism' prefix, it is the responsibility of the user to garantee
   the right spelling.
+
+  For Windows users, it is necessary to download and install \code{wget} program
+  (\url{http://gnuwin32.sourceforge.net/packages/wget.htm}) to use the
+  \code{wget} method to download files. Sometimes it may be necessary to
+  modify searching path to add GnuWin32 folder (where \code{wget}
+  execution file is located) and re-install R to make
+  \code{wget} work.
 }
 \examples{
 getKGMLurl("hsa00020")
