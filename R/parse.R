@@ -126,26 +126,40 @@ parseReaction <- function(reaction) {
   type <- attrs[["type"]]
 
   children <- xmlChildren(reaction)
-  substrate <- children$substrate
-  substrateName <- xmlAttrs(substrate)[["name"]]
-  substrateChildren <- xmlChildren(substrate)
-  if (length(substrateChildren)>0) {
-    substrateAlt <- substrateChildren$alt
-    substrateAltName <- xmlAttrs(substrateAlt)[["name"]]
-  } else {
-    substrateAlt <- as.character(NA)
-    substrateAltName <- as.character(NA)
-  }
+
+  ## more than one substrate/product possible
+  childrenNames <- names(children)
+  substrateIndices <- grep("^substrate$", childrenNames)
+  productIndices <- grep("^product$", childrenNames)
+  substrateName <- substrateAltName <- vector("character", length(substrateIndices))
+  productName <- productAltName <- vector("character", length(productIndices))  
   
-  product <- children$product
-  productName <- xmlAttrs(product)[["name"]]
-  productChildren <- xmlChildren(product)
-  if(length(productChildren)>0) {
-    productAlt <- productChildren$alt
-    productAltName <- xmlAttrs(productAlt)[["name"]]
-  } else {
-     productAlt <- as.character(NA)
-     productAltName <- as.character(NA)
+  for (i in seq(along=substrateIndices)) {
+    ind <- substrateIndices[i]
+    substrate <- children[[ind]]
+    substrateName[i] <- xmlAttrs(substrate)[["name"]]
+    substrateChildren <- xmlChildren(substrate)
+    if (length(substrateChildren)>0) {
+      substrateAlt <- substrateChildren$alt
+      substrateAltName[i] <- xmlAttrs(substrateAlt)[["name"]]
+    } else {
+      substrateAlt <- as.character(NA)
+      substrateAltName[i] <- as.character(NA)
+    }
+  }
+
+  for(i in seq(along=productIndices)) {
+    ind <- productIndices[i]
+    product <- children[[ind]]
+    productName[i] <- xmlAttrs(product)[["name"]]
+    productChildren <- xmlChildren(product)
+    if(length(productChildren)>0) {
+      productAlt <- productChildren$alt
+      productAltName[i] <- xmlAttrs(productAlt)[["name"]]
+    } else {
+      productAlt <- as.character(NA)
+      productAltName[i] <- as.character(NA)
+    }
   }
 
   new("KEGGReaction",
@@ -359,20 +373,20 @@ KEGGpathway2reactionGraph <- function(pathway, uniqueReaction=TRUE) {
 
   substrates <- sapply(reactions, getSubstrate)
   products <- sapply(reactions, getProduct)
-  nodes <- unique(c(substrates, products))
-  findProduct <- function(x) x
-  if(uniqueReaction) findProduct <- function(x) unique(x)
-  edges <- tapply(products, substrates, findProduct)
+  nodes <- unique(unlist(c(substrates, products)))
 
-  ## find those nodes with 0 out degree
-  nonodes <- nodes[!nodes %in% names(edges)]
-  noedge <- lapply(nonodes, function(x) character())
-  names(noedge) <- nonodes
-  edges <- c(edges,noedge)
-  ## nodes must be in the order of edges
-  nodes <- names(edges)
+  ## Build adj matrix: since there are one-many, many-one or many-to-many relation between substrate/product
+  mat <- matrix(0, nrow=length(nodes), ncol=length(nodes), dimnames=list(nodes, nodes))
+  for(i in seq(substrates)) {
+    subs <- substrates[[i]]
+    pros <- products[[i]]
+    if(uniqueReaction) {
+      pros <- unique(pros)
+    }
+    mat[subs, pros] <- mat[subs, pros] + 1
+  }
 
-  cg <- new("graphNEL", nodes=nodes, edgeL=edges, edgemode="directed")
+  cg <- as(mat, "graphNEL")
 
   return(cg)
 }

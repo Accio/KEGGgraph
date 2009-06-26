@@ -163,16 +163,16 @@ setMethod("show", "KEGGReaction",
           function(object) {
             salt <- object@substrateAltName; palt <- object@productAltName
             saltstr <- ""; paltstr <- ""
-            if(!is.na(salt)) saltstr <- paste("\t[ Substrate Alternative Name ]: ", salt, "\n", sep="")
-            if(!is.na(palt)) paltstr <- paste("\t[ Substrate Alternative Name ]: ", palt, "\n", sep="")
+            if(any(!is.na(salt))) saltstr <- paste("\t[ Substrate Alternative Name ]: ", salt, "\n", sep="")
+            if(any(!is.na(palt))) paltstr <- paste("\t[ Substrate Alternative Name ]: ", palt, "\n", sep="")
             
             str <- paste("KEGG Reaction(", object@name, ")\n",
                          "------------------------------------------------------------\n",
                          "[ Name ]: ", object@name, "\n",
                          "[ Type ]: ", object@type, "\n",
-                         "[ Substrate Name ]: ",object@substrateName , "\n",
+                         "[ Substrate Name ]: ",paste(object@substrateName, collapse=";") , "\n",
                          saltstr,
-                         "[ Product Name ]: ", object@productName,"\n",
+                         "[ Product Name ]: ", paste(object@productName, collapse=";"),"\n",
                          paltstr,sep="")
             cat(str)
           })
