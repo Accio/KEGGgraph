@@ -1,3 +1,6 @@
+2009-10-01
+KEGGgraph 1.1.12: Update due to the change of FTP sites of KEGG website.Now pathways are stored separatedly depending whether they are metabolic pathways or not. KEGGgraph is now able to automatically download files.
+
 2009-06-28
 KEGGgraph 1.1.9: KEGGgraph software supports multiple substrates/products in KGML reaction from version 1.1.9. Earlier versions only read the first pair. Code name 'Kitty', thanking report from Plaimas Kitiporn, DKFZ.
 

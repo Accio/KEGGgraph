@@ -1,6 +1,8 @@
 \name{getKGMLurl}
 \alias{getKGMLurl}
 \alias{retrieveKGML}
+\alias{getCategoryIndepKGMLurl}
+\alias{kgmlNonmetabolicName2MetabolicName}
 \title{ Get KGML file (url) with KEGG PATHWAY ID and (optional) organism }
 \description{
   The function simply returns the KGML file url given KEGG PATHWAY
@@ -10,10 +12,17 @@
 
   retrieveKGML is a simple wrapper to getKGMLurl, which downloads the
   KGML file with \code{download.file} in utils package.
+
+  \code{kgmlNonmetabolicName2MetabolicName} is used to translate
+  non-metabolic pathway KGML URL to that of metabolic
+  pathway. \code{getCategoryIndepKGMLurl} determines the correct URL to
+  download by attempting both possibilities. They are mainly called internally.
 }
 \usage{
 getKGMLurl(pathwayid, organism = "hsa")
 retrieveKGML(pathwayid, organism, destfile,method="wget", ...)
+kgmlNonmetabolicName2MetabolicName(destfile)
+getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

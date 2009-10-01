@@ -1,5 +1,9 @@
+kgmlNonmetabolicName2MetabolicName <- function(destfile) {
+  return(gsub("non_metabolic", "metabolic", destfile))
+}
+
 getKGMLurl <- function(pathwayid, organism="hsa") {
-  baseurl <- "ftp://ftp.genome.jp/pub/kegg/xml/organisms"
+  baseurl <- "ftp://ftp.genome.jp/pub/kegg/xml/kgml/non_metabolic/organisms"
 
   pathwayid <- gsub("path:","",pathwayid)
   pco <- grep("^[a-z][a-z][a-z]", pathwayid)
@@ -17,6 +21,18 @@ getKGMLurl <- function(pathwayid, organism="hsa") {
   return(urls)
 }
 
+getCategoryIndepKGMLurl <- function(pathwayid, organism="hsa", method="wget",...) {
+  kgml <- getKGMLurl(pathwayid=pathwayid, organism=organism)
+  categoryIndepKGMLurl <- ""
+  downloadStatCode <- suppressWarnings(download.file(kgml, destfile=tempfile(),method=method))
+  if(downloadStatCode == 0) {
+    categoryIndepKGMLurl <- kgml
+  } else {
+    categoryIndepKGMLurl <- kgmlNonmetabolicName2MetabolicName(kgml)
+  }
+  return(categoryIndepKGMLurl)
+}
+
 kgmlFileName2PathwayName <- function(filename) {
   if(require(KEGG.db)) {
     basename <- sapply(strsplit(filename, "\\."), function(y) y[[1]])
@@ -29,7 +45,7 @@ kgmlFileName2PathwayName <- function(filename) {
 }
 
 retrieveKGML <- function(pathwayid, organism, destfile, method="wget", ...) {
-  kgml <- getKGMLurl(pathwayid=pathwayid, organism=organism)
-  download.file(kgml, destfile=destfile,method=method, ...)
+  kgml <- getCategoryIndepKGMLurl(pathwayid,organism=organism, method=method, ...)
+  download.file(kgml, destfile=destfile, method=method,...)
   return(invisible(kgml))
 }
