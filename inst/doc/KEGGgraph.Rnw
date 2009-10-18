@@ -81,6 +81,22 @@ pId <- mget(pName, KEGGPATHNAME2ID)[[1]]
 retrieveKGML(pId, organism="cel", destfile=tmp, method="wget", quiet=TRUE)
 @ 
 
+Note: \Rfunction{retrieveKGML} uses a \emph{try-download} mechanism
+(since the \Rpackage{KEGGgraph version 1.1.2}) to retrieve the KGML file from remote KEGG FTP server. Since
+August 2009 the KGML files are stored separately in different
+subdirectories depending on whether they record metabolic or
+non-metabolic pathways. Since from the KEGG pathway accession ID alone
+(e.g. \textsf{hsa00010}) alone it is not possible to determine its
+content, the \Rfunction{retrieveKGML} first tries to download the file
+from the non-metabolic subdirectory, and tries the metabolic
+directory in case no file was found in the non-metabolic category (the
+\emph{try} step). In case the corresponding file is found, it is
+downloaded (the \emph{download} step). Even if
+the file is found in the first try round, it still needs to be
+downloaded in the \emph{download} step. However, this does not actually need to
+the network overhead, since thanks to the common cache system the file is only
+downloaded once.
+
 \subsection{Parsing and graph feature query}
 First we read in KGML file for human MAPK signaling pathway (with KEGG ID hsa04010):
 <<library, echo=TRUE>>=

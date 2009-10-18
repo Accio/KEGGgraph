@@ -34,3 +34,5 @@ exportClasses("KEGGEdge",
               "KEGGPathway",
               "KEGGPathwayInfo"
 )
+
+export("KEGGEdgeSubtype")

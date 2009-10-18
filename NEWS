@@ -1,3 +1,5 @@
+2009-10-18
+KEGGgraph 1.1.13: Add Makefile to facilitate the check/install, and the try-download mechanism of retrieveKGML is documented in the vignette.
 2009-10-01
 KEGGgraph 1.1.12: Update due to the change of FTP sites of KEGG website.Now pathways are stored separatedly depending whether they are metabolic pathways or not. KEGGgraph is now able to automatically download files.
 

@@ -62,6 +62,11 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
   modify searching path to add GnuWin32 folder (where \code{wget}
   execution file is located) and re-install R to make
   \code{wget} work.
+
+  Some user may face difficulty
+  of retrieving KGML files when the download method is set to
+  \sQuote{auto}. In this case setting the method to \sQuote{wget} may
+  solve the problem (thanks to the report by Gilbert Feng).
 }
 \examples{
 getKGMLurl("hsa00020")
