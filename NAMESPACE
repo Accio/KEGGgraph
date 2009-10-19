@@ -35,4 +35,4 @@ exportClasses("KEGGEdge",
               "KEGGPathwayInfo"
 )
 
-export("KEGGEdgeSubtype")
+#export("KEGGEdgeSubtype")
