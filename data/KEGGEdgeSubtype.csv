@@ -6,6 +6,7 @@
 "expression";"-->";FALSE;FALSE;TRUE;"interactions via DNA binding";"red";;"black";"normal";"dashed"
 "repression";"--|";FALSE;FALSE;TRUE;"interactions via DNA binding";"blue";;"red";"tee";"dashed"
 "indirect";"..>";FALSE;TRUE;TRUE;"indirect effect without molecular details";"black";;"black";"normal";"dotted"
+"indirect effect";"..>";FALSE;TRUE;TRUE;"indirect effect without molecular details";"black";;"black";"normal";"dotted"
 "state change";"...";FALSE;TRUE;FALSE;"state transition";"black";;"black";"none";"dotted"
 "binding/association";"---";FALSE;TRUE;FALSE;"association and dissociation";"black";;"black";"none";"dashed"
 "dissociation";"-+-";FALSE;TRUE;FALSE;"association and dissociation";"grey";;"black";"open";"dotted"

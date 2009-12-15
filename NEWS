@@ -1,3 +1,6 @@
+2009-12-15
+KEGGgraph 1.3.2:'indirect' subtype has been renamed into 'indirect effect', KEGGEdgeSubtype.csv file makes modifications. Thanks Siyuan Zhang for reporting the bug.
+
 2009-11-23
 KEGGgraph 1.3.1:KEGG FTP server is again changed, from 'ftp://ftp.genome.jp/pub/kegg/xml/kgml/non_metabolic/organisms' to 'ftp://ftp.genome.jp/pub/kegg/xml/kgml/non-metabolic/organisms'. Note the minus and underscore. Thanks Tim Fraser and Marc Carlson for reporting.
 
