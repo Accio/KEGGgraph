@@ -17,8 +17,10 @@
 \author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
 \section{Methods}{
 \describe{
-\item{object = "graph"}{ ~~describe this method here }
-\item{object = "KEGGEdge"}{ ~~describe this method here }
+\item{object = "graph"}{ A graph object of KEGGgraph. The method returns
+  a list of subtypes in the same order of edges}
+\item{object = "KEGGEdge"}{ An object of KEGGEdge, which stores the
+  subtype information }
 }}
 \examples{
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")
