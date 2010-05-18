@@ -52,9 +52,9 @@ tryerr <- try(randomSubGraph(test6))
 ##----------------------------------------##
 ## test known well-formed graph
 ##----------------------------------------##
-allpackages <- .packages(all=TRUE)
-if("keggorthology" %in% allpackages) {
-  library(keggorthology)
-  data(KOgraph)
-  randomSubGraph(KOgraph)
-}
+#allpackages <- .packages(all=TRUE)
+#if("keggorthology" %in% allpackages) {
+#  library(keggorthology)
+#  data(KOgraph)
+#  randomSubGraph(KOgraph)
+#}
