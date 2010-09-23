@@ -15,3 +15,4 @@
 "glycosylation";"+g";FALSE;TRUE;FALSE;"molecular events";"black";"+g";"black";"open";"solid"
 "ubiquitination";"+u";FALSE;TRUE;FALSE;"molecular events";"black";"+u";"black";"open";"solid"
 "methylation";"+m";FALSE;TRUE;FALSE;"molecular events";"black";"+m";"black";"open";"solid"
+"others";"?";FALSE;FALSE;FALSE;"other events";"black";"?";"black";"open";"dashed"

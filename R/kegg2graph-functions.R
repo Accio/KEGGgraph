@@ -330,18 +330,22 @@ setMethod("getKEGGgeneLink", "character", function(object) {
   i <- match(name, KEGGEdgeSubtype$name)
 
   if(is.na(i)) {
-    stop("Given subtype '", name, "' is not found!\n")
-  }
+    warning("Given subtype '", name, "' is not found!\n")
+    name <- "others"
+    value <- "?"
+    i <- match(name, KEGGEdgeSubtype$name)
+    if(is.na(i)) {
+      stop("Missing 'others' item, which is the backup when the subtype is not matched! Please check KEGGedgeSubtype.csv file in the data folder!\n");
+    }
+  } 
   
   row <- KEGGEdgeSubtype[i,]
-
-  
   color <- as.character(row[1L ,"color"])
   label <-  as.character(row[1L ,"label"])
   fontcolor <- as.character(row[1L ,"fontcolor"])
   arrowhead <- as.character(row[1L ,"arrowhead"])
   style <- as.character(row[1L ,"style"])
-
+  
   disSub <- c(name=name, value=value,
                 color=color, label=label,
                 fontcolor=fontcolor, arrowhead=arrowhead,style=style)
