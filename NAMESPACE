@@ -1,6 +1,8 @@
-importFrom("graph", "edges")
-importFrom("graph", "nodes<-")
-importFrom("graph", "nodes")
+import(methods)
+
+importFrom(XML, "xmlAttrs", "xmlChildren", "xmlName", "xmlRoot", "xmlTreeParse")
+
+importFrom(graph, "edges", "nodes<-", "nodes", "edgeData")
 
 exportPattern("^[^\\.]")
 exportMethods("getDisplayName",
