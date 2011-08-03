@@ -22,6 +22,6 @@ parseRelation(relation)
   An object of \code{link{KEGGEdge}}.
 }
 \references{\url{http://www.genome.jp/kegg/docs/xml/}}
-\author{ Jitao David Zhang <j.zhang@dkfz.de> }
+\author{ Jitao David Zhang <jitao_david.zhang@roche.com> }
 \seealso{\code{\link{KEGGEdge-class}}, \code{\link{parseEntry}}}
 \keyword{ IO }

@@ -25,7 +25,7 @@ translateKEGGgraph(graph, newNodes)
 \value{
   Another graph indexed by the given identifier
 }
-\author{ Jitao David Zhang <j.zhang@dkfz.de> }
+\author{ Jitao David Zhang <jitao_david.zhang@roche.com> }
 \examples{
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")
 gR <- parseKGML2Graph(sfile,expandGenes=TRUE)

@@ -17,7 +17,7 @@ getRgraphvizEdgeNames(graph)
   A list of names, the order is determined by the edge order.
 }
 \references{ Rgraphviz package }
-\author{ Jitao David Zhang \url{maito:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{maito:jitao_david.zhang@roche.com} }
 \examples{
 tnodes <- c("Hamburg","Dortmund","Bremen", "Paris")
 tedges <- list("Hamburg"=c("Dortmund", "Bremen"),

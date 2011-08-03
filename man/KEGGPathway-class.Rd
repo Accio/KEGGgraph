@@ -49,7 +49,7 @@ Objects can be created by calls of the form \code{new("KEGGPathway",
 	 }
 }
 \references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 
 \seealso{\code{\link{parseKGML}},
   \code{\link{KEGGEdge-class}}, \code{\link{KEGGNode-class}},

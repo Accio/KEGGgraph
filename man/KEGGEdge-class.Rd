@@ -31,7 +31,7 @@ edge objects in a KEGG graph}
 	 }
 }
 \references{ KGML Manual \url{http://www.genome.jp/kegg/docs/xml/}}
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{
   \code{\link{KEGGNode-class}}
 }

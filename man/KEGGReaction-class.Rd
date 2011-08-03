@@ -43,7 +43,7 @@ Objects can be created by calls of the function \code{\link{parseReaction}}.
   }
 }
 \references{ KGML Document Manual \url{http://www.genome.jp/kegg/docs/xml/}}
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 ## We show how to extract reactions from a 'KEGGPathway' object
 mapfile <- system.file("extdata/map00260.xml", package="KEGGgraph")

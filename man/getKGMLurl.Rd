@@ -50,7 +50,7 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
 \value{
   KGML File URL of the given pathway.
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \note{ 
   So far the function does not check the correctness of the
   'organism' prefix, it is the responsibility of the user to garantee

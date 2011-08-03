@@ -32,7 +32,7 @@ mergeKEGGgraphs(list, edgemode = "directed")
 \value{
   A graph with nodeData and edgeData
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{ \code{\link{mergeGraphs}} }
 \examples{
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")

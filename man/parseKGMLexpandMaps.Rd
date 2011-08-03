@@ -43,5 +43,5 @@ parseKGMLexpandMaps(file, downloadmethod = "wget", genesOnly = TRUE, localdir,..
   A directed graph object
 }
 \references{KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/}}
-\author{ Jitao David Zhang \url{j.zhang@dkfz.de}}
+\author{ Jitao David Zhang \url{jitao_david.zhang@roche.com}}
 \seealso{ for most users it is enough to use \code{\link{parseKGML2Graph}} }

@@ -19,7 +19,7 @@ randomSubGraph(graph, per = 0.25, N = 10)
 \value{
   The function is called for its side effect, \code{NULL} is returned
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 tnodes <- c("Hamburg","Dortmund","Bremen", "Paris")
 tedges <- list("Hamburg"=c("Dortmund", "Bremen"),

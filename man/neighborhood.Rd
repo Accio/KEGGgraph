@@ -33,7 +33,7 @@ neighborhood(graph, index, return.self = FALSE)
 }
 \references{D.B. West. Introduction to Graph Theory, Second Edition.
   Prentice Hall, 2001}
-\author{ Jitao David Zhang <j.zhang@dkfz.de> }
+\author{ Jitao David Zhang <jitao_david.zhang@roche.com> }
 \examples{
   V <- c("Hamburg","Stuttgart","Berlin","Paris","Bremen")
   E <- list("Hamburg"=c("Berlin","Bremen"),

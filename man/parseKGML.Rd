@@ -19,7 +19,7 @@ parseKGML(file)
   An object of \code{\link{KEGGPathway-class}}.
 }
 \references{ KGML Manual \url{http://www.genome.jp/kegg/docs/xml/} }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{
   \code{\link{parseEntry}}, \code{\link{parseRelation}},
   \code{\link{parseReaction}}, \code{\link{KEGGPathway-class}},

@@ -16,4 +16,4 @@ parseSubType(subtype)
 \value{
   An object of \code{\link{KEGGEdgeSubType-class}}
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }

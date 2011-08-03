@@ -21,7 +21,7 @@ graphDensity(graph)
 }
 \references{ Aittokallio and Schwikowski (2006), Graph-based methods for
   analysing networks in cell biology, Briefings in Bioinformatics, 7, 243-255.}
-\author{ Jitao David Zhang \url{j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{jitao_david.zhang@roche.com} }
 \examples{
 tnodes <- c("Hamburg","Dortmund","Bremen", "Paris")
 tedges <- list("Hamburg"=c("Dortmund", "Bremen"),

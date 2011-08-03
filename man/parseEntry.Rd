@@ -22,7 +22,7 @@ parseEntry(entry)
   An object of \code{link{KEGGNode}} or (in case of a group node) \code{link{KEGGGroup}}
 }
 \references{\url{http://www.genome.jp/kegg/docs/xml/}}
-\author{ Jitao David Zhang <j.zhang@dkfz.de> }
+\author{ Jitao David Zhang <jitao_david.zhang@roche.com> }
 \seealso{ \code{\link{parseGraphics}}, \code{\link{parseKGML}},
   \code{\link{KEGGNode-class}}, \code{\link{KEGGGroup-class}} }
 \keyword{ IO }

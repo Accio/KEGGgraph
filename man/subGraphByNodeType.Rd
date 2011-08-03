@@ -19,7 +19,7 @@ subGraphByNodeType(graph, type = "gene", kegg=TRUE)
 \value{
   A subgraph of the original graph
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")
 sGraph <- parseKGML2Graph(sfile,expandGenes=TRUE, genesOnly=FALSE)

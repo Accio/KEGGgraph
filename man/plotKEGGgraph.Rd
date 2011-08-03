@@ -33,7 +33,7 @@ KEGGgraphLegend()
 \value{
   The graph after layout and rendering is returned.
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 opar <- par(ask=TRUE)
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")

@@ -25,7 +25,7 @@ mergeGraphs(list, edgemode = "directed")
 \value{
   A directed graph
 }
-\author{ Jitao David Zhang <j.zhang@dkfz.de> }
+\author{ Jitao David Zhang <jitao_david.zhang@roche.com> }
 \note{
     It is known that graphs from C.elegance pathways have
     problem when merging, because the nodes name are not consistent betweeen

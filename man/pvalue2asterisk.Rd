@@ -19,7 +19,7 @@ pvalue2asterisk(pvalues, sig.1 = FALSE)
 \value{
   A character string containing the signs
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 pvalue2asterisk(0.03)
 pvalue2asterisk(0.007)

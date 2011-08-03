@@ -26,7 +26,7 @@ Objects can be created by calls of the form \code{new("KEGGEdgeSubType", ...)}.
     \item{show}{\code{signature(object = "KEGGEdgeSubType")}: show method }
   }
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \note{
   Please note that 'KEGGEdgeSubtype' is a data frame storing subtype
   predefinitions, the 'type' with lowercases. 'KEGGEdgeSubType' is

@@ -25,7 +25,7 @@ kgmlFileName2PathwayName(filename)
 \value{
   A character string of pathway name
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 %\examples{
 %library(KEGG.db)
 %kgmlFileName2PathwayName("hsa04010.xml")

@@ -16,7 +16,7 @@ getNamedElement(vector, name)
 \value{
   The elements with the given name, 'NA' in case no one was found
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 vec <- c(first="Hamburg", second="Hoffenheim",third="Bremen")
 getNamedElement(vec, "third")

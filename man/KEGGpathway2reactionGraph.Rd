@@ -37,7 +37,7 @@ KEGGpathway2reactionGraph(pathway, uniqueReaction = TRUE)
   reactions as edges.
 }
 \references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{\code{\link{KEGGPathway-class}}}
 \examples{
 mapfile <-  system.file("extdata/map00260.xml",package="KEGGgraph")

@@ -19,7 +19,7 @@
     \item{object = "graph"}{ A KEGG graph object}
 }}
 \references{ KGML Document Manual \url{http://www.genome.jp/kegg/docs/xml/}}
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")
 pathway <- parseKGML(sfile)

@@ -30,7 +30,7 @@ KEGGpathway2Graph(pathway, genesOnly = TRUE, expandGenes = TRUE)
 \value{
   A directed graph.
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{ \code{\link{parseKGML2Graph}} }
 \examples{
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")

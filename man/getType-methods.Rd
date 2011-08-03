@@ -14,7 +14,7 @@
   the reference.
 }
 \references{ KGML Manual \url{http://www.genome.jp/kegg/docs/xml/}}
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \section{Methods}{
 \describe{
   \item{object = "KEGGEdge"}{ An object of \code{\link{KEGGEdge-class}} }

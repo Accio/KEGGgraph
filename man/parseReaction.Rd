@@ -20,5 +20,5 @@ parseReaction(reaction)
   An object of \code{\link{KEGGReaction-class}}
 }
 \references{ KGML Document Manual \url{http://www.genome.jp/kegg/docs/xml/}}
-\author{ Jitao David Zhang \url{mail:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mail:jitao_david.zhang@roche.com} }
 \keyword{IO}

@@ -36,7 +36,7 @@ Class \code{"\linkS4class{KEGGNode}"}, directly.
       components of the group, in a vector of strings}
   }
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{
   \code{\link{KEGGNode-class}}
 }

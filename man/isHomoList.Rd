@@ -17,7 +17,7 @@ isHomoList(list, class)
 \value{
   logical
 }
-\author{ Jitao David Zhang \url{mailto:j.zhang@dkfz.de} }
+\author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 testlist <- list("home1"="Hamburg","home2"="Heidelberg",
 "home3"="Tianjin")

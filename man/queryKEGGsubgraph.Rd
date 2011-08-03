@@ -32,7 +32,7 @@ queryKEGGsubgraph(geneids, graph, organism = "hsa", addmissing = FALSE)
 \value{
   A subgraph with nodes representing genes and edges representing interactions.
 }
-\author{ Jitao David Zhang <j.zhang@dkfz.de> }
+\author{ Jitao David Zhang <jitao_david.zhang@roche.com> }
 \seealso{ \code{\link{translateGeneID2KEGGID}} }
 \examples{
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")
