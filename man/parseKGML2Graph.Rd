@@ -16,6 +16,11 @@ parseKGML2Graph(file, ...)
   \item{\dots}{ other parameters passed to KEGGpathway2Graph, see
     \code{\link{KEGGpathway2Graph}} }
 }
+\details{
+  Note that groups of genes will be split into single genes by calling
+  the \code{\link{KEGGpathway2Graph}} function. Edges that connected to
+  groups will be duplicated to connect each member of the group.
+}
 \value{
   A graph object.
 }

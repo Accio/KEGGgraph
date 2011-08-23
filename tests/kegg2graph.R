@@ -10,6 +10,9 @@ stopifnot(numNodes(gR) == length(getKEGGnodeData(gR)))
 stopifnot(numEdges(gR) == length(getKEGGedgeData(gR)))
 show(gR)
 
+gdf <- parseKGML2DataFrame(sfile, expandGenes=TRUE)
+stopifnot(identical(colnames(gdf), c("from", "to", "subtype")))
+
 ## alternative parsing
 kegg.pathway <- parseKGML(sfile)
 show(kegg.pathway)

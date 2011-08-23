@@ -1,0 +1,29 @@
+citHeader("To cite package 'KEGGgraph' in publications please use:")
+
+if(!exists("meta") || is.null(meta)) meta <- packageDescription("KEGGgraph")
+
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("R package version", meta$Version)
+
+citEntry(entry = "Article",
+	title = "KEGGgraph: a graph approach to KEGG PATHWAY in R and Bioconductor",
+	author = personList(as.person("Jitao David Zhang"),
+			   as.person("Stefan Wiemann")	),
+	year=2009,
+	journal = "Bioinformatics",
+	volumn=25,
+	number=11,
+	pages="1470--1471",
+	textVersion=
+	paste("Jitao David Zhang and Stefan Wiemann (2009) ",
+	      "\\emph{KEGGgraph: a graph approach to KEGG PATHWAY in R and Bioconductor}. ",
+	      "Bioinformatics, 25(11):1470--1471", sep=""))
+
+citEntry(entry="Manual",
+	title="KEGGgraph: Application Examples",
+	author = personList(as.person("Jitao David Zhang")),
+	year = year,
+	note = vers,
+	textVersion = 
+	paste("Jitao David Zhang (", year, "). KEGGgraph: Application Examples", 
+	vers, ".", sep=""))

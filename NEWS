@@ -1,3 +1,9 @@
+2011-08-23
+KEGGgraph 1.9.1: Add parseKGML2DataFrame function. This function is table to convert the KGML file into a data frame recording nodes and edges in one step. For help use '?parseKGML2DataFrame' in R command line.
+
+2010-09-23
+KEGGgraph 1.9.0: Auto version bumping by Bioconductor updates
+
 2009-12-15
 KEGGgraph 1.3.2:'indirect' subtype has been renamed into 'indirect effect', KEGGEdgeSubtype.csv file makes modifications. Thanks Siyuan Zhang for reporting the bug.
 

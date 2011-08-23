@@ -203,6 +203,22 @@ parseKGML2Graph <- function(file, ...) {
   return(gR)
 }
 
+parseKGML2DataFrame <- function(file,...) {
+  gR <- parseKGML2Graph(file, ...)
+  
+  subtype <- sapply(getKEGGedgeData(gR),
+                    function(x) sapply(getSubtype(x), getName))
+  subtypeLen <- sapply(subtype,length)
+  ents <- strsplit(names(edgeData(gR)), "\\|")
+  ent1 <- rep(sapply(ents, "[[", 1), subtypeLen)
+  ent2 <- rep(sapply(ents, "[[", 2), subtypeLen)
+  tbl <- data.frame(from=ent1,
+                    to=ent2,
+                    subtype=unlist(subtype))
+  
+  return(tbl)
+}
+
 expandKEGGPathway <- function(pathway) {
   nodes.old <- nodes(pathway)
   edges.old <- edges(pathway)
