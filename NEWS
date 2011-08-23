@@ -1,4 +1,7 @@
 2011-08-23
+KEGGgraph 1.9.2: Update getKGMLurl and retrieveKGML to get KGML files from HTTP pages instead of from the FTP server, which is from July 2011 only open to subscribed users. The KEGG database needs support, and users of KEGGgraph could also support by subscribing to the FTP service.
+
+2011-08-23
 KEGGgraph 1.9.1: Add parseKGML2DataFrame function. This function is table to convert the KGML file into a data frame recording nodes and edges in one step. For help use '?parseKGML2DataFrame' in R command line.
 
 2010-09-23

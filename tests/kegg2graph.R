@@ -2,6 +2,19 @@ library(Rgraphviz)
 library(KEGGgraph)
 library(RBGL)
 
+## retrieve
+stopifnot(identical(getKGMLurl(c("00460", "hsa:00461", "path:hsa00453", "path:00453")),
+                    c("http://www.genome.jp/kegg-bin/download?entry=hsa00460&format=kgml",
+                      "http://www.genome.jp/kegg-bin/download?entry=hsa00461&format=kgml",
+                      "http://www.genome.jp/kegg-bin/download?entry=hsa00453&format=kgml",
+                      "http://www.genome.jp/kegg-bin/download?entry=hsa00453&format=kgml")))
+
+stopifnot(identical(getKGMLurl(c("00460", "mmu:00461", "path:rat00453", "path:00453"), organism=c("hsa", "mmu", "rat", "abc")),
+                    c("http://www.genome.jp/kegg-bin/download?entry=hsa00460&format=kgml",
+                      "http://www.genome.jp/kegg-bin/download?entry=mmu00461&format=kgml",
+                      "http://www.genome.jp/kegg-bin/download?entry=rat00453&format=kgml",
+                      "http://www.genome.jp/kegg-bin/download?entry=abc00453&format=kgml")))
+
 ## basic parsing
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")
 

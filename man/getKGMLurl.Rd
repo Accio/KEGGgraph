@@ -12,11 +12,6 @@
 
   retrieveKGML is a simple wrapper to getKGMLurl, which downloads the
   KGML file with \code{download.file} in utils package.
-
-  \code{kgmlNonmetabolicName2MetabolicName} is used to translate
-  non-metabolic pathway KGML URL to that of metabolic
-  pathway. \code{getCategoryIndepKGMLurl} determines the correct URL to
-  download by attempting both possibilities. They are mainly called internally.
 }
 \usage{
 getKGMLurl(pathwayid, organism = "hsa")
@@ -45,12 +40,21 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
   vignette for example.
   
   \code{retrieveKGML} calls \code{download.file} to download the KGML
-  file from KEGG FTP remotely. 
+  file from KEGG FTP remotely.
+  
+  Since July 2011 the KGML is downloaded directly from the HTTP main
+  page of each pathway, instead of from the FTP server. The FTP server
+  is only open to subscribers. Commercial and other users should
+  consider support the KEGG database by subscribing to the FTP
+  service. See the references section below.
 }
 \value{
   KGML File URL of the given pathway.
 }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
+\references{
+  Plea from KEGG (available as of Aug 2011) \url{http://www.genome.jp/kegg/docs/plea.html}
+}
 \note{ 
   So far the function does not check the correctness of the
   'organism' prefix, it is the responsibility of the user to garantee
@@ -63,15 +67,26 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
   execution file is located) and re-install R to make
   \code{wget} work.
 
-  Some user may face difficulty
+  Some user may experience difficulty
   of retrieving KGML files when the download method is set to
   \sQuote{auto}. In this case setting the method to \sQuote{wget} may
   solve the problem (thanks to the report by Gilbert Feng).
+
+  There were a period when the metabolic and non-metabolic pathways were
+  saved separately in different directories, and \code{KEGGgraph} was
+  able to handle them. \code{kgmlNonmetabolicName2MetabolicName} is used to translate
+  non-metabolic pathway KGML URL to that of metabolic
+  pathway. \code{getCategoryIndepKGMLurl} determines the correct URL to
+  download by attempting both possibilities. They were mainly called
+  internally. Now since the KGML file is to be downloaded in each
+  pathway's main page instead from the FTp server, these functions are
+  no more needed and will be removed in the next release.
 }
 \examples{
 getKGMLurl("hsa00020")
 getKGMLurl("path:hsa00020")
 getKGMLurl("00020",organism="hsa")
+getKGMLurl(c("00460", "hsa:00461", "path:hsa00453", "path:00453"))
 
 ## NOT RUN
 tmp <- tempfile()
