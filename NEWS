@@ -1,3 +1,6 @@
+2011-12-14
+KEGGgraph 1.11.1: The colorectalcancerSPIA dataset has been compressed with R CMD build --resave-data
+
 2011-08-23
 KEGGgraph 1.9.2: Update getKGMLurl and retrieveKGML to get KGML files from HTTP pages instead of from the FTP server, which is from July 2011 only open to subscribed users. The KEGG database needs support, and users of KEGGgraph could also support by subscribing to the FTP service.
 
