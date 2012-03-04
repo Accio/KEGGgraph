@@ -417,7 +417,7 @@ parseKGMLexpandMaps <- function(file, downloadmethod="wget",genesOnly=TRUE, loca
   mapfound <- c()
   
   if(!missing(localdir)) {
-    localfiles <- dir(localdir, full.name=TRUE)
+    localfiles <- dir(localdir, full.names=TRUE)
     mapfound <- match(basename(mapfiles), basename(localfiles))
     needdown <- mapfiles[is.na(mapfound)]
     tmps <- sapply(needdown, function(x) tempfile())
