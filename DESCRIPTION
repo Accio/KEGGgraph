@@ -13,4 +13,5 @@ Imports: methods, XML, graph
 Suggests: Rgraphviz, RBGL, RUnit, RColorBrewer, KEGG.db, org.Hs.eg.db, hgu133plus2.db, SPIA
 Collate: kegg2graph-functions.R parse.R annotation.R graph.R kgmlfile.R misc.R vis.R
 URL: http://www.nextbiomotif.com
-biocViews: Pathways, GraphsAndNetworks
+biocViews: Pathways, GraphsAndNetworks, NetworkVisualization
+
