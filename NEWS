@@ -1,5 +1,7 @@
 2013-10-08
 KEGGgraph 1.18.0: Changes in KEGGpathway2reactionGraph allows user to merge reaction graphs like pathway graphs
+KEGGgraph 1.18.1: parseKGML2DataFrame accepts the option 'reactions' to include reactions in the parsed data.frame
+KEGGgraph 1.18.1: KEGGpathway2reactionGraph prints warnings and returns NULL when the pathway does not contain any reaction
 
 2011-12-14
 KEGGgraph 1.11.1: The colorectalcancerSPIA dataset has been compressed with R CMD build --resave-data

@@ -10,10 +10,12 @@
   in plain text files.
 }
 \usage{
-parseKGML2DataFrame(file, ...)
+parseKGML2DataFrame(file, reactions=FALSE,...)
 }
 \arguments{
   \item{file}{A KGML file}
+  \item{reactions}{Logical, whether metabolic reactions should be parsed
+  and returned as part of the data frame. Default:\code{FALSE}}
   \item{\dots}{Other parameters passed to \code{\link{KEGGpathway2Graph}}}
 }
 \details{The out- and in-nodes are represented in the form of KEGG
@@ -35,6 +37,11 @@ sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")
 gdf <- parseKGML2DataFrame(sfile)
 head(gdf)
 dim(gdf)
+
+rfile <- system.file("extdata/hsa00020.xml",package="KEGGgraph")
+dim(dfWr <- parseKGML2DataFrame(rfile, reactions=TRUE))
+dim(dfWOr <- parseKGML2DataFrame(rfile, reactions=FALSE))
+stopifnot(nrow(dfWr)>nrow(dfWOr))
 
 ## not expanding genes: only the KGML-specific identifiers are used then
 ## only for expert use

@@ -203,11 +203,21 @@ parseKGML2Graph <- function(file, ...) {
   return(gR)
 }
 
-parseKGML2DataFrame <- function(file,...) {
-  gR <- parseKGML2Graph(file, ...)
+parseKGML2DataFrame <- function(file,reactions=FALSE,...) {
+  pathway <- parseKGML(file)
+  gR <- KEGGpathway2Graph(pathway, ...)
+  if(reactions) {
+    gRE <- KEGGpathway2reactionGraph(pathway)
+    if(!is.null(gRE))
+      gR <- mergeKEGGgraphs(list(gR, gRE))
+  }
   
   subtype <- sapply(getKEGGedgeData(gR),
-                    function(x) sapply(getSubtype(x), getName))
+                    function(x) {
+                      st <- getSubtype(x)
+                      if(length(st)==0) return(NA)
+                      sapply(getSubtype(x), getName)
+                    })
   subtypeLen <- sapply(subtype,length)
   ents <- strsplit(names(edgeData(gR)), "\\|")
   ent1 <- rep(sapply(ents, "[[", 1), subtypeLen)
@@ -384,7 +394,8 @@ KEGGpathway2Graph <- function(pathway, genesOnly=TRUE, expandGenes=TRUE) {
 KEGGpathway2reactionGraph <- function(pathway) {
   reactions <- getReactions(pathway)
   if(length(reactions)==0) {
-    stop("The pathway contains no chemical reactions!\n")
+    warning("The pathway contains no chemical reactions!\n")
+    return(NULL)
   }
 
   subs <- sapply(reactions, getSubstrate)

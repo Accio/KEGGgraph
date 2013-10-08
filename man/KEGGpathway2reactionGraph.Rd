@@ -35,8 +35,10 @@ KEGGpathway2reactionGraph(pathway)
   graph in one KGML file into a single graph.
 }
 \value{
-  A directed graph with compounds as nodes and
-  reactions as edges.
+  A directed graph with compounds as nodes and reactions as edges.
+
+  If the pathway does not contain any chemical reactions, a warning
+  message will be printed and \code{NULL} is returned.
 }
 \references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
