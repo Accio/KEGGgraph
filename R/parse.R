@@ -381,7 +381,7 @@ KEGGpathway2Graph <- function(pathway, genesOnly=TRUE, expandGenes=TRUE) {
   return(gR)
 }
 
-KEGGpathway2reactionGraph <- function(pathway, uniqueReaction=TRUE) {
+KEGGpathway2reactionGraph <- function(pathway) {
   reactions <- getReactions(pathway)
   if(length(reactions)==0) {
     stop("The pathway contains no chemical reactions!\n")

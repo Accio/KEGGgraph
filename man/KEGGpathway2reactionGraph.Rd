@@ -12,14 +12,11 @@
   convert the chemical compound reaction network into directed graph.
 }
 \usage{
-KEGGpathway2reactionGraph(pathway, uniqueReaction = TRUE)
+KEGGpathway2reactionGraph(pathway)
 }
 \arguments{
   \item{pathway}{A \code{\link{KEGGPathway-class}} object, usually as the
   result of the function \code{\link{parseKGML}}}
-  \item{uniqueReaction}{logical, to indicate whether several chemical
-  reactions (identified by different KEGG reaction ID) should be treated
-  as one (TRUE) or many (FALSE)}
 }
 \details{
   The direction of the graph is specified by the role of the compound in
@@ -47,7 +44,7 @@ KEGGpathway2reactionGraph(pathway, uniqueReaction = TRUE)
 \examples{
 mapfile <-  system.file("extdata/map00260.xml",package="KEGGgraph")
 map <- parseKGML(mapfile)
-cg <- KEGGpathway2reactionGraph(map, uniqueReaction=FALSE)
+cg <- KEGGpathway2reactionGraph(map)
 cg
 nodes(cg)[1:3]
 edges(cg)[1:3]
