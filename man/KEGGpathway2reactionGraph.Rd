@@ -31,6 +31,11 @@ KEGGpathway2reactionGraph(pathway, uniqueReaction = TRUE)
   confuse users with two similar functions to parse the file into a
   graph (since we assume that most users will need the protein graph,
   which can be conveniently parsed by \code{\link{parseKGML2Graph}}).
+
+  From version 1.18.0, reaction graphs returned by
+  \code{KEGGpathway2reactionGraph} can be merged with other reaction
+  graphs or pathway graphs.Thus users can combine pathway and reaction
+  graph in one KGML file into a single graph.
 }
 \value{
   A directed graph with compounds as nodes and

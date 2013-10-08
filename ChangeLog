@@ -1,3 +1,7 @@
+2013-10-08 07:59  zhang
+
+	* R/parse.R: reaction graphs can now be merged
+	
 2008-10-27 07:18  zhang
 
 	* inst/doc/KEGGgraph.Rnw: rbcc in MAPK example implemented

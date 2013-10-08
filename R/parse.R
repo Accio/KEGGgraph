@@ -387,23 +387,46 @@ KEGGpathway2reactionGraph <- function(pathway, uniqueReaction=TRUE) {
     stop("The pathway contains no chemical reactions!\n")
   }
 
-  substrates <- sapply(reactions, getSubstrate)
-  products <- sapply(reactions, getProduct)
-  nodes <- unique(unlist(c(substrates, products)))
+  subs <- sapply(reactions, getSubstrate)
+  prods <- sapply(reactions, getProduct)
+  types <- sapply(reactions, getType)
+  gridlist <- lapply(seq(along=reactions),
+                       function(i)
+                       expand.grid(subs[[i]], prods[[i]], stringsAsFactors=FALSE))
+  grid <- as.matrix(do.call(rbind, gridlist))
+  isRepGrid <- duplicated(grid)
+  uniqGrid <- grid[!isRepGrid,,drop=FALSE]
+  gridTypes <- rep(types, sapply(gridlist, nrow))
+  uniqGridTypes <- gridTypes[!isRepGrid]
+  
+  cg <- ftM2graphNEL(uniqGrid)
+  allNodes <- nodes(pathway)
+  allNodeNames <- sapply(allNodes, function(x) paste(getName(x), collapse=","))
+  cgNodes <- allNodes[match(nodes(cg), allNodeNames)]
+  
+  cgEdges <- sapply(1:nrow(uniqGrid),
+                    function(x)
+                    new("KEGGEdge",
+                        entry1ID=uniqGrid[x,1],
+                        entry2ID=uniqGrid[x,2],
+                        type=uniqGridTypes[x],
+                        subtype=list()))
+  
 
-  ## Build adj matrix: since there are one-many, many-one or many-to-many relation between substrate/product
-  mat <- matrix(0, nrow=length(nodes), ncol=length(nodes), dimnames=list(nodes, nodes))
-  for(i in seq(substrates)) {
-    subs <- substrates[[i]]
-    pros <- products[[i]]
-    if(uniqueReaction) {
-      pros <- unique(pros)
-    }
-    mat[subs, pros] <- mat[subs, pros] + 1
-  }
 
-  cg <- as(mat, "graphNEL")
+  ## set node and edge data - as KEGGNode and KEGGEdge
+  ## attention: KEGGEdges may be more than graph edges, due to non-genes
+  names(cgEdges) <- apply(uniqGrid,1L, paste, collapse="~")
 
+  env.node <- new.env()
+  env.edge <- new.env()
+  assign("nodes", cgNodes, envir=env.node)
+  assign("edges", cgEdges, envir=env.edge)
+  
+  nodeDataDefaults(cg, "KEGGNode") <- env.node
+  edgeDataDefaults(cg, "KEGGEdge") <- env.edge
+
+  
   return(cg)
 }
 
