@@ -39,3 +39,26 @@ test_mergeKEGGgraphs <- function()
 
 } # test_mergeKEGGgraphs
 #-------------------------------------------------------------------------------
+# hoping to get a data.frame with all nodes (genes, compounds, pathways,
+# metabolites) and all reactions, relations and # interactions, from membership
+# in compounds, to catalysis, substrate and product relations, to activations:
+# the full kegg # pathway without anything left out
+# maybe this is all provided with the new version, but right now the function
+# fails with the error noted below.
+#
+test_parseKGML2DataFrame <- function()
+{
+    print("test_parseKGML2DataFrame")
+
+    dir <- tempdir()
+    filename <- file.path(dir, "hsa00020.kgml")
+    retrieveKGML("00020", organism="hsa", destfile=filename.2, method = "internal")
+    pathway <- parseKGML(filename)
+    #tbl <- parseKGML2DataFrame(filename, genesOnly=FALSE)
+       # produces this error:
+       # Error in rep(sapply(ents, "[[", 1), subtypeLen) : 
+       #  invalid 'times' argument
+
+          
+} # test_parseKGML2DataFrame
+#-------------------------------------------------------------------------------
