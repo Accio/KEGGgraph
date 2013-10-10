@@ -4,17 +4,13 @@
 library(KEGGgraph)
 library(RUnit)
 #-------------------------------------------------------------------------------
-# this test demonstrates the difficult encountered by Stuart Bradley
-# in which mergeGraphs works with two reaction graphs, but mergeKEGGgraphs
-# does not.
-# i think the underlying problem is that  mergeKEGGgraphs (in KEGGgraph/R/graph.R)
+# this test verifies the successful remedy of the difficulty encountered by
+# Stuart Bradley, in which mergeGraphs works with two reaction graphs, but
+@ mergeKEGGgraphs # does not.
+# the underlying problem appears to be  mergeKEGGgraphs (in KEGGgraph/R/graph.R)
 # requires that there be an edge attribute "KEGGEdge" and a node attribute
-# "KEGGNode", and  fails with the error you saw.
+# "KEGGNode", and fails when those are not found
 #    
-#    So the reaction graph does not have the two attributes required by
-#    mergeKEGGgraphs.  I am not sure whether this is by design, or
-#    whether it is an oversight.
-#
 test_mergeKEGGgraphs <- function()
 {
     dir <- tempdir()
@@ -26,16 +22,20 @@ test_mergeKEGGgraphs <- function()
     pathway.260 <- parseKGML(filename.1)
     pathway.020 <- parseKGML(filename.2)
 
-    g.reaction.1 <- KEGGpathway2reactionGraph(pathway.260, uniqueReaction = FALSE)
-    g.reaction.2 <- KEGGpathway2reactionGraph(pathway.020, uniqueReaction = FALSE)
+    g.reaction.1 <- KEGGpathway2reactionGraph(pathway.260)
+    g.reaction.2 <- KEGGpathway2reactionGraph(pathway.020)
 
     checkTrue(!is.null(names(nodeDataDefaults(g.reaction.1))))
     checkTrue(!is.null(names(nodeDataDefaults(g.reaction.2))))
               
-    names(nodeDataDefaults(g.reaction.2))   # NULL
+    checkTrue("KEGGNode" %in% names(nodeDataDefaults(g.reaction.1)))
+    checkTrue("KEGGEdge" %in% names(edgeDataDefaults(g.reaction.1)))
+    checkTrue("KEGGNode" %in% names(nodeDataDefaults(g.reaction.2)))
+    checkTrue("KEGGEdge" %in% names(edgeDataDefaults(g.reaction.2)))
 
     g.m1 <- mergeGraphs(list(g.reaction.1, g.reaction.2))
     g.m2 <- mergeKEGGgraphs(list(g.reaction.1, g.reaction.2))
+    checkEquals(sort(nodes(g.m1)), sort(nodes(g.m2)))
 
 } # test_mergeKEGGgraphs
 #-------------------------------------------------------------------------------
