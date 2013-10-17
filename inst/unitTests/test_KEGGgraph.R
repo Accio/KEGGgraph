@@ -35,7 +35,9 @@ test_mergeKEGGgraphs <- function()
 
     g.m1 <- mergeGraphs(list(g.reaction.1, g.reaction.2))
     g.m2 <- mergeKEGGgraphs(list(g.reaction.1, g.reaction.2))
+    g.m3 <- mergeKEGGgraphs(list(g.reaction.1, g.reaction.2, NULL))
     checkEquals(sort(nodes(g.m1)), sort(nodes(g.m2)))
+    checkEquals(sort(nodes(g.m1)), sort(nodes(g.m3)))
 
 } # test_mergeKEGGgraphs
 #-------------------------------------------------------------------------------
@@ -52,12 +54,9 @@ test_parseKGML2DataFrame <- function()
 
     dir <- tempdir()
     filename <- file.path(dir, "hsa00020.kgml")
-    retrieveKGML("00020", organism="hsa", destfile=filename.2, method = "internal")
+    retrieveKGML("00020", organism="hsa", destfile=filename, method = "internal")
     pathway <- parseKGML(filename)
-    #tbl <- parseKGML2DataFrame(filename, genesOnly=FALSE)
-       # produces this error:
-       # Error in rep(sapply(ents, "[[", 1), subtypeLen) : 
-       #  invalid 'times' argument
+    tbl <- parseKGML2DataFrame(filename, genesOnly=FALSE)
 
           
 } # test_parseKGML2DataFrame
