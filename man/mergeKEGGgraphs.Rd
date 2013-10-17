@@ -29,6 +29,9 @@ mergeKEGGgraphs(list, edgemode = "directed")
   graphs, then it also merges the KEGGnodeData and KEGGedgeData.so that
   they are one-to-one mapped to the nodes and edges in the merged graph.
 }
+\note{
+  From version 1.21.1, lists containing NULL should also work.
+}
 \value{
   A graph with nodeData and edgeData
 }
@@ -45,5 +48,9 @@ graphlist <- list(mapkG=gR, wntG=wntR)
 mergedKEGG <- mergeKEGGgraphs(graphlist)
 
 mergedKEGG
+
+## list containing NULL works also
+nlist <- list(gR, wntR, NULL)
+nmergedKEGG <- mergeKEGGgraphs(nlist)
 }
 
