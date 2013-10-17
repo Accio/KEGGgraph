@@ -208,8 +208,7 @@ parseKGML2DataFrame <- function(file,reactions=FALSE,...) {
   gR <- KEGGpathway2Graph(pathway, ...)
   if(reactions) {
     gRE <- KEGGpathway2reactionGraph(pathway)
-    if(!is.null(gRE))
-      gR <- mergeKEGGgraphs(list(gR, gRE))
+    gR <- mergeKEGGgraphs(list(gR, gRE))
   }
   
   subtype <- sapply(getKEGGedgeData(gR),
@@ -338,13 +337,13 @@ KEGGpathway2Graph <- function(pathway, genesOnly=TRUE, expandGenes=TRUE) {
   stopifnot(is(pathway, "KEGGPathway"))
 
   pathway <- splitKEGGgroup(pathway)
-  
+
   if(expandGenes) {
     pathway <- expandKEGGPathway(pathway)
   }
   
   knodes <- nodes(pathway)
-  kedges <- edges(pathway)
+  kedges <- unique(edges(pathway)) ## to avoid duplicated edges
 
   node.entryIDs <- getEntryID(knodes)
   edge.entryIDs <- getEntryID(kedges)
@@ -365,7 +364,7 @@ KEGGpathway2Graph <- function(pathway, genesOnly=TRUE, expandGenes=TRUE) {
       if(!any(hasRelation)) {
         edL[[i]] <- list(edges=NULL)
       } else {
-        entry2 <- unname(unique(edge.entryIDs[hasRelation, "Entry2ID"]))
+        entry2 <- unname(edge.entryIDs[hasRelation, "Entry2ID"])
         edL[[i]] <- list(edges=entry2)
       }
     }
