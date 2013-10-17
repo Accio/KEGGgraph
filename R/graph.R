@@ -37,7 +37,18 @@ mergeGraphs <- function(list, edgemode="directed") {
 }
 
 mergeKEGGgraphs <- function(list, edgemode="directed") {
+  ## remove NULL objs
+  list <- list[!sapply(list, is.null)]
+  
+  if(length(list)==0) {
+    warning("All items in the input list are NULL")
+    return(NULL)
+  } else if (length(list)==1) {
+    return(list[[1]])
+  }
+  
   g <- mergeGraphs(list, edgemode=edgemode)
+
 
   keggnodes <- unlist(sapply(list, function(x) get("nodes", nodeDataDefaults(x, "KEGGNode"))))
   keggedges <- unlist(sapply(list, function(x) get("edges", edgeDataDefaults(x, "KEGGEdge"))))
