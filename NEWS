@@ -1,3 +1,17 @@
+Changes in version 1.21.1 (2013-10-17)
+Bug fixes
++ mergeKEGGgraph can handle NULL objects now
++ KEGGpathway2Graph eliminates duplicated edges so that parseKGML2DataFrame does not fail. (Thanks to Paul Shannon's bug report)
+
+Unit test
++ Paul Shannon added a set of RUnit tests to KEGGgraph
+
+
+
+##----------------------------------------##
+		Old NEWS
+##----------------------------------------##
+
 2013-10-09
 KEGGgraph 1.19.0: Thanks to Martin Morgan's suggestion, the devel version of the KEGGgraph package uses an odd second-number version (1.19.0)
 
