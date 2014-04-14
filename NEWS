@@ -1,71 +1,117 @@
-Changes in version 1.21.1 (2013-10-17)
-Bug fixes
-+ mergeKEGGgraph can handle NULL objects now
-+ KEGGpathway2Graph eliminates duplicated edges so that parseKGML2DataFrame does not fail. (Thanks to Paul Shannon's bug report)
+CHANGES IN VERSION 1.21.1 (2013-10-17)
+--------------------------------------
 
-Unit test
-+ Paul Shannon added a set of RUnit tests to KEGGgraph
+BUG FIXES
+
+    o mergeKEGGgraph can handle NULL objects now
+    o KEGGpathway2Graph eliminates duplicated edges so that parseKGML2DataFrame does not fail. (Thanks to Paul Shannon's bug report)
+    o Paul Shannon added a set of RUnit tests to KEGGgraph
 
 
 
-##----------------------------------------##
-		Old NEWS
-##----------------------------------------##
+CHANGES IN VERSION 1.19.0
+-------------------------
 
-2013-10-09
-KEGGgraph 1.19.0: Thanks to Martin Morgan's suggestion, the devel version of the KEGGgraph package uses an odd second-number version (1.19.0)
+    o Thanks to Martin Morgan's suggestion, the devel version of the KEGGgraph package uses an odd second-number version (1.19.0)
 
-2013-10-08
-KEGGgraph 1.18.0: Changes in KEGGpathway2reactionGraph allows user to merge reaction graphs like pathway graphs
-KEGGgraph 1.18.1: parseKGML2DataFrame accepts the option 'reactions' to include reactions in the parsed data.frame
-KEGGgraph 1.18.1: KEGGpathway2reactionGraph prints warnings and returns NULL when the pathway does not contain any reaction
 
-2011-12-14
-KEGGgraph 1.11.1: The colorectalcancerSPIA dataset has been compressed with R CMD build --resave-data
+CHANGES IN VERSION 1.18.0
+-------------------------
 
-2011-08-23
-KEGGgraph 1.9.2: Update getKGMLurl and retrieveKGML to get KGML files from HTTP pages instead of from the FTP server, which is from July 2011 only open to subscribed users. The KEGG database needs support, and users of KEGGgraph could also support by subscribing to the FTP service.
+    o Changes in KEGGpathway2reactionGraph allows user to merge reaction graphs like pathway graphs
 
-2011-08-23
-KEGGgraph 1.9.1: Add parseKGML2DataFrame function. This function is table to convert the KGML file into a data frame recording nodes and edges in one step. For help use '?parseKGML2DataFrame' in R command line.
+CHANGES IN VERSION 1.18.1
+--------------------------
 
-2010-09-23
-KEGGgraph 1.9.0: Auto version bumping by Bioconductor updates
+    o parseKGML2DataFrame accepts the option 'reactions' to include reactions in the parsed data.frame
 
-2009-12-15
-KEGGgraph 1.3.2:'indirect' subtype has been renamed into 'indirect effect', KEGGEdgeSubtype.csv file makes modifications. Thanks Siyuan Zhang for reporting the bug.
+CHANGES IN VERSION 1.18.1
+-------------------------
 
-2009-11-23
-KEGGgraph 1.3.1:KEGG FTP server is again changed, from 'ftp://ftp.genome.jp/pub/kegg/xml/kgml/non_metabolic/organisms' to 'ftp://ftp.genome.jp/pub/kegg/xml/kgml/non-metabolic/organisms'. Note the minus and underscore. Thanks Tim Fraser and Marc Carlson for reporting.
+    o KEGGpathway2reactionGraph prints warnings and returns NULL when the pathway does not contain any reaction
 
-2009-10-18
-KEGGgraph 1.1.13: Add Makefile to facilitate the check/install, and the try-download mechanism of retrieveKGML is documented in the vignette.
-2009-10-01
-KEGGgraph 1.1.12: Update due to the change of FTP sites of KEGG website.Now pathways are stored separatedly depending whether they are metabolic pathways or not. KEGGgraph is now able to automatically download files.
+CHANGES IN VERSION 1.11.1
+-------------------------
 
-2009-06-28
-KEGGgraph 1.1.9: KEGGgraph software supports multiple substrates/products in KGML reaction from version 1.1.9. Earlier versions only read the first pair. Code name 'Kitty', thanking report from Plaimas Kitiporn, DKFZ.
+    o The colorectalcancerSPIA dataset has been compressed with R CMD build --resave-data
 
-2009-04-27
-KEGGgraph 1.1.1: Improved render of KEGG pathway graphs with new interface of Rgraphviz, nodeRenderInfo parameter renamed into nodeRenderInfos to avoid conflict
+CHANGES IN VERSION 1.9.2
+------------------------
 
-2008-12-11
-KEGGgraph 0.8.6: 'KEGGpathway2reactionGraph' added to parse compound reaction network into graph. Documentationss updated
+    o Update getKGMLurl and retrieveKGML to get KGML files from HTTP pages instead of from the FTP server, which is from July 2011 only open to subscribed users. The KEGG database needs support, and users of KEGGgraph could also support by subscribing to the FTP service.
 
-2008-12-11
-KEGGgraph 0.8.5: Help pages updated with detailed examples, 'getReactions' series of functions are tested.
+CHANGES IN VERSION 1.9.1
 
-2008-10-28
-KEGGgraph 0.8.4: 'group' entries (complexes in most cases) are also parsed and expanded by default now.
+    o Add parseKGML2DataFrame function. This function is table to convert the KGML file into a data frame recording nodes and edges in one step. For help use '?parseKGML2DataFrame' in R command line.
 
-2008-10-28
-KEGGgraph 0.8.3: 'Collate' field added in DESCRIPTION file
+CHANGES IN VERSION 1.9.0
+-------------------------
 
-2008-10-27
-KEGGgraph 0.8.2: 'mergeKEGGgraph' function added to keep KEGGnodeData and KEGGedgeData even after merging graphs
+    o Auto version bumping by Bioconductor updates
 
-2008-10-27
-KEGGgraph 0.8.1: 'subKEGGgraph' function added to maintain KEGGnodeData and KEGGedgeData even after subsetting graphs
+CHANGES IN VERSION 1.3.2
+------------------------
 
-2008-10-24
-KEGGgraph 0.8.0: Initial release of 'KEGGgraph' package
+    o'indirect' subtype has been renamed into 'indirect effect', KEGGEdgeSubtype.csv file makes modifications. Thanks Siyuan Zhang for reporting the bug.
+
+CHANGES IN VERSION 1.3.1
+-------------------------
+
+    o KEGG FTP server is again changed, from 'ftp://ftp.genome.jp/pub/kegg/xml/kgml/non_metabolic/organisms' to 'ftp://ftp.genome.jp/pub/kegg/xml/kgml/non-metabolic/organisms'. Note the minus and underscore. Thanks Tim Fraser and Marc Carlson for reporting.
+
+CHANGES IN VERSION 1.1.13
+-------------------------
+
+    o Add Makefile to facilitate the check/install, and the try-download mechanism of retrieveKGML is documented in the vignette.
+
+CHANGES IN VERSION 1.1.12
+-------------------------
+
+    o Update due to the change of FTP sites of KEGG website.
+    Now pathways are stored separatedly depending whether they are metabolic pathways or not. KEGGgraph is now able to automatically download files.
+
+CHANGES IN VERSION 1.1.9
+------------------------
+
+    o KEGGgraph software supports multiple substrates/products in KGML reaction from version 1.1.9. Earlier versions only read the first pair. Code name 'Kitty', thanking report from Plaimas Kitiporn, DKFZ.
+
+CHANGES IN VERSION 1.1.1
+------------------------
+
+    o Improved render of KEGG pathway graphs with new interface of Rgraphviz, nodeRenderInfo parameter renamed into nodeRenderInfos to avoid conflict
+
+CHANGES IN VERSION 0.8.6
+------------------------
+
+    o 'KEGGpathway2reactionGraph' added to parse compound reaction network into graph. Documentationss updated
+
+CHANGES IN VERSION 0.8.5
+------------------------
+
+    o Help pages updated with detailed examples, 'getReactions' series of functions are tested.
+
+
+CHANGES IN VERSION 0.8.4
+------------------------
+
+    o 'group' entries (complexes in most cases) are also parsed and expanded by default now.
+
+CHANGES IN VERSION 0.8.3
+------------------------
+
+    o 'Collate' field added in DESCRIPTION file
+
+CHANGES IN VERSION 0.8.2
+------------------------
+
+    o 'mergeKEGGgraph' function added to keep KEGGnodeData and KEGGedgeData even after merging graphs
+
+CHANGES IN VERSION 0.8.1
+------------------------
+
+    o 'subKEGGgraph' function added to maintain KEGGnodeData and KEGGedgeData even after subsetting graphs
+
+CHANGES IN VERSION 0.8.0
+------------------------
+
+o Initial release of 'KEGGgraph' package
