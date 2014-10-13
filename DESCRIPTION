@@ -2,7 +2,7 @@ Package: KEGGgraph
 Type: Package
 Title: KEGGgraph: A graph approach to KEGG PATHWAY in R and
         Bioconductor
-Version: 1.24.0
+Version: 1.25.0
 Date: 2013-10-10
 Author: Jitao David Zhang, with inputs from Paul Shannon
 Maintainer: Jitao David Zhang <jitao_david.zhang@roche.com>
