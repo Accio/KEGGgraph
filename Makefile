@@ -1,9 +1,9 @@
 ################################################################################
 ##
 ##  Makefile
-##  Created on: Oct 18, 2009
-##      Author: Jitao David Zhang
-##      Description: internal makefile for building distributions etc.
+##      Author: Jitao David Zhang <jitao_david.zhang@roche.com>
+##	BEDA TRS, pRED, Hoffmann-La Roche AG
+##      Description: Makefile for building distributions etc.
 ##                   the Makefile provides the following targets:
 ##                   
 ##                   - make install  calls R CMD INSTALL
@@ -11,14 +11,14 @@
 ##                   - make dist     calls R CMD build
 ##
 ################################################################################
+## conditional: choose R version depending on the BICOSN value
+R=R
+PKG=`awk 'BEGIN{FS=":"}{if ($$1=="Package") {gsub(/ /, "",$$2);print $$2}}' DESCRIPTION`
+PKG_VERSION=`awk 'BEGIN{FS=":"}{if ($$1=="Version") {gsub(/ /, "",$$2);print $$2}}' DESCRIPTION`
 
-R=R-devel
-PKG          := KEGGgraph
-PKG_VERSION  := 1.1.13
 
-PKG_ROOT_DIR := $(shell pwd)
-PKG_DIST_ROOT_DIR := ../$(PKG).tmp
-PKG_HIDDEN_FILES  := Makefile 
+PKG_ROOT_DIR=`pwd`
+PKG_SRC_DIR=$(PKG_ROOT_DIR)/src
 
 install: 
 	@echo '====== Installing Package ======'
@@ -26,20 +26,21 @@ install:
 	@echo '====== Installing finished ======'
 	@echo ' '
 
-check:	
+check:	dist
 	@echo '====== Checking Package ======'
-	@(export R_DEVELOP_MODE=TRUE; cd ..; ${R} CMD check $(PKG))
+	@(cd ..; ${R} CMD check ${PKG}_${PKG_VERSION}.tar.gz)
 	@echo '====== Checking finished ======'
 	@echo ' '
 
-dist:	
+dist:	clean
 	@echo '====== Building Distribution ======'
-	cp -rp $(PKG_ROOT_DIR) $(PKG_DIST_ROOT_DIR)
-	@(cd ..; $(RM) -r $(PKG_HIDDEN_FILES); R CMD build $(PKG))
-	$(RM) -r $(PKG_DIST_ROOT_DIR)
+	@(cd ..; ${R} CMD build $(PKG))
 	@echo '====== Building finished ======'
 	@echo ' '
-	@echo '====== Checking Package ======'
-	@(export R_DEVELOP_MODE=TRUE; cd ..; ${R} CMD check $(PKG)_$(PKG_VERSION).tar.gz)
-	@echo '====== Checking finished  ======'
+
+clean:
+	@echo '====== Cleaning Package ======'
+	@(rm -f $(PKG_SRC_DIR)/*.o $(PKG_SRC_DIR)/*.so)
+	@(find . -type f -name "*~" -exec rm '{}' \;)
+	@(find . -type f -name ".Rhistory" -exec rm '{}' \;)
 	@echo ' '
