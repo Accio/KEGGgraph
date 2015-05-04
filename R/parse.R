@@ -364,7 +364,7 @@ KEGGpathway2Graph <- function(pathway, genesOnly=TRUE, expandGenes=TRUE) {
       if(!any(hasRelation)) {
         edL[[i]] <- list(edges=NULL)
       } else {
-        entry2 <- unname(edge.entryIDs[hasRelation, "Entry2ID"])
+        entry2 <- unique(unname(edge.entryIDs[hasRelation, "Entry2ID"]))
         edL[[i]] <- list(edges=entry2)
       }
     }
