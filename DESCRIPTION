@@ -2,8 +2,8 @@ Package: KEGGgraph
 Type: Package
 Title: KEGGgraph: A graph approach to KEGG PATHWAY in R and
         Bioconductor
-Version: 1.27.1
-Date: 2015-05-04
+Version: 1.27.2
+Date: 2015-05-25
 Author: Jitao David Zhang, with inputs from Paul Shannon
 Maintainer: Jitao David Zhang <jitao_david.zhang@roche.com>
 Description: KEGGGraph is an interface between KEGG pathway and graph
@@ -14,8 +14,8 @@ Description: KEGGGraph is an interface between KEGG pathway and graph
         including parsing, graph operation, visualization and etc.
 License: GPL (>= 2)
 LazyLoad: yes
-Depends: R (>= 2.10), methods, XML (>= 2.3-0), graph
-Imports: methods, XML, graph
+Depedence: R (>=2.10)
+Imports: methods, XML (>= 2.3-0), graph
 Suggests: Rgraphviz, RBGL, RUnit, RColorBrewer, KEGG.db, org.Hs.eg.db,
         hgu133plus2.db, SPIA
 Collate: kegg2graph-functions.R parse.R annotation.R graph.R kgmlfile.R

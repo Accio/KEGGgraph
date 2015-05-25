@@ -1,10 +1,28 @@
 import(methods)
 
+importClassesFrom(graph, graph)
+
 importFrom(XML, "xmlAttrs", "xmlChildren", "xmlName", "xmlRoot", "xmlTreeParse")
 
-importFrom(graph, "edges", "nodes<-", "nodes", "edgeData")
+importMethodsFrom(graph, ugraph)
+importFrom(graph, "edges", "nodes<-", "nodes", "edgeData","nodeData",
+           nodeDataDefaults, edgeDataDefaults,
+           "nodeDataDefaults<-", "edgeDataDefaults<-",
+           numEdges, numNodes, plot, subGraph, inEdges,
+           addNode, ftM2graphNEL,
+           "nodeRenderInfo<-", "edgeRenderInfo<-")
 
 exportPattern("^[^\\.]")
+
+export(subGraph,
+       nodes, edges,
+       edgeData, nodeData,
+       ugraph, numEdges, numNodes, plot, subGraph,
+       inEdges,
+       "nodes<-")
+       
+
+
 exportMethods("getDisplayName",
               "getEntryID",
               "getKEGGID",
@@ -21,11 +39,8 @@ exportMethods("getDisplayName",
               "subtypeDisplay",
               "getSubstrate",
               "getProduct",
-              "show",
-              "nodes",
-              "edges",
-              "nodes<-"
-)
+              "show")
+
 exportClasses("KEGGEdge",
               "KEGGGroup",
               "KEGGNode",
@@ -34,7 +49,6 @@ exportClasses("KEGGEdge",
               "KEGGEdgeSubType",
               "KEGGGraphics",
               "KEGGPathway",
-              "KEGGPathwayInfo"
-)
+              "KEGGPathwayInfo")
 
-#export("KEGGEdgeSubtype")
+##export("KEGGEdgeSubtype")
