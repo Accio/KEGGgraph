@@ -202,7 +202,7 @@ queryKEGGsubgraph <- function(geneids, graph, organism="hsa", addmissing=FALSE) 
 
   g <- subKEGGgraph(keggids, graph)
   if(addmissing) {
-    g <- graph::addNode(missed, g)
+    g <- addNode(missed, g)
   }
   return(g)
 }
