@@ -89,7 +89,10 @@ getKGMLurl("00020",organism="hsa")
 getKGMLurl(c("00460", "hsa:00461", "path:hsa00453", "path:00453"))
 
 ## NOT RUN
-tmp <- tempfile()
-retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="wget")
+\dontrun{
+  tmp <- tempfile()
+  retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="wget")
+}
+## END
 }
 \keyword{ IO }
