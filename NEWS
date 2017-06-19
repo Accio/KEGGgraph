@@ -1,3 +1,6 @@
+Version 1.35.1 (2017-06-19)
+  + Thanks to the report by AR3513@bioc we fixed a warning caused by XML::xmlChildren if a XMLnode does not have children. Now such cases are explicitly tested with an additional internal function.
+
 Version 1.27.2 (2015-05-25)
   + Only a subset of functions are imported from graph. It should solve the problem reported here: http://stackoverflow.com/questions/30428860/proper-use-of-optional-package-features-and-dependencies.
 

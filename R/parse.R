@@ -118,6 +118,14 @@ parseRelation <- function(relation) {
 }
 
 ## NOT TESTED!
+
+
+xmlChildrenWarningFree <- function(xmlNode) {
+    if(is.null(xmlNode$children))
+        return(NULL)
+    return(XML::xmlChildren(xmlNode))
+}
+
 parseReaction <- function(reaction) {
   attrs <- xmlAttrs(reaction)
 
@@ -138,27 +146,25 @@ parseReaction <- function(reaction) {
     ind <- substrateIndices[i]
     substrate <- children[[ind]]
     substrateName[i] <- xmlAttrs(substrate)[["name"]]
-    substrateChildren <- xmlChildren(substrate)
-    if (length(substrateChildren)>0) {
-      substrateAlt <- substrateChildren$alt
-      substrateAltName[i] <- xmlAttrs(substrateAlt)[["name"]]
-    } else {
-      substrateAlt <- as.character(NA)
-      substrateAltName[i] <- as.character(NA)
+    substrateAltName[i] <- as.character(NA)
+    
+    substrateChildren <- xmlChildrenWarningFree(substrate)
+    if (!is.null(substrateChildren)) {
+        substrateAlt <- substrateChildren$alt
+        substrateAltName[i] <- xmlAttrs(substrateAlt)[["name"]]
     }
+
   }
 
   for(i in seq(along=productIndices)) {
     ind <- productIndices[i]
     product <- children[[ind]]
     productName[i] <- xmlAttrs(product)[["name"]]
-    productChildren <- xmlChildren(product)
-    if(length(productChildren)>0) {
+    productChildren <- xmlChildrenWarningFree(product)
+    productAltName[i] <- as.character(NA)
+    if(!is.null(productChildren)) {
       productAlt <- productChildren$alt
       productAltName[i] <- xmlAttrs(productAlt)[["name"]]
-    } else {
-      productAlt <- as.character(NA)
-      productAltName[i] <- as.character(NA)
     }
   }
 
