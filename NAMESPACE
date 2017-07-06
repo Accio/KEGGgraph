@@ -2,9 +2,12 @@ import(methods)
 
 importClassesFrom(graph, graph)
 
+importFrom(utils,"download.file") 
 importFrom(XML,
            "xmlAttrs", "xmlChildren", "xmlName",
            "xmlRoot", "xmlTreeParse", "xmlErrorCumulator")
+importFrom("graphics", "par", "segments", "text")
+importFrom("utils", "data")
 
 importMethodsFrom(graph, ugraph)
 importFrom(graph, "edges", "nodes<-", "nodes", "edgeData","nodeData",
@@ -14,7 +17,7 @@ importFrom(graph, "edges", "nodes<-", "nodes", "edgeData","nodeData",
            addNode, ftM2graphNEL,
            "nodeRenderInfo<-", "edgeRenderInfo<-")
 
-exportPattern("^[^\\.]")
+##exportPattern("^[^\\.]")
 
 export(subGraph,
        nodes, edges,
@@ -23,8 +26,6 @@ export(subGraph,
        inEdges,
        "nodes<-")
        
-
-
 exportMethods("getDisplayName",
               "getEntryID",
               "getKEGGID",
@@ -42,6 +43,40 @@ exportMethods("getDisplayName",
               "getSubstrate",
               "getProduct",
               "show")
+
+export(translateKEGGID2GeneID,
+       translateGeneID2KEGGID,
+       translateKEGGgraph)
+
+export(graphDensity,
+       mergeGraphs,
+       mergeKEGGgraphs,
+       randomSubGraph,
+       subKEGGgraph,
+       subGraphByNodeType,
+       getRgraphvizEdgeNames,
+       getKEGGnodeData,
+       getKEGGedgeData,
+       neighborhood,
+       queryKEGGsubgraph)
+
+export(getKGMLurl,
+       retrieveKGML,
+       kgmlFileName2PathwayName,
+       parseKGML,
+       KEGGpathway2Graph,
+       parseKGML2Graph,
+       KEGGpathway2reactionGraph,
+       parseKGML2DataFrame,
+       parseKGMLexpandMaps,
+       splitKEGGgroup,
+       expandKEGGPathway)
+
+export(pvalue2asterisk,
+       getNamedElement,
+       isHomoList,
+       plotKEGGgraph,
+       KEGGgraphLegend)
 
 exportClasses("KEGGEdge",
               "KEGGGroup",
