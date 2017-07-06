@@ -47,6 +47,8 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
   is only open to subscribers. Commercial and other users should
   consider support the KEGG database by subscribing to the FTP
   service. See the references section below.
+
+  Since July 2017, the function uses the REST API service of KEGG.
 }
 \value{
   KGML File URL of the given pathway.
