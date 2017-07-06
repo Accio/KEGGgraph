@@ -117,10 +117,7 @@ parseRelation <- function(relation) {
   return(newEdge)
 }
 
-## NOT TESTED!
-
-
-xmlChildrenWarningFree <- function(xmlNode) {
+.xmlChildrenWarningFree <- function(xmlNode) {
     if(is.null(xmlNode$children))
         return(NULL)
     return(XML::xmlChildren(xmlNode))
@@ -148,7 +145,7 @@ parseReaction <- function(reaction) {
     substrateName[i] <- xmlAttrs(substrate)[["name"]]
     substrateAltName[i] <- as.character(NA)
     
-    substrateChildren <- xmlChildrenWarningFree(substrate)
+    substrateChildren <- .xmlChildrenWarningFree(substrate)
     if (!is.null(substrateChildren)) {
         substrateAlt <- substrateChildren$alt
         substrateAltName[i] <- xmlAttrs(substrateAlt)[["name"]]
@@ -160,7 +157,7 @@ parseReaction <- function(reaction) {
     ind <- productIndices[i]
     product <- children[[ind]]
     productName[i] <- xmlAttrs(product)[["name"]]
-    productChildren <- xmlChildrenWarningFree(product)
+    productChildren <- .xmlChildrenWarningFree(product)
     productAltName[i] <- as.character(NA)
     if(!is.null(productChildren)) {
       productAlt <- productChildren$alt
