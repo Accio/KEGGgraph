@@ -373,8 +373,8 @@ setMethod("subtypeDisplay", "graph", function(object, attr) {
   keggedges <- getKEGGedgeData(object)
   keggedgesDisplay <- sapply(keggedges, subtypeDisplay)
   if(missing(attr)) return(keggedgesDisplay)
-  if(!attr %in% rownames(test)) {
-    stop("'attr' must be one of:", paste(rownames(keggeEdgesDisplay), collapse=","),"\n")
+  if(!attr %in% rownames(keggedgesDisplay)) {
+    stop("'attr' must be one of:", paste(rownames(keggedgesDisplay), collapse=","),"\n")
   } else {
     return(keggedgesDisplay[attr,])
   }
