@@ -15,7 +15,7 @@ Description: KEGGGraph is an interface between KEGG pathway and graph
 License: GPL (>= 2)
 LazyLoad: yes
 Depends: R (>= 2.10.0)
-Imports: methods, XML (>= 2.3-0), graph
+Imports: methods, XML (>= 2.3-0), graph, utils
 Suggests: Rgraphviz, RBGL, RUnit, RColorBrewer, KEGG.db, org.Hs.eg.db,
         hgu133plus2.db, SPIA
 Collate: kegg2graph-functions.R parse.R annotation.R graph.R kgmlfile.R
