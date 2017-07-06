@@ -3,17 +3,19 @@ library(KEGGgraph)
 library(RBGL)
 
 ## retrieve
+URLbase <- "http://rest.kegg.jp/get/%s/kgml"
+ids <- c("00460", "hsa:00461", "path:hsa00453", "path:00453")
+expURLs <- sprintf(URLbase,
+                   c("hsa00460", "hsa00461", "hsa00453", "hsa00453"))
 stopifnot(identical(getKGMLurl(c("00460", "hsa:00461", "path:hsa00453", "path:00453")),
-                    c("http://www.genome.jp/kegg-bin/download?entry=hsa00460&format=kgml",
-                      "http://www.genome.jp/kegg-bin/download?entry=hsa00461&format=kgml",
-                      "http://www.genome.jp/kegg-bin/download?entry=hsa00453&format=kgml",
-                      "http://www.genome.jp/kegg-bin/download?entry=hsa00453&format=kgml")))
+                    expURLs))
 
-stopifnot(identical(getKGMLurl(c("00460", "mmu:00461", "path:rat00453", "path:00453"), organism=c("hsa", "mmu", "rat", "abc")),
-                    c("http://www.genome.jp/kegg-bin/download?entry=hsa00460&format=kgml",
-                      "http://www.genome.jp/kegg-bin/download?entry=mmu00461&format=kgml",
-                      "http://www.genome.jp/kegg-bin/download?entry=rat00453&format=kgml",
-                      "http://www.genome.jp/kegg-bin/download?entry=abc00453&format=kgml")))
+ids2 <- c("00460", "mmu:00461", "path:rat00453", "path:00453")
+orgs <- c("hsa", "mmu", "rat", "abc")
+expURLs2 <- sprintf(URLbase,
+                   c("hsa00460", "mmu00461", "rat00453", "abc00453"))
+stopifnot(identical(getKGMLurl(ids, organism=orgs),
+                    expURLs2))
 
 ## basic parsing
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")
