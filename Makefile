@@ -13,8 +13,8 @@
 ################################################################################
 ## conditional: choose R version depending on the BICOSN value
 R=R
-PKG=`awk 'BEGIN{FS=":"}{if ($$1=="Package") {gsub(/ /, "",$$2);print $$2}}' DESCRIPTION`
-PKG_VERSION=`awk 'BEGIN{FS=":"}{if ($$1=="Version") {gsub(/ /, "",$$2);print $$2}}' DESCRIPTION`
+PKG := $(shell awk 'BEGIN{FS=":"}{if ($$1=="Package") {gsub(/ /, "",$$2);print $$2}}' DESCRIPTION)
+PKG_VERSION=$(shell awk 'BEGIN{FS=":"}{if ($$1=="Version") {gsub(/ /, "",$$2);print $$2}}' DESCRIPTION)
 
 
 PKG_ROOT_DIR=`pwd`
@@ -26,6 +26,10 @@ install:
 	@echo '====== Installing finished ======'
 	@echo ' '
 
+print:
+	@echo 'Package: ${PKG}'
+	@echo 'Version: ${PKG_VERSION}'
+
 check:	dist
 	@echo '====== Checking Package ======'
 	@(cd ..; ${R} CMD check ${PKG}_${PKG_VERSION}.tar.gz)
@@ -33,7 +37,7 @@ check:	dist
 	@echo ' '
 
 dist:	clean
-	@echo '====== Building Distribution ======'
+	@echo '====== Building Distribution of $(PKG) ======'
 	@(cd ..; ${R} CMD build $(PKG))
 	@echo '====== Building finished ======'
 	@echo ' '
