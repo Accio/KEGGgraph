@@ -2,7 +2,9 @@ import(methods)
 
 importClassesFrom(graph, graph)
 
-importFrom(XML, "xmlAttrs", "xmlChildren", "xmlName", "xmlRoot", "xmlTreeParse")
+importFrom(XML,
+           "xmlAttrs", "xmlChildren", "xmlName",
+           "xmlRoot", "xmlTreeParse", "XMLErrorCumulator")
 
 importMethodsFrom(graph, ugraph)
 importFrom(graph, "edges", "nodes<-", "nodes", "edgeData","nodeData",
