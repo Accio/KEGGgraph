@@ -178,7 +178,27 @@ parseReaction <- function(reaction) {
 }
 
 parseKGML <- function(file) {
-  doc <- xmlTreeParse(file, getDTD=FALSE)
+    tryCatch(
+        doc <- xmlTreeParse(file, getDTD=FALSE,
+                            error=xmlErrorCumulator(immediate=FALSE)),
+        error = function(e) {
+            fileSize <- file.info(file)$size[1]
+            bytes <- sprintf("%d byte%s",
+                             fileSize, ifelse(fileSize>1, "s", ""))
+            msg <- paste("The file",
+                         file,
+                         "seems not to be a valid KGML file\n")
+            if(fileSize<100L)
+                msg <- paste(msg,
+                             "[WARNING] File size (",
+                             bytes,
+                             ") is unsually small; please check.\n", sep="")
+            msg <- paste(msg,
+                         "\nDetailed error messages from",
+                         "XML::xmlTreeParse:\n", sep="")
+            cat(msg)
+            stop(e)
+        })
   r <- xmlRoot(doc)
 
   ## possible elements: entry, relation and reaction
