@@ -1,3 +1,8 @@
+Version 1.37.0 (2017-07-12)
+  + Cleanup of the NAMESPACE file
+  + Update retrieveKGML
+  + Better error report in case of empty KGML file
+
 Version 1.35.1 (2017-06-19)
   + Thanks to the report by AR3513@bioc we fixed a warning caused by XML::xmlChildren if a XMLnode does not have children. Now such cases are explicitly tested with an additional internal function.
 
