@@ -69,6 +69,7 @@ export(getKGMLurl,
        KEGGpathway2reactionGraph,
        parseKGML2DataFrame,
        parseKGMLexpandMaps,
+       parsePathwayInfo,
        splitKEGGgroup,
        expandKEGGPathway)
 
