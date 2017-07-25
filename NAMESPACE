@@ -69,9 +69,14 @@ export(getKGMLurl,
        KEGGpathway2reactionGraph,
        parseKGML2DataFrame,
        parseKGMLexpandMaps,
-       parsePathwayInfo,
        splitKEGGgroup,
        expandKEGGPathway)
+
+export(parsePathwayInfo,
+       parseEntry,
+       parseRelation,
+       parseReaction,
+       getEntryID)
 
 export(pvalue2asterisk,
        getNamedElement,
