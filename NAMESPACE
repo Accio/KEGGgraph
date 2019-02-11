@@ -16,8 +16,9 @@ importFrom(graph, "edges", "nodes<-", "nodes", "edgeData","nodeData",
            numEdges, numNodes, plot, subGraph, inEdges,
            addNode, ftM2graphNEL,
            "nodeRenderInfo<-", "edgeRenderInfo<-")
+importFrom(RCurl, url.exists)
 
-##exportPattern("^[^\\.]")
+## exports
 
 export(subGraph,
        nodes, edges,
