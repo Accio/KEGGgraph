@@ -234,20 +234,42 @@ parseKGML2DataFrame <- function(file,reactions=FALSE,...) {
     gR <- mergeKEGGgraphs(list(gR, gRE))
   }
   
-  subtype <- sapply(getKEGGedgeData(gR),
+  ## note that KEGGedgeData's length may differ from that of edgeData
+  ## use the longer one as the reference
+  ed <- edgeData(gR)
+  ked <- getKEGGedgeData(gR)
+  if(length(ed)!=length(ked)) {
+    edNames <- gsub("\\|", "~", names(ed))
+    kedNames <- names(ked)
+    if(length(ed)>length(ked)) {
+      matchInd <- match(edNames, kedNames)
+      ked <- ked[matchInd]
+    } else if (length(ed)<length(ked)) {
+      matchInd <- match(kedNames, edNames)
+      ed <- ed[matchInd]
+    }
+    if(any(is.na(matchInd))) {
+      message("Likely error in parseKGML2DataFrame: NA detected in matchInd. Please inform the developer.")
+    }
+  }
+  if(length(ed)!=length(ked)) {
+    stop("Likely error in parseKGML2DataFrame: edgeData and KEGGedgeData of different lengths. Please inform the developer.")
+  }
+  
+  subtype <- sapply(ked,
                     function(x) {
                       st <- getSubtype(x)
                       if(length(st)==0) return(NA)
                       sapply(getSubtype(x), getName)
                     })
   subtypeLen <- sapply(subtype,length)
-  ents <- strsplit(names(edgeData(gR)), "\\|")
+  ents <- strsplit(names(ed), "\\|")
   ent1 <- rep(sapply(ents, "[[", 1), subtypeLen)
   ent2 <- rep(sapply(ents, "[[", 2), subtypeLen)
   tbl <- data.frame(from=ent1,
                     to=ent2,
                     subtype=unlist(subtype))
-  
+  tbl <- unique(tbl)
   return(tbl)
 }
 
