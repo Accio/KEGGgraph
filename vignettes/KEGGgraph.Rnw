@@ -9,6 +9,7 @@
 \usepackage{geometry}
 \usepackage{longtable}
 \usepackage[pdftex]{graphicx}
+\usepackage[utf8]{inputenc}
 \SweaveOpts{keep.source=TRUE,eps=FALSE,pdf=TRUE,prefix=TRUE} 
 
 % R part
