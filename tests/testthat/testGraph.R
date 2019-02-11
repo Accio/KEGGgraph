@@ -1,7 +1,6 @@
 library(KEGGgraph)
 library(graph)
 library(Rgraphviz)
-library(RUnit)
 
 ## If edges of a node is not explicitly specified in a directed graph (i.e. the node "D" in the graph object 'test' in the following example),
 ## its incoming edges will be interpreted as reciprocal edges ( hence inEdges(test)[["B"]]==c("A","D") )
