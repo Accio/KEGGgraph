@@ -42,7 +42,11 @@ retrieveKGML <- function(pathwayid, organism, destfile, method="wget", ...) {
   #### now KGML does not differ between metabolic and non-metabolic pathways
   ##  kgml <- getCategoryIndepKGMLurl(pathwayid,organism=organism, method=method, ...)
   kgml <- getKGMLurl(pathwayid=pathwayid, organism=organism)
-  download.file(kgml, destfile=destfile, method=method,...)
+  if(RCurl::url.exists(kgml)) {
+    download.file(kgml, destfile=destfile, method=method,...)
+  } else {
+    message(paste0("KGML cannot be retrieved, cannot open URL '",kgml,"'."))
+  }
   return(invisible(kgml))
 }
 
