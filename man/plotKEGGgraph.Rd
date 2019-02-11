@@ -38,7 +38,10 @@ KEGGgraphLegend()
 opar <- par(ask=TRUE)
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")
 gR <- parseKGML2Graph(sfile,expandGenes=TRUE)
-subs <-  c("hsa:1432",edges(gR)$`hsa:1432`,"hsa:5778","hsa:5801","hsa:84867","hsa:11072","hsa:5606","hsa:5608","hsa:5494","hsa:5609")
+subs <-  c("hsa:1432",edges(gR)$`hsa:1432`,
+	   "hsa:5778","hsa:5801","hsa:84867",
+	   "hsa:11072","hsa:5606","hsa:5608",
+	   "hsa:5494","hsa:5609")
 gR.sub <- subGraph(subs, gR)
 if(require(Rgraphviz))
   plotKEGGgraph(gR.sub)
