@@ -1,1 +1,9 @@
-.svn
+^Meta$
+^doc$
+.git
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.travis\.yml$
+^Makefile$
+^coverage\.txt$
+^coverage\.r$
