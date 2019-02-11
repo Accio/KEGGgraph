@@ -5,8 +5,8 @@
   This function extends the \code{\link{parseKGML2Graph}} function, by
   converting the resulting graph into a three-column data frame
   representing out-nodes (the \code{from} column in the data frame),
-  in-nodes (\code{to}) and subtypes of edges that connect
-  them (\code{subtype}). It can be used, for example, for exporting KEGG pathway networks
+  in-nodes (\code{to}), types and subtypes of edges that connect
+  them (\code{type} and \code{subtype}, respectively). It can be used, for example, for exporting KEGG pathway networks
   in plain text files.
 }
 \usage{
@@ -25,8 +25,8 @@ parseKGML2DataFrame(file, reactions=FALSE,...)
   Multile edges are supported: in case more than one subtypes of edges
   exist between two nodes, they are all listed in the resulting data frame.
 }
-\value{A three-column data frame, representing the graph structure:
-  out-nodes (the \code{from} column), in-nodes (\code{to}) and edge
+\value{A four-column data frame, representing the graph structure:
+  out-nodes (the \code{from} column), in-nodes (\code{to}), edge type (\code{type}) and 
   subtype (\code{subtype}).}
 \author{Jitao David Zhang}
 \seealso{

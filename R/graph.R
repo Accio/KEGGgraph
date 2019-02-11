@@ -49,13 +49,22 @@ mergeKEGGgraphs <- function(list, edgemode="directed") {
   
   g <- mergeGraphs(list, edgemode=edgemode)
 
-
+  gNodes <- nodes(g)
+  if(any(grepl(" ", gNodes))) { ## space means that a node contains more than one entities
+     gNodes <- unlist(strsplit(gNodes, " "))
+  }
+  
   keggnodes <- unlist(sapply(list, function(x) get("nodes", nodeDataDefaults(x, "KEGGNode"))))
   keggedges <- unlist(sapply(list, function(x) get("edges", edgeDataDefaults(x, "KEGGEdge"))))
 
   ## merge nodes: use their 'name' attribute as unique index
   keggnodenames <- sapply(keggnodes, getName)
-  keggnodeing <- match(nodes(g), keggnodenames)
+  keggnodeing <- match(gNodes, keggnodenames)
+  if(any(is.na(keggnodeing))) {
+    warning(paste("Following nodes were discarded during mering because they are not annotated: ", 
+                  paste(gNodes[is.na(keggnodeing)], collapse=",")))
+    keggnodeing <- keggnodeing[!is.na(keggnodeing)]
+  }
   mergedkeggnode <- keggnodes[keggnodeing]
   names(mergedkeggnode) <- sapply(mergedkeggnode, getName)
 

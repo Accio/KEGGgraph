@@ -256,6 +256,7 @@ parseKGML2DataFrame <- function(file,reactions=FALSE,...) {
     stop("Likely error in parseKGML2DataFrame: edgeData and KEGGedgeData of different lengths. Please inform the developer.")
   }
   
+  type <- sapply(ked, getType)
   subtype <- sapply(ked,
                     function(x) {
                       st <- getSubtype(x)
@@ -266,9 +267,12 @@ parseKGML2DataFrame <- function(file,reactions=FALSE,...) {
   ents <- strsplit(names(ed), "\\|")
   ent1 <- rep(sapply(ents, "[[", 1), subtypeLen)
   ent2 <- rep(sapply(ents, "[[", 2), subtypeLen)
+  types <- rep(type, subtypeLen)
   tbl <- data.frame(from=ent1,
                     to=ent2,
-                    subtype=unlist(subtype))
+                    type=types,
+                    subtype=unname(unlist(subtype)),
+                    row.names=NULL)
   tbl <- unique(tbl)
   return(tbl)
 }
