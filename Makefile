@@ -7,7 +7,7 @@
 ##                   the Makefile provides the following targets:
 ##                   
 ##                   - make install  calls R CMD INSTALL
-##                   - make check    calls R CMD check (with RUnit)
+##                   - make check    calls devtools::check
 ##                   - make dist     calls R CMD build
 ##
 ################################################################################
@@ -30,9 +30,9 @@ print:
 	@echo 'Package: ${PKG}'
 	@echo 'Version: ${PKG_VERSION}'
 
-check:	dist
+check:	clean
 	@echo '====== Checking Package ======'
-	@(cd ..; ${R} CMD check ${PKG}_${PKG_VERSION}.tar.gz)
+	@(${R} -e "devtools::check()")
 	@echo '====== Checking finished ======'
 	@echo ' '
 
