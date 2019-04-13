@@ -21,6 +21,7 @@
 \newcommand{\Metas}[1]{{\texttt{#1}}}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \setkeys{Gin}{width=0.8\textwidth}
 \title{KEGGgraph: a graph approach to KEGG PATHWAY in R and Bioconductor}
 \author{Jitao David Zhang and Stefan Wiemann}
@@ -269,8 +270,11 @@ is the number of nodes in the graph. Both
 measurements estimate the importance or the role of the node in the graph.
 
 With the function implemented in \Rpackage{RBGL}, our aim is to
-identify most important nodes in MAPK signalling pathway.
-<<bcc, echo=TRUE, results=verbatim>>=
+identify most important nodes in MAPK signalling pathway. 
+
+\emph{Note}: the current version of \texttt{RBGL} (version 1.59.5) reports the error  that \texttt{BGL\_brandes\_betweeness\_centrality} not available for \texttt{.Call()} for package ``RBGL''. Therefore the execution has been suppressed for now.
+
+<<bcc, echo=TRUE, eval=FALSE, results=verbatim>>=
 library(RBGL)
 bcc <- brandes.betweenness.centrality(mapkG)
 rbccs <- bcc$relative.betweenness.centrality.vertices[1L,]
@@ -284,7 +288,7 @@ in MAPK pathway.
 
 \begin{figure}[!hp]
 \begin{center}
-<<bccplot, echo=TRUE, fig=TRUE>>=
+<<bccplot, eval=FALSE, echo=TRUE, fig=TRUE>>=
 toprbccName <- names(toprbccs)
 toprin <- sapply(toprbccName, function(x) inEdges(mapkG)[x])
 toprout <- sapply(toprbccName, function(x) edges(mapkG)[x])
@@ -371,7 +375,7 @@ mapkGsub
 
 \subsection{Annotation}
 \Rfunction{translateKEGGID2GeneID} translates KEGG identifiers (KEGGID) into Entrez GeneID. For example, if we want to find the Entrez GeneID of the nodes in MAPK pathway having the highest relative betweenness centrality, the following codes do the job. 
-<<biomart, echo=TRUE, results=verbatim>>=
+<<biomart, echo=TRUE, eval=FALSE, results=verbatim>>=
 toprbccKEGGID <- names(toprbccs)
 toprbccKEGGID
 toprbccGeneID <- translateKEGGID2GeneID(toprbccKEGGID)
@@ -380,7 +384,7 @@ toprbccGeneID
 
 To convert GeneID to other identifiers, we recommend genome wide annotation packages, for human it is \Rpackage{org.Hs.eg.db} and the packages for other organisms can be fount at \url{http://www.bioconductor.org/packages/release/data/annotation/}. To demonstrate its use, we draw the sub-network in the figure \ref{fig:02} again, whereas nodes are now labeled with gene symbols.
 \label{convertId}
-<<orgHuman, echo=TRUE,  fig=TRUE>>=
+<<orgHuman, eval=FALSE, echo=TRUE,  fig=TRUE>>=
 if(require(org.Hs.eg.db)) {
   tnodes <- nodes(toprSub)
   tgeneids <- translateKEGGID2GeneID(tnodes)
