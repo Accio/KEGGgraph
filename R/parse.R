@@ -526,7 +526,7 @@ parseKGMLexpandMaps <- function(file, downloadmethod="wget",genesOnly=TRUE, loca
   if(genesOnly) {
     gR <- subGraphByNodeType(gR, "gene")
   }
-  mapgrs[length(mapgrs)+1] <- gR
+  mapgrs[[length(mapgrs)+1]] <- gR
   mgr <- mergeGraphs(mapgrs)
 
   return(mgr)
