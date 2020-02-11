@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{KEGGgraph: graph approach to KEGG PATHWAY}
-%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db, KEGG.db}
+%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db}
 %\VignettePackage{KEGGgraph}
 
 \documentclass[11pt]{article}
@@ -71,14 +71,14 @@ To retrieve KGML file automatically from KEGG FTP site, one has to
 know the pathway identifier (in the form of [a-z]{3}[0-9]{5}, where
 the three-alphabet code represent the organism and the five digits
 represent pathway). One method to find the mapping between pathway
-name and identifier is use \Robject{KEGGPATHNAME2ID} environment in
-\Rpackage{KEGG.db}. For example, the following codes retrieve p53
+name and identifier is use \Robject{KEGGPATHNAME2ID} environment that was originally provided in
+\Rpackage{KEGG.db}, which is now provided by \Rpackage{KEGGgraph} because \Rpackage{KEGG.db} is deprecated. For example, the following codes retrieve p53
 signaling pathway of \textit{C.elegans} from KEGG FTP site.
 
 <<remoteRetrieval, echo=TRUE, eval=FALSE>>=
-library(KEGG.db)
 tmp <- tempfile()
 pName <- "p53 signaling pathway"
+data(KEGGPATHNAME2ID)
 pId <- mget(pName, KEGGPATHNAME2ID)[[1]]
 retrieveKGML(pId, organism="cel", destfile=tmp, method="wget", quiet=TRUE)
 @ 
