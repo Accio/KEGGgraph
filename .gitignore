@@ -1,0 +1,9 @@
+*.pdf
+*.tex
+*.gz
+*.bbl
+*.blg
+*.log
+
+*~
+*.swp
