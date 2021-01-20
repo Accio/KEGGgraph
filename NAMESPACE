@@ -17,6 +17,7 @@ importFrom(graph, "edges", "nodes<-", "nodes", "edgeData","nodeData",
            addNode, ftM2graphNEL,
            "nodeRenderInfo<-", "edgeRenderInfo<-")
 importFrom(RCurl, url.exists)
+importFrom("Rgraphviz", "layoutGraph", "renderGraph")
 
 ## exports
 

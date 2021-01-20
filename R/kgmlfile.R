@@ -9,7 +9,7 @@ getKGMLurl <- function(pathwayid, organism="hsa") {
   pathwayid <- gsub("path","",pathwayid)
   pathwayid <- gsub(":","",pathwayid)
   pco <- grepl("^[a-z][a-z][a-z]", pathwayid)
-  
+
   org.len <- length(organism)
   if(org.len==1 & length(pathwayid)!=1) {
     organisms <- rep(organism, length(pathwayid))    
@@ -22,20 +22,18 @@ getKGMLurl <- function(pathwayid, organism="hsa") {
 
   ids <- pathwayid
   ids[pco] <- sapply(pathwayid[pco], function(x) substr(x, 4L, nchar(x)))
-  
+
   urls <- sprintf(baseurl, organisms, ids)
   return(urls)
 }
 
+utils::globalVariables("KEGGPATHID2NAME")
+
 kgmlFileName2PathwayName <- function(filename) {
-  if(requireNamespace("KEGG.db", quietly=TRUE)) {
-    basename <- sapply(strsplit(filename, "\\."), function(y) y[[1]])
-    basename <- gsub("^[a-z][a-z][a-z]","", basename)
-    pathname <- unlist(mget(basename, KEGGPATHID2NAME, ifnotfound=as.list(NA)))
-    return(pathname)
-  } else {
-    return(as.character(NA))
-  }
+  basename <- sapply(strsplit(filename, "\\."), function(y) y[[1]])
+  basename <- gsub("^[a-z][a-z][a-z]","", basename)
+  pathname <- unlist(mget(basename, KEGGPATHID2NAME, ifnotfound=as.list(NA)))
+  return(pathname)
 }
 
 retrieveKGML <- function(pathwayid, organism, destfile, method="wget", ...) {

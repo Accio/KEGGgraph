@@ -1,4 +1,4 @@
-\name{top}
+\name{colorectalcancerSPIA}
 \alias{top}
 \docType{data}
 \title{
@@ -12,7 +12,6 @@ Colorectal cancer dataset
 
   see the description of \code{SPIA} package.
 }
-\usage{data(colorectalcancerSPIA)}
 \format{
     see the format of \code{SPIA} package.
 }

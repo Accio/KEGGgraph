@@ -165,7 +165,7 @@ setMethod("show", "KEGGReaction",
             saltstr <- ""; paltstr <- ""
             if(any(!is.na(salt))) saltstr <- paste("\t[ Substrate Alternative Name ]: ", salt, "\n", sep="")
             if(any(!is.na(palt))) paltstr <- paste("\t[ Substrate Alternative Name ]: ", palt, "\n", sep="")
-            
+
             str <- paste("KEGG Reaction(", object@name, ")\n",
                          "------------------------------------------------------------\n",
                          "[ Name ]: ", object@name, "\n",
@@ -176,7 +176,7 @@ setMethod("show", "KEGGReaction",
                          paltstr,sep="")
             cat(str)
           })
-          
+
 .getEntryID <- function(x) x@entryID
 .getType <- function(x) x@type
 .getLink <- function(x) x@link
@@ -320,10 +320,9 @@ setMethod("getKEGGgeneLink", "character", function(object) {
        })
 
 
+utils::globalVariables("KEGGEdgeSubtype")
+
 .subtypeDisplay <- function(subtype) {
-  if(!exists("KEGGEdgeSubtype")) {
-    data(KEGGEdgeSubtype)
-  }
   name <- getName(subtype)
   value <- getValue(subtype)
 
@@ -337,15 +336,15 @@ setMethod("getKEGGgeneLink", "character", function(object) {
     if(is.na(i)) {
       stop("Missing 'others' item, which is the backup when the subtype is not matched! Please check KEGGedgeSubtype.csv file in the data folder!\n");
     }
-  } 
-  
+  }
+
   row <- KEGGEdgeSubtype[i,]
   color <- as.character(row[1L ,"color"])
   label <-  as.character(row[1L ,"label"])
   fontcolor <- as.character(row[1L ,"fontcolor"])
   arrowhead <- as.character(row[1L ,"arrowhead"])
   style <- as.character(row[1L ,"style"])
-  
+
   disSub <- c(name=name, value=value,
                 color=color, label=label,
                 fontcolor=fontcolor, arrowhead=arrowhead,style=style)

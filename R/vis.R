@@ -35,25 +35,21 @@ plotKEGGgraph <- function(graph,y="neato",shortLabel=TRUE, useDisplayName=TRUE, 
     names(eLabel) <- names(eCol) <- names(eTextCol) <- tmp
     names(eLty) <- names(eArrowhead) <- tmp
   }
-  
+
   edgeRenderInfo(graph) <- list(lty=eLty, col=eCol, textCol=eTextCol, label=eLabel ,arrowhead=eArrowhead, label=eLabel)
   nodeRenderInfo(graph) <- list(label=nLabel)
-  graph <- layoutGraph(graph)
+  graph <- Rgraphviz::layoutGraph(graph)
   if(!missing(nodeRenderInfos))
     nodeRenderInfo(graph) <- nodeRenderInfos
 
-  
-  renderGraph(graph)
+
+  Rgraphviz::renderGraph(graph)
   return(invisible(graph))
 }
 
 KEGGgraphLegend <- function() {
   opar <- par(mar=c(0,0,3,0), mgp=c(0,0,0))
   on.exit(par(opar))
-  
-  if(!exists("KEGGEdgeSubtype")) {
-    data(KEGGEdgeSubtype)
-  }
 
   subtypes <- KEGGEdgeSubtype$name
   cols <- as.character(with(KEGGEdgeSubtype, color))
