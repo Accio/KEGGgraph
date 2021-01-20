@@ -28,7 +28,6 @@ getKGMLurl <- function(pathwayid, organism="hsa") {
 }
 
 kgmlFileName2PathwayName <- function(filename) {
-  data(KEGGPATHID2NAME)
   basename <- sapply(strsplit(filename, "\\."), function(y) y[[1]])
   basename <- gsub("^[a-z][a-z][a-z]","", basename)
   pathname <- unlist(mget(basename, KEGGPATHID2NAME, ifnotfound=as.list(NA)))

@@ -321,9 +321,6 @@ setMethod("getKEGGgeneLink", "character", function(object) {
 
 
 .subtypeDisplay <- function(subtype) {
-  if(!exists("KEGGEdgeSubtype")) {
-    data(KEGGEdgeSubtype)
-  }
   name <- getName(subtype)
   value <- getValue(subtype)
 

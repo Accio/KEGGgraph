@@ -136,12 +136,10 @@ cancer samples, is normalized with \Rpackage{affy} and
 if(require(SPIA)) {
   data(colorectalcancer,package="SPIA")
 } else {
-  data(colorectalcancerSPIA, package="KEGGgraph")
+  load(system.file("extdata/colorectalcancerSPIA.RData", package="KEGGgraph"))
 }
-library(SPIA)
-data(colorectalcancer)
 head(top)
-@ 
+@
 
 We only consider the probes annotated with EntrezGeneID and
 differentially expressed with FDR $p$-value less than 0.05.
