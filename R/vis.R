@@ -51,6 +51,7 @@ KEGGgraphLegend <- function() {
   opar <- par(mar=c(0,0,3,0), mgp=c(0,0,0))
   on.exit(par(opar))
 
+  data("KEGGEdgeSubtype", package="KEGGgraph", envir=environment())
   subtypes <- KEGGEdgeSubtype$name
   cols <- as.character(with(KEGGEdgeSubtype, color))
   labels <- as.character(with(KEGGEdgeSubtype, label))

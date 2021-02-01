@@ -326,6 +326,7 @@ utils::globalVariables("KEGGEdgeSubtype")
   name <- getName(subtype)
   value <- getValue(subtype)
 
+  data("KEGGEdgeSubtype", package="KEGGgraph", envir=environment())
   i <- match(name, KEGGEdgeSubtype$name)
 
   if(is.na(i)) {
