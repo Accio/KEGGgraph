@@ -22,13 +22,28 @@ parseGraphics <- function(graphics) {
   if(is.null(graphics))
     return(new("KEGGGraphics"))
   attrs <- xmlAttrs(graphics)
+  type <- getNamedElement(attrs,"type")
+  coords <- getNamedElement(attrs,"coords")
+  if ((type %in% "line") && !is.na(coords)){
+    all_coords <- as.integer(strsplit(coords, ",")[[1]])
+    x <- as.integer(round(mean(all_coords[c(1, 3)])))
+    y <- as.integer(round(mean(all_coords[c(2, 4)])))
+    width <- as.integer(max(c(diff(all_coords[c(1, 3)]), 1)))
+    height <- as.integer(max(c(diff(all_coords[c(2, 4)]), 1)))
+  } else {
+    x <- as.integer(getNamedElement(attrs,"x"))
+    y <- as.integer(getNamedElement(attrs,"y"))
+    width <- as.integer(getNamedElement(attrs, "width"))
+    height <- as.integer(getNamedElement(attrs,"height"))
+  }
+  
   g <- new("KEGGGraphics",
            name=getNamedElement(attrs,"name"),
-           x=as.integer(getNamedElement(attrs,"x")),
-           y=as.integer(getNamedElement(attrs,"y")),
-           type=getNamedElement(attrs,"type"),
-           width=as.integer(getNamedElement(attrs, "width")),
-           height=as.integer(getNamedElement(attrs,"height")),
+           x=x,
+           y=y,
+           type=type,
+           width=width,
+           height=height,
            fgcolor=getNamedElement(attrs, "fgcolor"),
            bgcolor=getNamedElement(attrs, "bgcolor")
            )
