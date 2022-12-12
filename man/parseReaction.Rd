@@ -19,6 +19,6 @@ parseReaction(reaction)
 \value{
   An object of \code{\link{KEGGReaction-class}}
 }
-\references{ KGML Document Manual \url{http://www.genome.jp/kegg/docs/xml/}}
+\references{ KGML Document Manual \url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang \url{mail:jitao_david.zhang@roche.com} }
 \keyword{IO}

@@ -7,7 +7,7 @@
   The methods get title attribute for given KGML element, for example
   for objects of \code{\link{KEGGPathway-class}} or \code{\link{KEGGPathwayInfo-class}}
 }
-\references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
+\references{ KGML Document manual \url{https://www.genome.jp/kegg/docs/xml/} }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \section{Methods}{
 \describe{

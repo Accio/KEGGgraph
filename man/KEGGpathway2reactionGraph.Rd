@@ -40,7 +40,7 @@ KEGGpathway2reactionGraph(pathway)
   If the pathway does not contain any chemical reactions, a warning
   message will be printed and \code{NULL} is returned.
 }
-\references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
+\references{ KGML Document manual \url{https://www.genome.jp/kegg/docs/xml/} }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{\code{\link{KEGGPathway-class}}}
 \examples{

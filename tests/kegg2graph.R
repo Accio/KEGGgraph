@@ -3,7 +3,7 @@ library(KEGGgraph)
 library(RBGL)
 
 ## retrieve
-URLbase <- "http://rest.kegg.jp/get/%s/kgml"
+URLbase <- "https://rest.kegg.jp/get/%s/kgml"
 ids <- c("00460", "hsa:00461", "path:hsa00453", "path:00453")
 expURLs <- sprintf(URLbase,
                    c("hsa00460", "hsa00461", "hsa00453", "hsa00453"))

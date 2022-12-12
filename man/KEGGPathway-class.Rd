@@ -48,7 +48,7 @@ Objects can be created by calls of the form \code{new("KEGGPathway",
     \item{show}{\code{signature(object = "KEGGPathway")}: display method }
 	 }
 }
-\references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
+\references{ KGML Document manual \url{https://www.genome.jp/kegg/docs/xml/} }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 
 \seealso{\code{\link{parseKGML}},

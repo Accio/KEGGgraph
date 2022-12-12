@@ -315,7 +315,7 @@ setReplaceMethod("edges", "KEGGPathway", function(object, value) {
 setMethod("getKEGGgeneLink", "character", function(object) {
   if(length(object) == 1)
     suffix <- gsub(":","+",object)
-  url <- paste("http://www.genome.jp/dbget-bin/www_bget?",suffix,sep="")
+  url <- paste("https://www.genome.jp/dbget-bin/www_bget?",suffix,sep="")
   return(url)
        })
 

@@ -30,7 +30,7 @@ edge objects in a KEGG graph}
     \item{show}{\code{signature(object = "KEGGEdge")}: Show method }
 	 }
 }
-\references{ KGML Manual \url{http://www.genome.jp/kegg/docs/xml/}}
+\references{ KGML Manual \url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{
   \code{\link{KEGGNode-class}}

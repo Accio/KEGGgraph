@@ -3,7 +3,7 @@
 ##------------------------------##
 translateKEGGID2GeneID <- function(x, organism="hsa") {
   if(organism!="hsa") {
-    stop("This function so far supports human gene only.\n To translate KEGGIDs of other species please use online service at http://www.genome.jp/kegg/genes.html")
+    stop("This function so far supports human gene only.\n To translate KEGGIDs of other species please use online service at https://www.genome.jp/kegg/genes.html")
   }
   gid <- gsub("^[a-z][a-z][a-z]:","", x)
   return(gid)

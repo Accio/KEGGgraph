@@ -15,13 +15,13 @@ parseEntry(entry)
   \item{entry}{ XML node of KGML file }
 }
 \details{
-  See \url{http://www.genome.jp/kegg/docs/xml/} for more details about
+  See \url{https://www.genome.jp/kegg/docs/xml/} for more details about
   'entry' as well as other elements in KGML files.
 }
 \value{
   An object of \code{link{KEGGNode}} or (in case of a group node) \code{link{KEGGGroup}}
 }
-\references{\url{http://www.genome.jp/kegg/docs/xml/}}
+\references{\url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang <jitao_david.zhang@roche.com> }
 \seealso{ \code{\link{parseGraphics}}, \code{\link{parseKGML}},
   \code{\link{KEGGNode-class}}, \code{\link{KEGGGroup-class}} }

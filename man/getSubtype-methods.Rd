@@ -13,7 +13,7 @@
   See \code{\link{KEGGEdge-class}} for examples. The method for graphs
   is a wrapper to extract all subtype information from one graph.
 }
-\references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
+\references{ KGML Document manual \url{https://www.genome.jp/kegg/docs/xml/} }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \section{Methods}{
 \describe{

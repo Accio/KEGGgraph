@@ -13,7 +13,7 @@
   The meanings and descriptions of the types can be found at KGML manual listed in
   the reference.
 }
-\references{ KGML Manual \url{http://www.genome.jp/kegg/docs/xml/}}
+\references{ KGML Manual \url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \section{Methods}{
 \describe{

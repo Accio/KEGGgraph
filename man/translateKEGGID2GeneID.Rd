@@ -16,7 +16,7 @@ translateGeneID2KEGGID(x, organism="hsa")
 \arguments{
   \item{x}{ KEGGID, e.g. 'hsa:1432', or Entrez Gene ID, e.g. '1432' }
   \item{organism}{ Three alphabet code for organisms. The mapping
-    between the orgniams and codes can be found at \url{http://www.genome.jp/kegg/kegg3.html}}
+    between the orgniams and codes can be found at \url{https://www.genome.jp/kegg/kegg3.html}}
 }
 \details{
   The KEGGID are unique identifiers used by KEGG PATHWAY to identify
