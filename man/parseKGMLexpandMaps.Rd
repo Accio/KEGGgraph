@@ -25,7 +25,7 @@ parseKGMLexpandMaps(file, downloadmethod = "wget", genesOnly = TRUE, localdir,..
 \details{
   In KEGG pathways there're usually pathways contained('cross-linked')
   in other pathways, for example see
-  \url{http://www.genome.jp/kegg/pathway/hsa/hsa04115.html}, where p53
+  \url{https://www.genome.jp/kegg/pathway/hsa/hsa04115.html}, where p53
   signalling pathway contains other two pathways 'apoptosis' and 'cell
   cycle'. This function parses these pathways (refered as 'maps' in KGML
   manual), download their KGML files from KEGG FTP website, parse them
@@ -42,6 +42,6 @@ parseKGMLexpandMaps(file, downloadmethod = "wget", genesOnly = TRUE, localdir,..
 \value{
   A directed graph object
 }
-\references{KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/}}
+\references{KGML Document manual \url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang \url{jitao_david.zhang@roche.com}}
 \seealso{ for most users it is enough to use \code{\link{parseKGML2Graph}} }

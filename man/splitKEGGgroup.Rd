@@ -22,7 +22,7 @@ splitKEGGgroup(pathway)
 \value{
   An object of \code{\link{KEGGPathway-class}} 
 }
-\references{KGML Manual \url{http://www.genome.jp/kegg/docs/xml/}}
+\references{KGML Manual \url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{ \code{\link{KEGGpathway2Graph}} }
 \examples{

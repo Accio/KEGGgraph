@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{KEGGgraph: graph approach to KEGG PATHWAY}
-%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db}
+%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db, tinytex}
 %\VignettePackage{KEGGgraph}
 
 \documentclass[11pt]{article}
@@ -52,6 +52,14 @@ The package requires KGML (KEGG XML) files, which can be downloaded from KEGG FT
 \textit{Visualization}: \Rpackage{KEGGgraph} provides functions to visualize KEGG graphs with custom style. Nevertheless users are not restricted by them, alternatively they are free to render the graph with other tools like the ones in \Rpackage{Rgraphviz}.
 
 Besides the functionalities described above, \Rpackage{KEGGgraph} also has tools for remote KGML file retrieval, graph feature study and other related tasks. We will demonstrate them later in this vignette.
+
+<<install_tex, echo=FALSE>>=
+library(tinytex)
+packs <- c("`ae.sty'","`grfext.sty'")
+for (i in 1:length(packs)) {
+    tinytex::parse_install(text = paste('! LaTeX Error: File', packs[i], 'not found.'))
+}
+@
 
 \section{Case studies}
 We load the \Rpackage{KEGGgraph} by typing or pasting the following codes in R

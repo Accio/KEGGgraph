@@ -15,13 +15,13 @@ parseRelation(relation)
   \item{relation}{ XML node of KGML file }
 }
 \details{
-  See \url{http://www.genome.jp/kegg/docs/xml/} for more details about
+  See \url{https://www.genome.jp/kegg/docs/xml/} for more details about
   'relation' as well as other elements in KGML files.
 }
 \value{
   An object of \code{link{KEGGEdge}}.
 }
-\references{\url{http://www.genome.jp/kegg/docs/xml/}}
+\references{\url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang <jitao_david.zhang@roche.com> }
 \seealso{\code{\link{KEGGEdge-class}}, \code{\link{parseEntry}}}
 \keyword{ IO }

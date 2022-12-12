@@ -49,7 +49,7 @@ and is not intended to be directly created by users.
     \item{show}{\code{signature(object = "KEGGNode")}: show method }
   }
 }
-\references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
+\references{ KGML Document manual \url{https://www.genome.jp/kegg/docs/xml/} }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 
 \seealso{\code{\link{KEGGEdge-class}}, \code{\link{parseEntry}}}

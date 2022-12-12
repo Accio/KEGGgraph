@@ -1,5 +1,5 @@
 %\VignetteIndexEntry{KEGGgraph: Application Examples}
-%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db, hgu133plus2.db}
+%\VignetteDepends{graph, XML, Rgraphviz, RBGL, org.Hs.eg.db, hgu133plus2.db, tinytex}
 %\VignettePackage{KEGGgraph}
 
 \documentclass[11pt]{article}
@@ -29,6 +29,14 @@
 \begin{abstract}
   In this vignette, we demonstrate the application of \Rpackage{KEGGgraph} as flexible module in analysis pipelines targeting heterogenous biological questions. For basic use of the \Rpackage{KEGGgraph} package, please refer to the vignette \textit{KEGGgraph: a graph approach to KEGG PATHWAY in R and Bioconductor}.
 \end{abstract}
+
+<<install_tex, echo=FALSE>>=
+library(tinytex)
+packs <- c("`ae.sty'","`grfext.sty'")
+for (i in 1:length(packs)) {
+    tinytex::parse_install(text = paste('! LaTeX Error: File', packs[i], 'not found.'))
+}
+@
 
 \section{Introduction}
 In many cases, \Rpackage{KEGGgraph} is used as stand-alone software

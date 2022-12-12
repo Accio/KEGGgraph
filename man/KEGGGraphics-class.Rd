@@ -28,7 +28,7 @@
     color}
   }
 }
-\references{ KGML Manual \url{http://www.genome.jp/kegg/docs/xml/}}
+\references{ KGML Manual \url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{
   \code{\link{parseGraphics}}

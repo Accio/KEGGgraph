@@ -23,7 +23,7 @@
     \item{obj = "list"}{ A wrapper for list of \code{\link{KEGGNode-class}} or
       \code{\link{KEGGEdge-class}} objects}
 }}
-\references{ KGML Document Manual \url{http://www.genome.jp/kegg/docs/xml/}}
+\references{ KGML Document Manual \url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 sfile <- system.file("extdata/hsa04010.xml",package="KEGGgraph")

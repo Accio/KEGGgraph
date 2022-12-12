@@ -22,7 +22,7 @@
 \describe{
 \item{object = "KEGGPathway"}{ An object of \code{\link{KEGGPathway-class}}}
 }}
-\references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
+\references{ KGML Document manual \url{https://www.genome.jp/kegg/docs/xml/} }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{\code{\link{KEGGPathway-class}}}
 \examples{

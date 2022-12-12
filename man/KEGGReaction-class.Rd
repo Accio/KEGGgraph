@@ -42,7 +42,7 @@ Objects can be created by calls of the function \code{\link{parseReaction}}.
       name of product}
   }
 }
-\references{ KGML Document Manual \url{http://www.genome.jp/kegg/docs/xml/}}
+\references{ KGML Document Manual \url{https://www.genome.jp/kegg/docs/xml/}}
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \examples{
 ## We show how to extract reactions from a 'KEGGPathway' object

@@ -20,6 +20,6 @@ parseGraphics(graphics)
 \value{
   An object of \code{\link{KEGGGraphics-class}}.
 }
-\references{ KGML Document manual \url{http://www.genome.jp/kegg/docs/xml/} }
+\references{ KGML Document manual \url{https://www.genome.jp/kegg/docs/xml/} }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \seealso{\code{\link{KEGGGraphics-class}}}

@@ -55,7 +55,7 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
 }
 \author{ Jitao David Zhang \url{mailto:jitao_david.zhang@roche.com} }
 \references{
-  Plea from KEGG (available as of Aug 2011) \url{http://www.genome.jp/kegg/docs/plea.html}
+  Plea from KEGG (available as of Aug 2011) \url{https://www.genome.jp/kegg/docs/plea.html}
 }
 \note{ 
   So far the function does not check the correctness of the
@@ -63,7 +63,7 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
   the right spelling.
 
   For Windows users, it is necessary to download and install \code{wget} program
-  (\url{http://gnuwin32.sourceforge.net/packages/wget.htm}) to use the
+  (\url{https://gnuwin32.sourceforge.net/packages/wget.htm}) to use the
   \code{wget} method to download files. Sometimes it may be necessary to
   modify searching path to add GnuWin32 folder (where \code{wget}
   execution file is located) and re-install R to make
@@ -90,11 +90,12 @@ getKGMLurl("path:hsa00020")
 getKGMLurl("00020",organism="hsa")
 getKGMLurl(c("00460", "hsa:00461", "path:hsa00453", "path:00453"))
 
-## NOT RUN
-\dontrun{
+hasConnection <- RCurl::url.exists(getKGMLurl("cel00010"))
+if(hasConnection) {
   tmp <- tempfile()
   retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="wget")
+} else {
+  warnings("No connection to KEGG webservice")
 }
-## END
 }
 \keyword{ IO }
