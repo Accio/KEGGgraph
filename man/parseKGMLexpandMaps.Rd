@@ -8,7 +8,7 @@
   in sequence to make expanding maps easier.
 }
 \usage{
-parseKGMLexpandMaps(file, downloadmethod = "wget", genesOnly = TRUE, localdir,...)
+parseKGMLexpandMaps(file, downloadmethod = "auto", genesOnly = TRUE, localdir,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -504,7 +504,7 @@ KEGGpathway2reactionGraph <- function(pathway) {
   return(cg)
 }
 
-parseKGMLexpandMaps <- function(file, downloadmethod="wget",genesOnly=TRUE, localdir, ...) {
+parseKGMLexpandMaps <- function(file, downloadmethod="auto",genesOnly=TRUE, localdir, ...) {
   gR <- parseKGML2Graph(file,expandGenes=TRUE, genesOnly=FALSE)
   
   ismap <- sapply(getKEGGnodeData(gR), getType) == "map"

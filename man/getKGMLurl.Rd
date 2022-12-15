@@ -15,9 +15,9 @@
 }
 \usage{
 getKGMLurl(pathwayid, organism = "hsa")
-retrieveKGML(pathwayid, organism, destfile,method="wget", ...)
+retrieveKGML(pathwayid, organism, destfile,method="auto", ...)
 kgmlNonmetabolicName2MetabolicName(destfile)
-getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
+getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="auto", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,7 +26,7 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
     the ocde this option is ignored}
   \item{destfile}{Destination file, to which the remote KGML file should
     be saved}
-  \item{method}{Method to be used for downloading files, passed to \code{download.file} function. Currently supports "internal", "wget" and
+  \item{method}{Method to be used for downloading files, passed to \code{download.file} function. Currently supports "internal", "auto" and
     "lynx"}
   \item{...}{Parameters passed to download.file}
 }
@@ -62,18 +62,6 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
   'organism' prefix, it is the responsibility of the user to garantee
   the right spelling.
 
-  For Windows users, it is necessary to download and install \code{wget} program
-  (\url{https://gnuwin32.sourceforge.net/packages/wget.htm}) to use the
-  \code{wget} method to download files. Sometimes it may be necessary to
-  modify searching path to add GnuWin32 folder (where \code{wget}
-  execution file is located) and re-install R to make
-  \code{wget} work.
-
-  Some user may experience difficulty
-  of retrieving KGML files when the download method is set to
-  \sQuote{auto}. In this case setting the method to \sQuote{wget} may
-  solve the problem (thanks to the report by Gilbert Feng).
-
   There were a period when the metabolic and non-metabolic pathways were
   saved separately in different directories, and \code{KEGGgraph} was
   able to handle them. \code{kgmlNonmetabolicName2MetabolicName} is used to translate
@@ -93,7 +81,7 @@ getKGMLurl(c("00460", "hsa:00461", "path:hsa00453", "path:00453"))
 hasConnection <- RCurl::url.exists(getKGMLurl("cel00010"))
 if(hasConnection) {
   tmp <- tempfile()
-  retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="wget")
+  retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="auto")
 } else {
   warnings("No connection to KEGG webservice")
 }
