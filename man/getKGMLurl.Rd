@@ -81,7 +81,11 @@ getKGMLurl(c("00460", "hsa:00461", "path:hsa00453", "path:00453"))
 hasConnection <- RCurl::url.exists(getKGMLurl("cel00010"))
 if(hasConnection) {
   tmp <- tempfile()
+<<<<<<< HEAD
   retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="auto")
+=======
+  retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="wget")
+>>>>>>> fix issue #9 reported by @hpages
 } else {
   warnings("No connection to KEGG webservice")
 }
