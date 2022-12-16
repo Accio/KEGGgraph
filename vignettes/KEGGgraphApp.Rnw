@@ -177,7 +177,7 @@ color.
 For the first time we could use the \Rfunction{retrieveKGML} function
 to retrieve the KGML remotely from the KEGG FTP site.
 
-<<remoteRetreval, echo=TRUE, eval=FALSE>>=
+<<remoteRetreval, echo=TRUE, eval=TRUE>>=
 tmp <- "hsa05210.xml"
 retrieveKGML(pathwayid="05210", organism="hsa", destfile=tmp)
 @ 
