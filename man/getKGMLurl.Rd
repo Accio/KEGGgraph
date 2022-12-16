@@ -38,17 +38,13 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="auto", ...)
   The mapping between pathway identifier and pathway name can be found
   by KEGGPATHNAME2ID (or reversed mappings) in KEGG.db package. See
   vignette for example.
-  
-  \code{retrieveKGML} calls \code{download.file} to download the KGML
-  file from KEGG FTP remotely.
-  
-  Since July 2011 the KGML is downloaded directly from the HTTP main
-  page of each pathway, instead of from the FTP server. The FTP server
-  is only open to subscribers. Commercial and other users should
-  consider support the KEGG database by subscribing to the FTP
-  service. See the references section below.
 
-  Since July 2017, the function uses the REST API service of KEGG.
+  \code{retrieveKGML} calls \code{download.file} to download the KGML
+  file from KEGG REST API remotely.
+
+  Before July 2017, KEGG FTP server was used to download the KGML files. Since
+  then the REST API service of KEGG is used instead.
+
 }
 \value{
   KGML File URL of the given pathway.
