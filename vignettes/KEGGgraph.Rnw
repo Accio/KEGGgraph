@@ -56,7 +56,7 @@ Besides the functionalities described above, \Rpackage{KEGGgraph} also has tools
 <<install_tex, eval=TRUE, echo=FALSE>>=
 if(.Platform$OS.type == "unix") {
 	library(tinytex)
-	packs <- c("`ae.sty'", "`grfext.sty'")
+	packs <- c("`ae.sty'", "`courier.sty'", "`grfext.sty'")
 	for (i in 1:length(packs)) {
 	    tinytex::parse_install(text = paste('! LaTeX Error: File', packs[i], 'not found.'))
 	}
@@ -313,7 +313,7 @@ plot(toprSub, "twopi", nodeAttrs=nAttrs, attrs=list(graph=list(start=2)))
 \section{Other funtionalities}
 Besides the ability to parse and operate on KEGG PATHWAY graph objects, the \Rpackage{KEGGgraph} package also provides functionalities to complement tasks related to deal with KEGG pathways. We introduce some of them here, for a full list of functions please see the package help file:
 
-<<help, echo=TRUE, eval=TRUE>>=
+<<help, echo=TRUE, eval=FALSE>>=
 help(package=KEGGgraph)
 @ 
 
