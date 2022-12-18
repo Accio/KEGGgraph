@@ -50,12 +50,11 @@ jobs:
       - name: Set up tinytex
         uses: r-lib/actions/setup-tinytex@v2
 
-      - run: tlmgr --version
-
       - name: Install additional LaTeX packages
-        run: |
-        tlmgr install grfext
-        tlmgr list --only-installed
+      - run: |
+          tlmgr --version
+          tlmgr install grfext
+          tlmgr list --only-installed
 
       - name: Install dependencies
         run: |
