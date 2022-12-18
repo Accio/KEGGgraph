@@ -54,11 +54,11 @@ The package requires KGML (KEGG XML) files, which can be downloaded from KEGG RE
 Besides the functionalities described above, \Rpackage{KEGGgraph} also has tools for remote KGML file retrieval, graph feature study and other related tasks. We will demonstrate them later in this vignette.
 
 <<install_tex, eval=TRUE, echo=FALSE>>=
-if(.Platform$OS.type == "unix") {
-	library(tinytex)
+library(tinytex)
+if(tinytex::is_tinytex()) {
 	packs <- c("`ae.sty'", "`courier.sty'", "`grfext.sty'")
 	for (i in 1:length(packs)) {
-	    tinytex::parse_install(text = paste('! LaTeX Error: File', packs[i], 'not found.'))
+		tinytex::parse_install(text = paste('! LaTeX Error: File', packs[i], 'not found.'))
 	}
 }
 @
