@@ -53,13 +53,6 @@ The package requires KGML (KEGG XML) files, which can be downloaded from KEGG RE
 
 Besides the functionalities described above, \Rpackage{KEGGgraph} also has tools for remote KGML file retrieval, graph feature study and other related tasks. We will demonstrate them later in this vignette.
 
-<<install_tex, eval=TRUE, echo=FALSE>>=
-library(tinytex)
-if(tinytex::is_tinytex()) {
-  tinytex::install_tinytex()
-}
-@
-
 \section{Case studies}
 We load the \Rpackage{KEGGgraph} by typing or pasting the following codes in R
 command line:

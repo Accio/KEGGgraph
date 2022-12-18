@@ -52,6 +52,11 @@ jobs:
 
       - run: tlmgr --version
 
+      - name: Install additional LaTeX packages
+        run: |
+        tlmgr install grfext
+        tlmgr list --only-installed
+
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))

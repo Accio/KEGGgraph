@@ -30,13 +30,6 @@
   In this vignette, we demonstrate the application of \Rpackage{KEGGgraph} as flexible module in analysis pipelines targeting heterogenous biological questions. For basic use of the \Rpackage{KEGGgraph} package, please refer to the vignette \textit{KEGGgraph: a graph approach to KEGG PATHWAY in R and Bioconductor}.
 \end{abstract}
 
-<<install_tex, echo=TRUE, eval=FALSE>>=
-library(tinytex)
-if(tinytex::is_tinytex()) {
-  tinytex::install_tinytex()
-}
-@
-
 \section{Introduction}
 In many cases, \Rpackage{KEGGgraph} is used as stand-alone software
 package to parse KEGG pathway \cite{Kanehisa08} into graph models and consequently to
