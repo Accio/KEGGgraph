@@ -39,7 +39,7 @@ Pathways are stored and presented as graphs on the KEGG server side, where nodes
 
 To address this problem, we developed the open-source software package \Rpackage{KEGGgraph}, an interface between KEGG pathway and graph object as well as a collection of tools to analyze, dissect and visualize these graphs. 
 
-The package requires KGML (KEGG XML) files, which can be downloaded from KEGG FTP site (\url{ftp://ftp.genome.jp/pub/kegg/xml}) without license permission for academic purposes. To demonstrate the functionality, in 'extdata/' sub-directory of \Rpackage{KEGGgraph} we have pre-installed several KGML files.
+The package requires KGML (KEGG XML) files, which can be downloaded from KEGG REST web service (\url{https://rest.kegg.jp/}) without license permission for academic purposes. To demonstrate the functionality, in 'extdata/' sub-directory of \Rpackage{KEGGgraph} we have pre-installed several KGML files.
 
 \section{Software features}
 
@@ -73,43 +73,31 @@ library(KEGGgraph)
 \subsection{Get KGML files}
 There are at least two possibilities to get KGML (KEGG XML) files:
 \begin{itemize}
-  \item Manual download from KEGG FTP site at \url{ftp://ftp.genome.jp/pub/kegg/xml/}.
-  \item Automatic retrieval from KEGG FTP site with the function \Rfunction{retrieveKGML}.
+  \item Manual download from KEGG REST API, documented at at \url{https://www.kegg.jp/kegg/rest/keggapi.html}.
+  \item Automatic retrieval from KEGG REST API, available at \url{https://rest.kegg.jp}, with the function \Rfunction{retrieveKGML}.
 \end{itemize}
 
-To retrieve KGML file automatically from KEGG FTP site, one has to
-know the pathway identifier (in the form of [a-z]{3}[0-9]{5}, where
-the three-alphabet code represent the organism and the five digits
-represent pathway). One method to find the mapping between pathway
-name and identifier is use \Robject{KEGGPATHNAME2ID} environment that was originally provided in
-\Rpackage{KEGG.db}, which is now provided by \Rpackage{KEGGgraph} because \Rpackage{KEGG.db} is deprecated. For example, the following codes retrieve p53
-signaling pathway of \textit{C.elegans} from KEGG FTP site.
+To retrieve KGML file automatically, one has to know the pathway identifier.
+KEGG pathway identifiers have the form of \textrm{[a-z]{3-4}[0-9]{5}}, where the
+three- or four-alphabet code represent the organism and the five digits
+represent pathways. The same pathway in different species share the five-digit
+code, which is the first parameter accepted by \textit{retrieveKGML}. The second
+parameter required is the alphabet-code of the organism.
 
-<<remoteRetrieval, echo=TRUE, eval=FALSE>>=
+For example, the following codes retrieve p53 signaling pathway, which has the
+digit-code \textit{04115}, of the species \textit{Macaca fascicularis}
+, or crab-eating macaque, which has the three-alphabet code \textrm{mcf}:
+
+<<remoteRetrieval, echo=TRUE, eval=TRUE>>=
 tmp <- tempfile()
-pName <- "p53 signaling pathway"
-data(KEGGPATHNAME2ID)
-pId <- mget(pName, KEGGPATHNAME2ID)[[1]]
-retrieveKGML(pId, organism="cel", destfile=tmp, method="wget", quiet=TRUE)
-@ 
+retrieveKGML("04115", organism="mcf", destfile=tmp, method="auto", quiet=TRUE)
+@
 
-Note: \Rfunction{retrieveKGML} uses a \emph{try-download} mechanism
-(since the \Rpackage{KEGGgraph version 1.1.2}) to retrieve the KGML file from remote KEGG FTP server. Since
-August 2009 the KGML files are stored separately in different
-subdirectories depending on whether they record metabolic or
-non-metabolic pathways. Since from the KEGG pathway accession ID alone
-(e.g. \textsf{hsa00010}) alone it is not possible to determine its
-content, the \Rfunction{retrieveKGML} first tries to download the file
-from the non-metabolic subdirectory, and tries the metabolic
-directory in case no file was found in the non-metabolic category (the
-\emph{try} step). In case the corresponding file is found, it is
-downloaded (the \emph{download} step). Even if
-the file is found in the first try round, it still needs to be
-downloaded in the \emph{download} step. However, this does not actually need to
-the network overhead, since thanks to the common cache system the file is only
-downloaded once.
+Pathways and their identifiers can be browsed in the KEGG website
+\url{https://genome.jp/kegg}, or found with any search engine.
 
 \subsection{Parsing and graph feature query}
+
 First we read in KGML file for human MAPK signaling pathway (with KEGG ID hsa04010):
 <<library, echo=TRUE>>=
 mapkKGML <- system.file("extdata/hsa04010.xml",
@@ -119,7 +107,8 @@ Once the file is ready, we can either parse them into an object of \Rclass{KEGGP
 <<parsemapk, echo=TRUE, results=verbatim>>=
 mapkG <- parseKGML2Graph(mapkKGML,expandGenes=TRUE)
 mapkG
-@ 
+@
+
 Alternatively we can parse the KGML file first into an object of \Rclass{KEGGpathway}, which can be later converted into the graph object, as the following lines show:
 <<parsemapk2, echo=TRUE, results=verbatim>>=
 mapkpathway <- parseKGML(mapkKGML)
@@ -153,9 +142,11 @@ mapkGnodedata <- getKEGGnodeData(mapkG)
 mapkGnodedata[[2]]
 @ 
 An alternative to use \Rfunction{gettKEGGnodeData} is
-<<keggnodedataalt, echo=TRUE, eval=FALSE>>=
+
+<<keggnodedataalt, echo=TRUE, eval=TRUE>>=
 getKEGGnodeData(mapkG, 'hsa:5924')
-@ 
+@
+
 , returning identical results.
 
 Similarly the \Rfunction{getKEGGedgeData} is able to extract edge information:
@@ -164,7 +155,7 @@ mapkGedgedata <- getKEGGedgeData(mapkG)
 mapkGedgedata[[4]]
 @ 
 Alternatively the query above can be written as:
-<<keggedgedataalt, echo=TRUE, eval=FALSE>>=
+<<keggedgedataalt, echo=TRUE, eval=TRUE>>=
 getKEGGedgeData(mapkG,'hsa:627~hsa:4915')
 @ 
 
@@ -284,7 +275,7 @@ identify most important nodes in MAPK signalling pathway.
 
 \emph{Note}: the current version of \texttt{RBGL} (version 1.59.5) reports the error  that \texttt{BGL\_brandes\_betweeness\_centrality} not available for \texttt{.Call()} for package ``RBGL''. Therefore the execution has been suppressed for now.
 
-<<bcc, echo=TRUE, eval=FALSE, results=verbatim>>=
+<<bcc, echo=TRUE, eval=TRUE, results=verbatim>>=
 library(RBGL)
 bcc <- brandes.betweenness.centrality(mapkG)
 rbccs <- bcc$relative.betweenness.centrality.vertices[1L,]
@@ -298,7 +289,7 @@ in MAPK pathway.
 
 \begin{figure}[!hp]
 \begin{center}
-<<bccplot, eval=FALSE, echo=TRUE, fig=TRUE>>=
+<<bccplot, eval=TRUE, echo=TRUE, fig=TRUE>>=
 toprbccName <- names(toprbccs)
 toprin <- sapply(toprbccName, function(x) inEdges(mapkG)[x])
 toprout <- sapply(toprbccName, function(x) edges(mapkG)[x])
@@ -322,7 +313,7 @@ plot(toprSub, "twopi", nodeAttrs=nAttrs, attrs=list(graph=list(start=2)))
 \section{Other funtionalities}
 Besides the ability to parse and operate on KEGG PATHWAY graph objects, the \Rpackage{KEGGgraph} package also provides functionalities to complement tasks related to deal with KEGG pathways. We introduce some of them here, for a full list of functions please see the package help file:
 
-<<help, echo=TRUE, eval=FALSE>>=
+<<help, echo=TRUE, eval=TRUE>>=
 help(package=KEGGgraph)
 @ 
 
@@ -370,8 +361,8 @@ plot(chemicalGraph, nodeAttrs=nAttrs)
 \end{figure}
 
 \subsection{Expand embedded pathways}
-Function \Rfunction{parseKGMLexpandMaps} is a function to handle with pathways embedding other pathways. For example, pancreatic cancer pathway embeds 9 other pathways including MAPK and ErbB signaling pathway, cell cycle and apoptosis pathway, etc. To parse them into one graph, the users only have to download the KGML file and feed the file name to \Rfunction{parseKGMLexpandMaps}, the function parses the file, analyze the embedded pathways, download their files from KEGG FTP site automatically (alternatively a local repository can be specified for KGML files) and merge the individual pathways into a single graph. For example, the following single line parses MAPK signaling pathway with all its embedded pathways
-<<mapk14expand, echo=TRUE, eval=FALSE>>=
+Function \Rfunction{parseKGMLexpandMaps} is a function to handle with pathways embedding other pathways. For example, pancreatic cancer pathway embeds 9 other pathways including MAPK and ErbB signaling pathway, cell cycle and apoptosis pathway, etc. To parse them into one graph, the users only have to download the KGML file and feed the file name to \Rfunction{parseKGMLexpandMaps}, the function parses the file, analyze the embedded pathways, download their files from KEGG REST API service automatically (alternatively a local repository can be specified for KGML files) and merge the individual pathways into a single graph. For example, the following single line parses MAPK signaling pathway with all its embedded pathways
+<<mapk14expand, echo=TRUE, eval=TRUE>>=
 mapkGembed <- parseKGMLexpandMaps(mapkKGML)
 @ 
 
@@ -394,7 +385,7 @@ toprbccGeneID
 
 To convert GeneID to other identifiers, we recommend genome wide annotation packages, for human it is \Rpackage{org.Hs.eg.db} and the packages for other organisms can be fount at \url{http://www.bioconductor.org/packages/release/data/annotation/}. To demonstrate its use, we draw the sub-network in the figure \ref{fig:02} again, whereas nodes are now labeled with gene symbols.
 \label{convertId}
-<<orgHuman, eval=FALSE, echo=TRUE,  fig=TRUE>>=
+<<orgHuman, eval=TRUE, echo=TRUE,  fig=TRUE>>=
 if(require(org.Hs.eg.db)) {
   tnodes <- nodes(toprSub)
   tgeneids <- translateKEGGID2GeneID(tnodes)
@@ -406,6 +397,7 @@ if(require(org.Hs.eg.db)) {
 @ 
 
 Alternatively, users could use R package \Rpackage{biomaRt} \cite{Durinck05, Huber08}\label{txt:biomaRt} for ID conversion, whereas it assumes that the user has an internet connection. The following example shows how to translate the node hits we acquired in the example above into HGNC symbols:
+
 <<biomart2, echo=TRUE, eval=FALSE>>=
 library(biomaRt)
 hsapiens <- useMart("ensembl","hsapiens_gene_ensembl" )

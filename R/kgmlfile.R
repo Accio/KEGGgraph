@@ -3,7 +3,6 @@ kgmlNonmetabolicName2MetabolicName <- function(destfile) {
 }
 
 getKGMLurl <- function(pathwayid, organism="hsa") {
-  ## baseurl <- "ftp://ftp.genome.jp/pub/kegg/xml/kgml/non-metabolic/organisms"
   baseurl <- "https://rest.kegg.jp/get/%s%s/kgml"
 
   pathwayid <- gsub("path","",pathwayid)
@@ -37,7 +36,7 @@ kgmlFileName2PathwayName <- function(filename) {
   return(pathname)
 }
 
-retrieveKGML <- function(pathwayid, organism, destfile, method="wget", ...) {
+retrieveKGML <- function(pathwayid, organism, destfile, method="auto", ...) {
   #### now KGML does not differ between metabolic and non-metabolic pathways
   ##  kgml <- getCategoryIndepKGMLurl(pathwayid,organism=organism, method=method, ...)
   kgml <- getKGMLurl(pathwayid=pathwayid, organism=organism)
@@ -52,7 +51,7 @@ retrieveKGML <- function(pathwayid, organism, destfile, method="wget", ...) {
 ##------------------------------------------------------------##
 ## may be obslete in the next main release
 ##------------------------------------------------------------##
-getCategoryIndepKGMLurl <- function(pathwayid, organism="hsa", method="wget",...) {
+getCategoryIndepKGMLurl <- function(pathwayid, organism="hsa", method="auto",...) {
   .Deprecated(msg="No longer needed, and will be removed in the next main release")
   kgml <- getKGMLurl(pathwayid=pathwayid, organism=organism)
   categoryIndepKGMLurl <- ""

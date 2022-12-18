@@ -1,3 +1,6 @@
+Version 1.51.3 (2022-08-25)
+  + Update parseGraphics to handle line entries
+
 Version 1.37.1 (2017-07-20)
   + export parsePathwayInfo to be used in pathview
 

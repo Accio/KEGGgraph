@@ -15,9 +15,9 @@
 }
 \usage{
 getKGMLurl(pathwayid, organism = "hsa")
-retrieveKGML(pathwayid, organism, destfile,method="wget", ...)
+retrieveKGML(pathwayid, organism, destfile,method="auto", ...)
 kgmlNonmetabolicName2MetabolicName(destfile)
-getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
+getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="auto", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,7 +26,7 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
     the ocde this option is ignored}
   \item{destfile}{Destination file, to which the remote KGML file should
     be saved}
-  \item{method}{Method to be used for downloading files, passed to \code{download.file} function. Currently supports "internal", "wget" and
+  \item{method}{Method to be used for downloading files, passed to \code{download.file} function. Currently supports "internal", "auto" and
     "lynx"}
   \item{...}{Parameters passed to download.file}
 }
@@ -38,17 +38,13 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
   The mapping between pathway identifier and pathway name can be found
   by KEGGPATHNAME2ID (or reversed mappings) in KEGG.db package. See
   vignette for example.
-  
-  \code{retrieveKGML} calls \code{download.file} to download the KGML
-  file from KEGG FTP remotely.
-  
-  Since July 2011 the KGML is downloaded directly from the HTTP main
-  page of each pathway, instead of from the FTP server. The FTP server
-  is only open to subscribers. Commercial and other users should
-  consider support the KEGG database by subscribing to the FTP
-  service. See the references section below.
 
-  Since July 2017, the function uses the REST API service of KEGG.
+  \code{retrieveKGML} calls \code{download.file} to download the KGML
+  file from KEGG REST API remotely.
+
+  Before July 2017, KEGG FTP server was used to download the KGML files. Since
+  then the REST API service of KEGG is used instead.
+
 }
 \value{
   KGML File URL of the given pathway.
@@ -61,18 +57,6 @@ getCategoryIndepKGMLurl(pathwayid, organism="hsa", method="wget", ...)
   So far the function does not check the correctness of the
   'organism' prefix, it is the responsibility of the user to garantee
   the right spelling.
-
-  For Windows users, it is necessary to download and install \code{wget} program
-  (\url{https://gnuwin32.sourceforge.net/packages/wget.htm}) to use the
-  \code{wget} method to download files. Sometimes it may be necessary to
-  modify searching path to add GnuWin32 folder (where \code{wget}
-  execution file is located) and re-install R to make
-  \code{wget} work.
-
-  Some user may experience difficulty
-  of retrieving KGML files when the download method is set to
-  \sQuote{auto}. In this case setting the method to \sQuote{wget} may
-  solve the problem (thanks to the report by Gilbert Feng).
 
   There were a period when the metabolic and non-metabolic pathways were
   saved separately in different directories, and \code{KEGGgraph} was
@@ -93,7 +77,7 @@ getKGMLurl(c("00460", "hsa:00461", "path:hsa00453", "path:00453"))
 hasConnection <- RCurl::url.exists(getKGMLurl("cel00010"))
 if(hasConnection) {
   tmp <- tempfile()
-  retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="wget")
+  retrieveKGML(pathwayid='00010', organism='cel', destfile=tmp, method="auto")
 } else {
   warnings("No connection to KEGG webservice")
 }
