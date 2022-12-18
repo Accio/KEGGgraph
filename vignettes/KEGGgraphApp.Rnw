@@ -33,7 +33,7 @@
 <<install_tex, echo=TRUE, eval=FALSE>>=
 if(.Platform$OS.type == "unix") {
 	library(tinytex)
-	packs <- c("`ae.sty'", "``grfext.sty'")
+	packs <- c("`ae.sty'", "`grfext.sty'")
 	for (i in 1:length(packs)) {
 		tinytex::parse_install(text = paste('! LaTeX Error: File', packs[i], 'not found.'))
 	}
