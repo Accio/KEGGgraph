@@ -56,7 +56,7 @@ Besides the functionalities described above, \Rpackage{KEGGgraph} also has tools
 <<install_tex, eval=TRUE, echo=FALSE>>=
 if(.Platform$OS.type == "unix") {
 	library(tinytex)
-	packs <- c("`ae.sty'")
+	packs <- c("`ae.sty'", "``grfext.sty'")
 	for (i in 1:length(packs)) {
 	    tinytex::parse_install(text = paste('! LaTeX Error: File', packs[i], 'not found.'))
 	}
