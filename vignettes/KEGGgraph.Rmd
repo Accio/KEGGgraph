@@ -7,6 +7,7 @@ date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   BiocStyle::html_document
 bibliography: KEGGgraph.bib
+csl: bioinformatics.csl
 reference-section-title: References
 link-citations: yes
 abstract: >
