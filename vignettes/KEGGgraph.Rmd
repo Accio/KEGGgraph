@@ -45,7 +45,7 @@ To address this problem, we developed the open-source software package
 well as a collection of tools to analyze, dissect and visualize these graphs.
 
 The package requires KGML (KEGG XML) files, which can be downloaded from KEGG
-REST web service ((https://rest.kegg.jp/)) without license permission for
+REST web service (https://rest.kegg.jp/) without license permission for
 academic purposes. To demonstrate the functionality, in 'extdata/' sub-directory
 of `r Biocpkg("KEGGgraph")` we have pre-installed several KGML files.
 
@@ -88,8 +88,8 @@ library(KEGGgraph)
 
 There are at least two possibilities to get KGML (KEGG XML) files:
 
-  * Manual download from KEGG REST API, documented at at (https://www.kegg.jp/kegg/rest/keggapi.html).
-  * Automatic retrieval from KEGG REST API, available at (https://rest.kegg.jp),
+  * Manual download from KEGG REST API, documented at at https://www.kegg.jp/kegg/rest/keggapi.html.
+  * Automatic retrieval from KEGG REST API, available at https://rest.kegg.jp,
   with the function `retrieveKGML`.
 
 To retrieve KGML file automatically, one has to know the pathway identifier.
@@ -109,7 +109,7 @@ retrieveKGML("04115", organism="mcf", destfile=tmp, method="auto", quiet=TRUE)
 ```
 
 Pathways and their identifiers can be browsed in the KEGG website
-(https://genome.jp/kegg), or found with any search engine.
+https://genome.jp/kegg, or found with any search engine.
 
 ## Parsing and graph feature query
 
@@ -234,7 +234,7 @@ mapkGsub
 The subgraph is visualized in figure [1](#fig:01), where nodes with in-degree or
 out-degree in red and others in grey [^1]. And in the example we also
 demonstrate how to convert KEGG ID into other other identifiers via the Entrez
-GeneID. More details on the conversion of IDs can be found on section [Annotation](#convertId)
+GeneID. More details on the conversion of IDs can be found in the [Annotation section](#convertId).
 
 ```{r makeattr, echo=FALSE}
 makeAttr <- function(graph, default, valNodeList) {
@@ -452,8 +452,8 @@ toprbccGeneID
 To convert GeneID to other identifiers, we recommend genome wide annotation
 packages, for human it is `r Biocpkg("org.Hs.eg.db")` and the packages for other
 organisms can be fount at
-(http://www.bioconductor.org/packages/release/data/annotation/). To demonstrate
-its use, we draw the sub-network in the figure [2](fig:02) again, whereas nodes
+http://www.bioconductor.org/packages/release/data/annotation/. To demonstrate
+its use, we draw the sub-network in the figure [2](#fig:02) again, whereas nodes
 are now labeled with gene symbols. 
 
 ```{r orgHuman, message=FALSE, warning=FALSE}

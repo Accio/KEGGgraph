@@ -18,9 +18,10 @@ LazyData: yes
 Depends: R (>= 3.5.0)
 Imports: methods, XML (>= 2.3-0), graph, utils, RCurl, Rgraphviz
 Suggests: RBGL, testthat, RColorBrewer, org.Hs.eg.db,
-        hgu133plus2.db, SPIA
+        hgu133plus2.db, SPIA, BiocStyle, knitr
 Collate: kegg2graph-functions.R parse.R annotation.R graph.R kgmlfile.R
         misc.R vis.R
 URL: http://www.nextbiomotif.com
 biocViews: Pathways, GraphAndNetwork, Visualization, KEGG
 Encoding: UTF-8
+VignetteBuilder: knitr
