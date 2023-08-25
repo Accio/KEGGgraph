@@ -8,7 +8,7 @@ Authors@R: c(
         person("Paul", "Shannon", role = "ctb"),
         person("Hervé", "Pagès", role = "ctb"),
         person("Sonali", "Kumari", role = "ctb",
-                comment = "Converted KEGGgraph.Rnw vignette from Sweave to RMarkdown / HTML."),
+                comment = "Converted KEGGgraph vignette from Sweave to RMarkdown / HTML."),
         person("Jitao David", "Zhang",
                 email = "jitao_david.zhang@roche.com", role = c("aut", "cre")))
 Description: KEGGGraph is an interface between KEGG pathway and graph
