@@ -50,16 +50,6 @@ jobs:
       - name: Set up tinytex
         uses: r-lib/actions/setup-tinytex@v2
 
-      - name: Install additional LaTeX packages
-        run: |
-          tlmgr --version
-          tlmgr install grfext
-          tlmgr install ae
-          tlmgr install courier
-          # tlmgr install pslatex
-          # tlmgr install tex4ht
-          tlmgr list --only-installed
-
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
