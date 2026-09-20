@@ -1,0 +1,300 @@
+---
+title: "KEGGgraph: Application Examples"
+author:
+  - name: "Jitao David Zhang"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  BiocStyle::html_document
+bibliography: KEGGgraph.bib
+csl: bioinformatics.csl
+reference-section-title: References
+link-citations: yes
+abstract: >
+  In this vignette, we demonstrate the application of `r Biocpkg("KEGGgraph")` as
+  flexible module in analysis pipelines targeting heterogenous biological
+  questions. For basic use of the `r Biocpkg("KEGGgraph")` package, please refer
+  to the vignette *KEGGgraph: a graph approach to KEGG PATHWAY in R and
+  Bioconductor*.
+vignette: >
+  %\VignetteIndexEntry{ KEGGgraph: Application Examples }
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+## The microarray section needs the annotation packages to map Affymetrix probe
+## identifiers onto Entrez gene identifiers. They are all suggested rather than
+## required, so the section is skipped where they are unavailable and the
+## vignette still builds.
+microarrayPkgs <- c("hgu133plus2.db", "org.Hs.eg.db", "RBGL", "RColorBrewer")
+hasMicroarrayDeps <- all(vapply(microarrayPkgs, requireNamespace,
+                                logical(1), quietly = TRUE))
+
+## Lazily evaluated, so that the figures computed above are never forced when
+## the annotation packages are missing.
+val <- function(expr, fallback = "(not computed)") {
+  if (hasMicroarrayDeps) expr else fallback
+}
+```
+
+# Introduction
+
+In many cases, `r Biocpkg("KEGGgraph")` is used as stand-alone software package
+to parse KEGG pathway [@Kanehisa08] into graph models and consequently to
+analyze them. However, `r Biocpkg("KEGGgraph")` can also be combined with other
+tools (within or out of the scope of **R** and **Bioconductor** [@Gentleman04],
+[@Carey05]), to build flexible analysis pipelines. In this vignette we
+demonstrate the cooperation between `r Biocpkg("KEGGgraph")` and other tools
+with several examples.
+
+# Parse created or edited pathway
+
+KGML-ED [@Klukas07] is a tool designed for the dynamic visualization,
+interactive navigation and editing of KEGG pathway diagrams. The program is able
+to modify or even create *de novo* new pathways and export them into KGML (KEGG
+XML) files. Since `r Biocpkg("KEGGgraph")` captures the graph information of
+KEGG PATHWAY by parsing KGML files, it is also capable to parse the KGML files
+exported from KGML-ED program. The joint use of the two programs allows user
+edit KGML files from KEGG (for example, by adding/removing new nodes/edges), or
+create new pathways from scratch, and then analyse them.
+
+Here we demontrate the parse of a toy pathway (network motif) created by
+KGML-ED, which illustrates a feed-forward loop (FFL) [@Mangan2003], [@Alon2007].
+
+```{r loadtoy, echo=TRUE, message=FALSE}
+library(KEGGgraph)
+toyKGML <- system.file("extdata/kgml-ed-toy.xml", package="KEGGgraph")
+toyGraph <- parseKGML2Graph(toyKGML, genesOnly=FALSE)
+toyGraph
+nodes(toyGraph)
+```
+
+We visualize the graph with `r Biocpkg("Rgraphviz")` in figure [1](#fig:01).
+
+```{r vistoy, echo=FALSE, results='hide', fig.show='hide', message=FALSE, warning=FALSE}
+library(Rgraphviz)
+nodeInfo <- getKEGGnodeData(toyGraph)
+nodeType <- sapply(nodeInfo, getType)
+makeNodeRenderAttrs <- function(g, label=nodes(g),
+                                shape="ellipse", fill="#e0e0e0",...) {
+  rv <- list(label=label, shape=shape, fill=fill, ...)
+  nA <- nodeRenderInfo(g)
+  for(i in seq(along=rv)) {
+    if (length(rv[[i]]) == 1) {
+      rv[[i]] <- rep(rv[[i]], numNodes(g))
+    } else {
+      if (length(rv[[i]]) != numNodes(g))
+        stop("Attribute vector must have as many elements as 'g' has nodes.")
+    }
+    names(rv[[i]]) <- nodes(g)
+    nA[[ names(rv)[[i]] ]] <- rv[[i]]
+  }
+  nodeRenderInfo(g) <- nA
+  return(g)
+}
+toyDrawn <- plotKEGGgraph(toyGraph)
+toyDrawnRefine <- makeNodeRenderAttrs(toyDrawn, fill=ifelse(nodeType=="gene", "lightblue", "orange"),
+                                      shape=ifelse(nodeType=="gene", "ellipse","rectangle"))
+```
+
+<a id="fig:01"></a>
+```{r vistoyReal, echo=FALSE, warning=FALSE, fig.cap="Visualization of the toy network (incoherent type-1 feed-forward loop, IL1-FFL) created by KGML-ED and parsed by KEGGgraph. The rectangle nodes represent compounds while ellipse ones represent gene/gene products. Solid and dashed red arrows represent activation and expression, whereas blue represent inhibition and repression. Note that self-inhibition of GalS is presented by a node and an edge pointing to its self."}
+renderGraph(toyDrawnRefine)
+```
+
+Similarly, users could create new or modify existing pathways by modifying KGML
+files with tools including KGML-ED, and these pathways can be consequently
+parsed, visualized and analyzed consequently by `r Biocpkg("KEGGgraph")` and
+other tools for graphs implemented in **Bioconductor**. In this sense
+`r Biocpkg("KEGGgraph")` is not only able to study existing biological pathways
+constructed by KEGG, but also a tool for modelling pathways and biological
+networks in **R**.
+
+# Microarray analysis
+
+KEGG PATHWAY contains pathway maps for nearly 1000 organisms and has been
+intensively expanded with pathways including signaling transduction, cellular
+processes and human diseases in recent years. As the graph-theory based approach
+to this valuable knowledge-base, `r Biocpkg("KEGGgraph")` can be built into
+analysis pipelines where the pathway information could be useful, especially
+with the graph attributes. To demonstrate this we show one example of microarray
+analysis, cooperating with another package `r Biocpkg("SPIA")` [@Tarca2009], a
+package implementing the Signaling Pathway Impact Analysis (SPIA) algorithm.
+
+```{r microarrayNote, echo=FALSE, results='asis'}
+if(!hasMicroarrayDeps) {
+  missingPkgs <- microarrayPkgs[!vapply(microarrayPkgs, requireNamespace,
+                                        logical(1), quietly = TRUE)]
+  cat(sprintf(paste("**Note**: this section is not evaluated because the",
+                    "following suggested package(s) are not installed: %s.",
+                    "Install them to reproduce the analysis below.\n"),
+              paste(missingPkgs, collapse=", ")))
+}
+```
+
+The microarray data is decribed in the vignette of `r Biocpkg("SPIA")`, here it
+is only briefly summarized: Affemetrix GeneChip (GEO accession: GSE4107),
+containing 10 normal samples and 12 colorectal cancer samples, is normalized
+with `r Biocpkg("affy")` and `r Biocpkg("limma")` package. The result of
+`topTable` in `r Biocpkg("limma")` is used as the input data.
+
+```{r spiaLoad, echo=TRUE, eval=hasMicroarrayDeps, message=FALSE}
+if(require(SPIA)) {
+  data(colorectalcancer,package="SPIA")
+} else {
+  load(system.file("extdata/colorectalcancerSPIA.RData", package="KEGGgraph"))
+}
+head(top)
+```
+
+We only consider the probes annotated with EntrezGeneID and differentially
+expressed with FDR $p$-value less than 0.05.
+
+```{r spiaTrans, echo=TRUE, eval=hasMicroarrayDeps, message=FALSE}
+library(hgu133plus2.db)
+x <- hgu133plus2ENTREZID
+top$ENTREZ <- unlist(as.list(x[top$ID]))
+top <- top[!is.na(top$ENTREZ),]
+top <- top[!duplicated(top$ENTREZ),]
+tg1 <- top[top$adj.P.Val < 0.05,]
+DE_Colorectal <- tg1$logFC
+names(DE_Colorectal) <- as.vector(tg1$ENTREZ)
+ALL_Colorectal <- top$ENTREZ
+```
+
+The *SPIA* algorithm takes as input two vectors: log2 fold changes of
+differentially expressed genes (`DE_Colorectal`) and those of all EntrezGeneID
+annotated genes (`ALL_Colorectal`), and returns a table of pathways ranked from
+the most to the least significant. The results show that Colorectal cancer
+pathway (ID:05210) is significantly activated (ranked the 5th of the result
+table). To visualize the results, we visualize the pathway with differentially
+expressed genes marked with color.
+
+For the first time we could use the `retrieveKGML` function to retrieve the KGML
+remotely from the KEGG FTP site.
+
+```{r remoteRetreval, echo=TRUE, eval=TRUE}
+tmp <- tempfile()
+retrieveKGML(pathwayid="05210", organism="hsa", destfile=tmp)
+```
+
+We have attached this file in the `r Biocpkg("KEGGgraph")`, we parse it into
+graph and observe that around $30\%$ percent of the genes in the pathway are
+differentially expressed. The pathway map (figure) can be found at
+https://www.genome.jp/dbget-bin/show_pathway?hsa05210.
+
+```{r spiaPer, echo=TRUE, eval=hasMicroarrayDeps}
+colFile <- system.file("extdata/hsa05210.xml",
+                       package="KEGGgraph")
+g <- parseKGML2Graph(colFile)
+deKID <- translateGeneID2KEGGID(names(DE_Colorectal))
+allKID <- translateGeneID2KEGGID(ALL_Colorectal)
+isDiffExp <- nodes(g) %in% deKID
+sprintf("%2.2f%% genes differentially-expressed", mean(isDiffExp)*100)
+```
+
+We visualize the pathway with pseudo-colors representing the log2 fold change of
+the differentially expressed genes in figure [2](#fig:02).
+
+<a id="fig:02"></a>
+```{r spiaVis, echo=FALSE, eval=hasMicroarrayDeps, message=FALSE, warning=FALSE, fig.cap="Overview of colorectal cancer pathway with pseudo-colored nodes representing expression change. Red nodes represented up-regulated mRNAs in cancer samples and blue ones are down-regulated. Grey nodes are detected not to be differentially expressed, yellow ones are not reported (possibly due to under detection threshold). The gradual colors indicate the log2 fold change of the expression - the darker the colors, the larger fold change. One distinct feature is the existence of many non-connected nodes, which could has been omitted when the graph information is discarded and only the membership of the gene is considered."}
+library(RColorBrewer)
+library(org.Hs.eg.db)
+library(RBGL)
+library(grid)
+ar <- 20
+cols <- rev(colorRampPalette(brewer.pal(6, "RdBu"))(ar))
+logfcs <- DE_Colorectal[match(nodes(g), deKID)]
+names(logfcs) <- nodes(g)
+logfcs[is.na(logfcs)] <- 0
+incol <- round((logfcs+2)*5); incol[incol>ar] <- ar
+undetected <- !nodes(g) %in% allKID
+logcol <- cols[incol]; logcol[logfcs==0] <- "darkgrey"; logcol[undetected] <- "yellow"
+names(logcol) <- names(logfcs)
+nA <- makeNodeAttrs(g, fillcolor=logcol, label="", width=10, height=1.2)
+par(mar=c(3,5,0,5), mgp=c(0,0,0))
+layout(mat=matrix(c(rep(1,8),2), ncol=1, byrow=TRUE))
+plot(g, "dot", nodeAttrs=nA)
+image(as.matrix(seq(1,ar)), col=cols, yaxt="n", xaxt="n")
+mtext("down-regulation", side=1,  at=0, line=1)
+mtext("up-regulation", side=1,  at=1, line=1)
+```
+
+```{r spiaSingleNode, echo=FALSE, eval=hasMicroarrayDeps, results='hide', message=FALSE}
+gDeg <- degree(g)
+gIsSingle <- gDeg[[1]] + gDeg[[2]] == 0
+options(digits=3)
+gGeneID <- translateKEGGID2GeneID(nodes(g))
+gSymbol <-  sapply(gGeneID, function(x) mget(x, org.Hs.egSYMBOL, ifnotfound=NA)[[1]])
+isUp <- logfcs > 0
+isDown <- logfcs < 0
+singleUp <- isUp & gIsSingle
+singleDown <- isDown & gIsSingle
+```
+
+In the figure [2](#fig:02), we observe that:
+
+* Not all the genes are connected with each other,
+  `r val(round(mean(gIsSingle)*100, 1))`%
+  (`r val(sum(gIsSingle))`/`r val(length(gIsSingle))`) nodes in the pathway have
+  a degree of 0 -- they are not conencted to any other node. There are several
+  reasons for this. One of them is the genes with genetic alterations are
+  indicated in the pathway map, but not interweaved into the pathway (cf.
+  https://www.genome.jp/dbget-bin/show_pathway?hsa05210). Another important
+  factor is that in some pathways, especially human disease pathways, KEGG
+  records genes involved in the disease but does not provide any edge in that
+  pathway, although one can find their interaction partners in other pathways
+  (e.g., Grb2 has no edges in colorectal cancer pathway, however in other maps
+  including MAPK signaling pathway, both up- and down-stream interactors are
+  found). One solution to the later problem is to *merge* (*union*) the related
+  pathways together, to this end `r Biocpkg("KEGGgraph")` provides the function
+  `mergeKEGGgraphs`.
+* From the visualization in figure [2](#fig:02), it is difficult to recognize
+  any patterns. To examine the pathway in more details, it is necessary to use
+  *Divide and Conquer* strategy, namely to *subset* the graph into subgraphs. To
+  this end `r Biocpkg("KEGGgraph")` provides the function `subKEGGgraph`, which
+  maintains the KEGG information while subsetting the graph.
+
+Out of `r val(sum(gIsSingle))` nonconnected genes, `r val(sum(singleUp))` is
+up-regulated and `r val(sum(singleDown))` downregulated. Notably, out of 10
+*Frizzled* homologues (Wnt receptors), four are up-regulated (*FZD2, FZD4, FZD7
+and FZD10*), and only one is down-regulated (*FZD5*), in accordance with the
+former report [@Vincan2007].
+
+Next we concentrate on upregulated genes, the result given by
+`r Biocpkg("SPIA")` package indicates that colorectal pathway is activated.
+
+<a id="fig:03"></a>
+```{r spiaSub, echo=FALSE, eval=hasMicroarrayDeps, message=FALSE, warning=FALSE, fig.cap="Up-regulated genes (seven, in red) and their neighborhood genes in colorectal cancer pathway, the color follows the legend in figure 2. Un-reported genes are hidden from the figure."}
+ups <- nodes(g)[logfcs > 0]
+upNs <- unique(unlist(neighborhood(g, ups, return.self=TRUE)))
+upSub <- subKEGGgraph(upNs, g)
+upNeighbor <- nodes(upSub)[sapply(neighborhood(upSub, nodes(upSub)), length)>0]
+upNeighbor <- setdiff(upNeighbor, nodes(g)[undetected])
+upSub <- subKEGGgraph(upNeighbor, upSub)
+upSubGID <- translateKEGGID2GeneID(nodes(upSub))
+upSymbol <- gSymbol[upSubGID]
+upnA <- makeNodeAttrs(upSub, fillcolor=logcol[nodes(upSub)], label=upSymbol, fixedsize=TRUE, width=10, height=10, font=20)
+plot(upSub, "dot", nodeAttrs=upnA)
+```
+
+We can use degree centrality (the sum of in- and out-degree of each node) as a
+measure of the relative importance of the node compared to others. In this
+subgraph, 8 nodes have an degree equal or larger than three (in decreasing
+order: AKT3, TCF7L1, CCND1, FOS, MAPK3, MAPK1, JUN, MAPK10), and 5 of them are
+upreguated to different extent. This reinforces the conclusion of
+`r Biocpkg("SPIA")` that the pathway is activated - it seems that the relative
+important nodes are up-regulated. Especially we note the upregulation of Jun and
+Fos, two transcription factors with many targeting genes, although their
+up-stream interactors (MAPK3 and MAPK1) are either not significantly
+differentially expressed or slightly down-regulated (MAPK1, logFC=-0.381).
+
+Further analysis could done, for example, by merging the colorectal pathway with
+linked pathways (Wnt signaling, apoptosis, etc) and investigate the graph
+characteristics of differnetially expressed genes and their links.
+
+# Session info
+
+```{r sessionInfo, echo=FALSE, results='verbatim'}
+sessionInfo()
+```
